@@ -11,7 +11,7 @@ spec = Gem::Specification.new do |s|
     s.platform   = Gem::Platform::RUBY
     s.summary    = "Incremental Backups Using Rsync"
     
-    s.files      = FileList["lib/**/*"].to_a
+    s.files      = FileList["{lib,example_scripts}/**/*"].to_a
         
     s.has_rdoc          = false
     #s.extra_rdoc_files  = %w(README TODO DONE)
