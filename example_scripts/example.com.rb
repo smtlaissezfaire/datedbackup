@@ -28,7 +28,7 @@
 # 
 
 
-require File.dirname(__FILE__) + "/../lib/dated_backup"
+require "dated_backup"
 
 DatedBackup.new(
   :user_domain => "nbackup@example.com",

@@ -17,7 +17,7 @@
 # NFS drives, or even for a rudimentary Version Control
 # for any set of files (locally, or remotely)
  
-require File.dirname(__FILE__) + "/../lib/dated_backup"
+require "dated_backup"
 
 puts "* mounting the samba clients"
 %x(mount //teresa2/c)
