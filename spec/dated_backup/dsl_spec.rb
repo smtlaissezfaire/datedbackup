@@ -74,7 +74,6 @@ describe dsl, "parsing" do
   end
   
   it "should not parse the rest of the line after a comment symbol is given" do
-    require 'rubygems'; require 'ruby-debug'; debugger;
     @dsl.parse! "key1=val1 # here is a comment on this key"
     @dsl.data_hash.should == {:key1 => ["val1"]}
   end
