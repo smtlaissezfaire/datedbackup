@@ -1,15 +1,20 @@
 pre_run_hook => "cmd_to_execute"
 post_run_hook => "cmd.."
-#!/usr/bin/env should be generated automatically
-as well as inclusion of gem
 pre_run_hooks => ["cmd1", "cmd2"]
-a logger
+a logger for subversion like logs
 a utility, class level run method
 specs?
 move my scripts to mask domains, and use them as example scripts
 README
-attach GNU GPL v. 3
 only create new directory when the root directory has no dated backup
   this way, another directory can still be used inside of here &
   dated backups will still occur
 DSL/configuration file, & command line tool
+  #!/usr/bin/env should be generated automatically, as well as inclusion of gem
+refactor new(hash)
+permissions
+transactions?
+deletion of backups by rotation (for instance, delete the all but one of last weeks backups)
+rdoc pre hook to gem generation
+rcov
+heckle  
