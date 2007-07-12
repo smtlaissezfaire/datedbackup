@@ -3,6 +3,42 @@ require File.dirname(__FILE__) + "/../spec_helper"
 
 dsl = DatedBackup::DSL
 
+describe dsl, "file handling" do
+  before :each do
+    @file_path = mock String
+    @file_contents = mock String
+    
+    @file_class = mock 'File:Class'
+    @file = mock File
+    @file_class.stub!(:open).and_return @file
+    @file.stub!(:read).and_return @file_contents
+    
+    @dsl_instance = mock dsl
+    @dsl_instance.stub!(:parse!).and_return @dsl_instance
+    dsl.stub!(:new).and_return @dsl_instance
+  end
+  
+  it "should be able to open a file" do
+    @file_class.should_receive(:open).with(@file_path, "r").and_return @file
+    dsl.parse(@file_path, @file_class)
+  end
+  
+  it "should be able to read the file" do
+    @file.should_receive(:read).with no_args
+    dsl.parse(@file_path, @file_class)
+  end
+  
+  it "should parse the data with a new instance" do
+    dsl.should_receive(:new).and_return @dsl_instance
+    @dsl_instance.should_receive(:parse!).with(@file_contents)
+    
+    dsl.parse(@file_path, @file_class)
+  end
+  
+  it "should raise an error if open fails" 
+  it "should raise an error if read fails" 
+end
+
 describe dsl, "parsing" do
   before :each do
     @dsl = dsl.new
@@ -98,6 +134,7 @@ describe dsl, "parsing" do
     @dsl.parse! "key1 = --value"
     @dsl.data_hash.should == {:key1 => ["--value"]}
   end
+  
 end
 
 describe dsl, "with examples" do

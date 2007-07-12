@@ -4,6 +4,16 @@ require File.dirname(__FILE__) + "/pre_parser"
 
 class DatedBackup
   class DSL
+    
+    class << self
+      
+      def parse(file, file_class=File)
+        contents = file_class.open(file, "r").read
+        new.parse! contents
+      end
+      
+    end
+    
     attr_reader :raw_data
     attr_reader :data_hash
     attr_reader :parsed_data
