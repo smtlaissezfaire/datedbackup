@@ -15,7 +15,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # 
 
-require File.dirname(__FILE__) + "/dated_backup/non_escaped"
 require File.dirname(__FILE__) + "/dated_backup/dated_backup"
-require File.dirname(__FILE__) + "/dated_backup/dsl"
-require File.dirname(__FILE__) + "/dated_backup/pre_parser"
+require File.dirname(__FILE__) + "/dated_backup/config_parser/dsl"

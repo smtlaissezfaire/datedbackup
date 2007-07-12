@@ -1,4 +1,7 @@
 
+require File.dirname(__FILE__) + "/non_escaped"
+require File.dirname(__FILE__) + "/pre_parser"
+
 class DatedBackup
   class DSL
     attr_reader :raw_data

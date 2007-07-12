@@ -1,5 +1,5 @@
+
 require File.dirname(__FILE__) + "/command_line"
-require File.dirname(__FILE__) + "/dsl"
 
 class DatedBackup    
   
@@ -77,5 +77,4 @@ private
     Dir.glob("#{@backup_root}/*").sort.last
   end
 end
-
 
