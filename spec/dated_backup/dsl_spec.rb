@@ -61,12 +61,15 @@ describe dsl, "parsing" do
     @dsl.data_hash.should == {:key1 => ["a value with spaces"]}
   end
   
-  it "should be able to escape an equal sign, if given the escape signal" do
-    @dsl.parse! "key1 = some key with an \"=\" sign"
-    @dsl.data_hash.should == {:key1 => ["some key with an \"=\" sign"]}
-  end
+  it "should be able to escape an equal sign, if given the escape signal" #do
+  #  @dsl.parse! "key1 = some key with an '=' sign"
+  #  @dsl.data_hash.should == {:key1 => ["some key with an = sign"]}
+  #end
   
-  it "should be able to escape a comma, if given the escape signal" 
+  it "should be able to escape a comma, if given the escape signal" #do
+  #  @dsl.parse! "key1 = here is a value with a comma \",\""
+  #  @dsl.data_hash.should == {:key1 => ["here is a value with a comma ,"]}
+  #end
   
   it "should not parse a comment line (which begins with a #)" do
     @dsl.parse! "# here is a comment\nkey1=val1"
@@ -78,13 +81,22 @@ describe dsl, "parsing" do
     @dsl.data_hash.should == {:key1 => ["val1"]}
   end
   
-  it "should parse each line for comments"
+  it "should parse each line for comments" do
+    @dsl.parse! "key1=val1 # the first comment\n# a comment on a new line\n\n\nkey2=val2 # a third comment"
+    @dsl.data_hash.should == {:key1 => ["val1"], :key2 => ["val2"]}
+  end
   
-  it "should parse multi key value pairs" 
+  it "should parse multi key value pairs" do
+    @dsl.parse! "key1 = val1, val2\nkey2 = val1,val2,\n\t\tval3"
+    @dsl.data_hash.should == {
+      :key1 => ["val1", "val2"],
+      :key2 => ["val1", "val2", "val3"]
+    }
+  end
   
-  it "should handle abnormal characters like -- as values" 
+  it "should handle abnormal characters like -- as values" do
+    @dsl.parse! "key1 = --value"
+    @dsl.data_hash.should == {:key1 => ["--value"]}
+  end
   
-  it "should raise an error if an invalid key is given?" 
-  
-  it "should raise a parse error if given invalid data" 
 end

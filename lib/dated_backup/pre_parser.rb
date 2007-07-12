@@ -42,6 +42,14 @@ class DatedBackup
             val.gsub! /\t/, ''
           end
           
+          # compact the values, so that there is no space in between commas
+          filter_values(non_escaped_data) do |val|
+            val.gsub! /\s?\,\s/, ','
+          end
+
+          # changes to all_data must come last because replacements to 
+          # all_data will not affect the object state of the escaped_data
+          
           # remove spaces from the start and end of *whole* values
           filter_values(all_data) do |val|
             val.strip!

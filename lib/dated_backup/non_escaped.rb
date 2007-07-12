@@ -8,7 +8,7 @@ class DatedBackup
       # finally, rebuild the entire string, with the rules from
       # the escaped and non-escaped data in their original order
       def non_escaped_data(data)
-        filter(data, /(.*?)(\".*?\")/) do |non_escaped|
+        filter(data, /(.*?)(\'.*?\')/) do |non_escaped|
           yield non_escaped
         end
       end      

@@ -45,8 +45,3 @@ class DatedBackup
   end
 end
 
-#require 'rubygems'; require 'ruby-debug'; debugger;
-#d = DatedBackup::DSL.new
-#d.keys = [:key1, :key2]
-#d.key1 = val
-
