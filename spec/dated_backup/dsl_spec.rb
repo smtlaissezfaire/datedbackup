@@ -98,5 +98,12 @@ describe dsl, "parsing" do
     @dsl.parse! "key1 = --value"
     @dsl.data_hash.should == {:key1 => ["--value"]}
   end
-  
 end
+
+describe dsl, "with examples" do
+  it "should parse the local_etc_backup script correctly"
+  it "should parse the samba_shares script correctly" 
+  it "should parse the example.com script correctly" 
+end
+
+
