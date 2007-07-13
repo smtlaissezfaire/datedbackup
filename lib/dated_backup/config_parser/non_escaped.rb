@@ -1,4 +1,10 @@
 
+class Object
+  def metaclass
+    class << self; self; end
+  end
+end
+
 class DatedBackup
   class DSL
       
@@ -27,22 +33,24 @@ class DatedBackup
           #                         :methods => [:gsub!, :strip!]
           
           
+            # TODO: CLEAN THIS UP & ABSTRACT IT
 
-
-            modified_sclass = class << modified; self; end 
-            modified_sclass.class_eval do
+            # would have used def for the methods, 
+            # and class << modified;....; end, but needed
+            # a closure to get to scanned, original, and data variables
+            modified.metaclass.class_eval do
               alias_method :old_gsub!, :gsub!
               alias_method :old_strip!, :strip!
 
               instance_eval do
                 
                 define_method :strip! do 
-                  self.old_strip!
+                  modified.old_strip!
                   data.gsub! original, modified
                 end
                 
                 define_method :gsub! do |search, replace|
-                  self.old_gsub! search, replace
+                  modified.old_gsub! search, replace
                   data.gsub! original, modified
                 end
               end

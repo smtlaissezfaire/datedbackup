@@ -9,7 +9,9 @@ class DatedBackup
       
       def parse(file, file_class=File)
         contents = file_class.open(file, "r").read
-        new.parse! contents
+        obj = new
+        obj.parse!(contents)
+        obj.data_hash
       end
       
     end
@@ -38,14 +40,17 @@ class DatedBackup
     end
     
     def assign_key(key, params_as_string)
+      # TODO: this should be more inteligent, to deal with
+      # escaping
       key = key.to_sym       
       @data_hash[key] = params_as_string.split ","
     end
 
   private
+
   
     def each_key_and_value_as_string
-      array = @parsed_data.scan /(.*?)=\s*(\S*.*)/      
+      array = @parsed_data.scan /(.*?)=(.*)/      
       array.each do |kv_pair|
         yield kv_pair
       end
