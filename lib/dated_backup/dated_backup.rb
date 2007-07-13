@@ -4,7 +4,7 @@ class DatedBackup
   
   include DatedBackup::CommandLine
   
-  attr_accessor :source, :destination, :options, :backup_root, :user_domain
+  attr_accessor :sources, :destination, :options, :backup_root, :user_domain
   
   def initialize(h={})
     @backup_root = h[:destination]
@@ -67,7 +67,7 @@ class DatedBackup
 
 private
 
-  def generate_backup_filename
+  def generate_backup_filename()
     timestamp = Time.now.strftime "%Y-%m-%d-%Hh-%Mm-%Ss"
     "#{@backup_root}/#{timestamp}"
   end                         
