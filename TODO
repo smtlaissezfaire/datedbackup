@@ -18,3 +18,4 @@ deletion of backups by rotation (for instance, delete the all but one of last we
 rdoc pre hook to gem generation
 rcov
 heckle  
+howto deal with escaping in config file?  
