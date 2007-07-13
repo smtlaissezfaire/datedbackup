@@ -4,11 +4,11 @@ class DatedBackup
   
   include DatedBackup::CommandLine
   
-  attr_accessor :source, :destination, :opts, :backup_root, :user_domain
+  attr_accessor :source, :destination, :options, :backup_root, :user_domain
   
   def initialize(h={})
     @backup_root = h[:destination]
-    @opts = h[:options] || ""
+    @options = h[:options] || ""
     @user_domain = h[:user_domain]
     @destination = generate_backup_filename
     
@@ -33,7 +33,7 @@ class DatedBackup
   
   def create_backup 
     @sources.each do |source|        
-      cmd = "rsync -a --delete #{opts} #{source} #{@destination}"
+      cmd = "rsync -a --delete #{options} #{source} #{@destination}"
       execute(cmd)
       puts "\n\n"
     end
