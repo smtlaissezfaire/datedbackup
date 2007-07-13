@@ -1,3 +1,4 @@
+
 pre_run_hook => "cmd_to_execute"
 post_run_hook => "cmd.."
 pre_run_hooks => ["cmd1", "cmd2"]
@@ -5,7 +6,6 @@ a logger for subversion like logs
 a utility, class level run method
 specs?
 move my scripts to mask domains, and use them as example scripts
-README
 only create new directory when the root directory has no dated backup
   this way, another directory can still be used inside of here &
   dated backups will still occur
