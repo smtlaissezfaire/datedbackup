@@ -1,0 +1,4 @@
+2007.07.12 
+- Command line runner, dbackup added to bin.  Scripts can now be called
+  with the dbackup script_name.  Scripts no longer have to include
+  the requirement of the gem, be executable, or end in .rb syntax.
