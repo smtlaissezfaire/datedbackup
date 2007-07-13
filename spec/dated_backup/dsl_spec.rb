@@ -93,37 +93,6 @@ describe dsl, "parsing" do
     @dsl.data_hash.should == {:key1 => ["val1"]}
   end
   
-  it "should be able to escape any string given" do
-    @dsl.parse! "key1 = \"sudo rsync\""
-    @dsl.data_hash.should == {:key1 => ["\"sudo rsync\""]}
-  end
-  
-  it "should be able to accept a value with spaces" do
-    @dsl.parse! "key1 = a value with spaces"
-    @dsl.data_hash.should == {:key1 => ["a value with spaces"]}
-  end
-  
-  it "should be able to escape an equal sign without an escape char" do
-    @dsl.parse! "key1 = some key with an \= sign\nsome_other_key=val2"
-    @dsl.data_hash.should == {
-      :key1 => ["some key with an = sign"],
-      :some_other_key => ["val2"]
-    }
-  end
-  
-  it "should be able to escape a comma, if given the escape signal" do
-    @dsl.parse! "key1 = here is a value with a comma \,"
-    @dsl.data_hash.should == {:key1 => ["here is a value with a comma ,"]}
-  end
-  
-  it "should be able to escape an equal sign, if given the escape signal" do
-    @dsl.parse! "key1 = here is an equal sign: \=\nkey2 = val2"
-    @dsl.data_hash.should == {
-      :key1 => ["here is an equal sign: ="],
-      :key2 => ["val2"]
-    }
-  end
-  
   it "should not parse a comment line (which begins with a #)" do
     @dsl.parse! "# here is a comment\nkey1=val1"
     @dsl.data_hash.should == {:key1 => ["val1"]}
@@ -151,7 +120,44 @@ describe dsl, "parsing" do
     @dsl.parse! "key1 = --value"
     @dsl.data_hash.should == {:key1 => ["--value"]}
   end
+end
+
+describe dsl, "escaping" do
   
+  before :each do
+    @dsl = dsl.new
+  end
+  
+  it "should be able to escape any string given" #do
+  #  @dsl.parse! "key1 = \"sudo rsync\""
+  #  @dsl.data_hash.should == {:key1 => ["\"sudo rsync\""]}
+  #end
+  
+  it "should be able to accept a value with spaces" #do
+  #  @dsl.parse! "key1 = a value with spaces"
+  #  @dsl.data_hash.should == {:key1 => ["a value with spaces"]}
+  #end
+  
+  it "should be able to escape an equal sign without an escape char" #do
+  #  @dsl.parse! "key1 = some key with an \= sign\nsome_other_key=val2"
+  #  @dsl.data_hash.should == {
+  #    :key1 => ["some key with an = sign"],
+  #    :some_other_key => ["val2"]
+  #  }
+  #end
+  
+  it "should be able to escape a comma, if given the escape signal" #do
+  #  @dsl.parse! "key1 = here is a value with a comma %q(\,)"
+  #  @dsl.data_hash.should == {:key1 => ["here is a value with a comma ,"]}
+  #end
+  
+  it "should be able to escape an equal sign, if given the escape signal" #do
+  #  @dsl.parse! "key1 = here is an equal sign: %q(\=)\nkey2 = val2"
+  #  @dsl.data_hash.should == {
+  #    :key1 => ["here is an equal sign: ="],
+  #    :key2 => ["val2"]
+  #  }
+  #end
 end
 
 describe dsl, "integration testing with examples" do
@@ -168,14 +174,14 @@ describe dsl, "integration testing with examples" do
   
   it "should parse the samba_shares script correctly" 
   
-  it "should parse the example.com script correctly" do
-    dsl.parse(@file_path + "/example.com").should == {
-      :sources => ["/etc", "/home"],
-      :destination => ["/var/backups/network/backups/example.com"],
-      :rsync_options => ["--verbose", "-e \"ssh -i /root/.ssh/rsync-key\"", "'--rsync-path = \"sudo rsync\"'"],
-      :user_domain => ["nbackup@example.com"]
-    }
-  end
+  it "should parse the example.com script correctly" #do
+  #  dsl.parse(@file_path + "/example.com").should == {
+  #    :sources => ["/etc", "/home"],
+  #    :destination => ["/var/backups/network/backups/example.com"],
+  #    :rsync_options => ["--verbose", "-e \"ssh -i /root/.ssh/rsync-key\"", "'--rsync-path = \"sudo rsync\"'"],
+  #    :user_domain => ["nbackup@example.com"]
+  #  }
+  #end
 end
 
 
