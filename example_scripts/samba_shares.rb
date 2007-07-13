@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 # A general purpose script to copy some WinXP/2000 shares
 # on a local network.  The shares are the 'C' drives
 # of the various nodes on the network.  They are mounted
@@ -16,8 +14,6 @@
 # there is no reason that it couldn't also be used for mounted
 # NFS drives, or even for a rudimentary Version Control
 # for any set of files (locally, or remotely)
- 
-require "dated_backup"
 
 puts "* mounting the samba clients"
 %x(mount //teresa2/c)

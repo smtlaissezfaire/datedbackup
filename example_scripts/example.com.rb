@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 # A script which will copy the directories /etc and /home
 # into /var/backups/network/backups/example.com/#{date}.  Note that
 # we wanted to get everything - even private keys owned by root
@@ -26,9 +24,6 @@
 # 2. Be more specific in the sudoers file pertaining to the exact specifications
 #    of the rsync command
 # 
-
-
-require "dated_backup"
 
 DatedBackup.new(
   :user_domain => "nbackup@example.com",
