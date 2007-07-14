@@ -12,9 +12,8 @@ end
 
 class DatedBackup
   class DSL
-    class PreParser
-      
-      include ::DatedBackup::DSL::UtilityFunctions
+    class PreParser < DSL::Base
+
       
       def initialize(string="")
         @raw_data = string

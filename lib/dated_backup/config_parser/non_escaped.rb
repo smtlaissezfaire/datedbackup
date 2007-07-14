@@ -7,6 +7,7 @@ end
 
 class DatedBackup
   class DSL
+    class Base
       
     module UtilityFunctions
       # split by escaped data and non-escaped data
@@ -14,7 +15,7 @@ class DatedBackup
       # finally, rebuild the entire string, with the rules from
       # the escaped and non-escaped data in their original order
       def non_escaped_data(data)
-        filter(data, /(.*?)(\%q\(.*?\))/) do |non_escaped|
+        filter(data, REGEXPS[:non_escaped]) do |non_escaped|
           yield non_escaped
         end
       end      
@@ -50,18 +51,18 @@ class DatedBackup
       end
       
       def filter_keys(data)
-        filter(data, /^(.*?)=/) do |key|
+        filter(data, REGEXPS[:key]) do |key|
           yield key
         end          
       end
       
       def filter_values(data)
-        filter(data, /^.*?=(.*)/) do |value|
+        filter(data, REGEXPS[:value]) do |value|
           yield value
         end
       end
       
-    private
+    protected
     
       def create_side_effects_for(modified, h={})
           original, whole_data_set = h[:with], h[:affecting]
@@ -85,6 +86,8 @@ class DatedBackup
           end
 
       end
+      
+    end
       
     end
       
