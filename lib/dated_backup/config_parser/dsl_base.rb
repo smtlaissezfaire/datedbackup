@@ -8,10 +8,12 @@ class DatedBackup
       private
       
         REGEXPS = {
-          :non_escaped => /(.*?)(\%q\(.*?\))/,
+          :non_escaped => /(?!\%q\()(.*?)(!?\))/,
           :keys_and_values => /(.*?)(?!\%q\()\=(?!\))(.*)/,
-          :key => /^(.*?)=/,
-          :value => /^.*?=(.*)/
+          :key => /^([\w\d\_]+?)(?=\=)/,
+          :key_with_spaces => /^(\s*[\w\d\_]+?\s*)/,
+          :value => /^.*?\=(.*)/,
+          :non_escaped_comma => /(?!\%q\()\,(?!\))/
         }
       
     end

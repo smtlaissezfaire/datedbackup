@@ -46,8 +46,7 @@ class DatedBackup
           # so the following is intended to split the string by
           # every comma, except when it is surrounded by
           # %q(...)
-          values = values.split /(?!\%q\()\,(?!\))/
-
+          values = values.split REGEXPS[:non_escaped_comma]
 
           values.each do |val|
             val.remove_literal_escaping!

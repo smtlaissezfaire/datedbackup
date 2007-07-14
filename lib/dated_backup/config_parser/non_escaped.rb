@@ -51,7 +51,7 @@ class DatedBackup
       end
       
       def filter_keys(data)
-        filter(data, REGEXPS[:key]) do |key|
+        filter(data, REGEXPS[:key_with_spaces]) do |key|
           yield key
         end          
       end
