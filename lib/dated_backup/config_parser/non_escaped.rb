@@ -15,7 +15,7 @@ class DatedBackup
         # finally, rebuild the entire string, with the rules from
         # the escaped and non-escaped data in their original order
         def non_escaped_data(data)
-          filter(data, REGEXPS[:non_escaped]) do |non_escaped|
+          filter(data, regexps[:non_escaped]) do |non_escaped|
             yield non_escaped
           end
         end      
@@ -50,14 +50,21 @@ class DatedBackup
           end        
         end
       
-        def filter_keys(data)
-          filter(data, REGEXPS[:key_with_spaces]) do |key|
+        def filter_keys(data, h)
+          raise "Must filter keys either with or without spaces" if h[:with_spaces].nil?
+          regex = h[:with_spaces] ? regexps[:key_with_spaces] : regexps[:keys]
+          
+          filter(data, regex) do |key|
             yield key
           end          
         end
       
-        def filter_values(data)
-          filter(data, REGEXPS[:values]) do |value|
+        def filter_values(data, h)
+          raise "Must filter keys either with or without spaces" if h[:with_spaces].nil?
+          
+          regex = h[:with_spaces] ? regexps[:values] : regexps[:values]
+        
+          filter(data, regexps[:values]) do |value|
             yield value
           end
         end

@@ -46,7 +46,7 @@ class DatedBackup
           # so the following is intended to split the string by
           # every comma, except when it is surrounded by
           # %q(...)
-          values = values.split REGEXPS[:non_escaped_comma]
+          values = values.split regexps[:non_escaped_delimiter]
 
           values.each do |val|
             val.remove_literal_escaping!
@@ -69,7 +69,7 @@ class DatedBackup
       def keys_and_values
         # the regex eliminates all quoted data from the search
         # look at the comments where keys_and_values is called
-        return @parsed_data.scan REGEXPS[:keys_and_values]
+        return @parsed_data.scan regexps[:keys_and_values]
       end
 
       def pre_parse
