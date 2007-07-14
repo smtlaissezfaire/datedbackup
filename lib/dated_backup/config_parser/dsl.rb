@@ -2,6 +2,12 @@
 require File.dirname(__FILE__) + "/non_escaped"
 require File.dirname(__FILE__) + "/pre_parser"
 
+class String
+  def remove_literal_escaping!
+    self.gsub!(/\%\q\((.*?)\)/) { $1 }
+  end
+end
+
 class DatedBackup
   class DSL
     
@@ -33,27 +39,38 @@ class DatedBackup
       @parsed_data = @raw_data.dup
 
       pre_parse
-
-      each_key_and_value_as_string do |key, value|
-        assign_key(key, value)          
+      
+      keys_and_values.each do |key, values| 
+        # the (?!...) expressed a no match, and does not assign
+        # to the $1,$2..etc variables
+        # so the following is intended to split the string by
+        # every comma, except when it is surrounded by
+        # %q(...)
+        values = values.split /(?!\%q\()\,(?!\))/
+        
+        
+        values.each do |val|
+          val.remove_literal_escaping!
+        end
+               
+        assign_key(key, values)
       end
+
     end
     
-    def assign_key(key, params_as_string)
+    def assign_key(key, *values)
       # TODO: this should be more inteligent, to deal with
       # escaping
       key = key.to_sym       
-      @data_hash[key] = params_as_string.split ","
+      @data_hash[key] = *values
     end
 
   private
 
-  
-    def each_key_and_value_as_string
-      array = @parsed_data.scan /(.*?)=(.*)/      
-      array.each do |kv_pair|
-        yield kv_pair
-      end
+    def keys_and_values
+      # the regex eliminates all quoted data from the search
+      # look at the comments where keys_and_values is called
+      return @parsed_data.scan /(.*?)(?!\%q\()\=(?!\))(.*)/
     end
     
     def pre_parse

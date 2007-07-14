@@ -26,16 +26,11 @@ class DatedBackup
           # remove any comments
           non_escaped_data.gsub! /\#.*/, ''
           
-          # remove all whitespace between the start of the line, the key, and the key's equal sign
-          filter_keys(non_escaped_data) do |key|
-            key.gsub! /\s/, ''
-          end
-          
           # remove the extra newlines
           non_escaped_data.gsub!(/\n\n/, "\n")
           
           # find all lines that end w/ a comma and join with the preceding line
-          non_escaped_data.gsub!(/\,\n/,',') # should add a space here
+          non_escaped_data.gsub!(/\,\s*\n/,',')
 
           # remove unnecessary tabs in the escaped values
           filter_values(non_escaped_data) do |val|
@@ -48,11 +43,14 @@ class DatedBackup
           end
 
           # changes to all_data must come last because replacements to 
-          # all_data will not affect the object state of the escaped_data
-          
+          # all_data will not affect the object state of the escaped_data         
           # remove spaces from the start and end of *whole* values
           filter_values(all_data) do |val|
             val.strip!
+          end
+          
+          filter_keys(all_data) do |key|
+            key.strip!
           end
           
         end
@@ -67,8 +65,7 @@ class DatedBackup
         
         @parsed_data
       end
-      
-
     end
+
   end
 end
