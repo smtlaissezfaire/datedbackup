@@ -175,6 +175,7 @@ describe dsl, "integration testing with examples" do
   it "should parse the samba_shares script correctly" 
   
   it "should parse the example.com script correctly" #do
+  #  require 'rubygems'; require 'ruby-debug'; debugger;
   #  dsl.parse(@file_path + "/example.com").should == {
   #    :sources => ["/etc", "/home"],
   #    :destination => ["/var/backups/network/backups/example.com"],

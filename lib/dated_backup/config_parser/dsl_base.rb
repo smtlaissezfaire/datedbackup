@@ -11,8 +11,8 @@ class DatedBackup
           :non_escaped => /(?!\%q\()(.*?)(!?\))/,
           :keys_and_values => /(.*?)(?!\%q\()\=(?!\))(.*)/,
           :key => /^([\w\d\_]+?)(?=\=)/,
-          :key_with_spaces => /^(\s*[\w\d\_]+?\s*)/,
-          :value => /^.*?\=(.*)/,
+          :key_with_spaces => /^(\s*?[\w\d\_]+?\s*?)(?=\=)/,
+          :values => /^.*?\=(.*)/,
           :non_escaped_comma => /(?!\%q\()\,(?!\))/
         }
       

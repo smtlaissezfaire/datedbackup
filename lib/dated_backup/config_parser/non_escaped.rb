@@ -57,7 +57,7 @@ class DatedBackup
       end
       
       def filter_values(data)
-        filter(data, REGEXPS[:value]) do |value|
+        filter(data, REGEXPS[:values]) do |value|
           yield value
         end
       end
