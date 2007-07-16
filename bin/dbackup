@@ -17,6 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'yaml'
 require File.dirname(__FILE__) + "/../lib/dated_backup"
 
-load ARGV[0]
+source = ARGV[0]
+
+File.open source, "r" do |file|
+  file_contents = YAML.load file.read
+  
+  DatedBackup.new(file_contents).run
+end

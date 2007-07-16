@@ -25,9 +25,10 @@
 #    of the rsync command
 # 
 
-DatedBackup.new(
-  :user_domain => "nbackup@example.com",
-  :options => '-v -e "ssh -i /root/.ssh/rsync-key" --rsync-path="sudo rsync"',
-  :sources => %w(/etc /home),
-  :destination => "/var/backups/network/backups/example.com"
-).run
+
+user_domain: 'nbackup@example.com'
+options: '-v -e "ssh -i /root/.ssh/rsync-key" --rsync-path="sudo rsync"'
+sources:
+    - '/etc' 
+    - '/home'
+destination: '/var/backups/network/backups/example.com'

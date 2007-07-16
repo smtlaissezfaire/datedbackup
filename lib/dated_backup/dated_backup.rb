@@ -7,12 +7,12 @@ class DatedBackup
   attr_accessor :sources, :destination, :options, :backup_root, :user_domain
   
   def initialize(h={})
-    @backup_root = h[:destination]
-    @options = h[:options] || ""
-    @user_domain = h[:user_domain]
+    @backup_root = h["destination"]
+    @options = h["options"] || ""
+    @user_domain = h["user_domain"]
     @destination = generate_backup_filename
     
-    @sources = h[:sources] || [h[:source]]
+    @sources = h["sources"] || [h["source"]]
     
     if @user_domain
       @sources.map! { |src| "#{@user_domain}:#{src}" }

@@ -1,4 +1,13 @@
-2007.07.12 
-- Command line runner, dbackup added to bin.  Scripts can now be called
-  with the dbackup script_name.  Scripts no longer have to include
-  the requirement of the gem, be executable, or end in .rb syntax.
+
+
+2007.07.15
+YAML support.  Now all configuration files are written in yaml, and
+should be loaded by running dbackup config_file.yaml
+
+2007.07.12 - 
+Command line runner, dbackup added to bin.  Scripts can now be called
+with the dbackup script_name.  Scripts no longer have to include
+the requirement of the gem, be executable, or end in .rb syntax.
+
+
+
