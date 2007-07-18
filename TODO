@@ -15,6 +15,5 @@ refactor new(hash)
 permissions
 transactions?
 deletion of backups by rotation (for instance, delete the all but one of last weeks backups)
-rdoc pre hook to gem generation
-rcov
+rcov = 100% coverage
 heckle  

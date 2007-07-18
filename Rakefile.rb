@@ -1,3 +1,5 @@
+require 'rake'
+require 'spec/rake/spectask'
 require 'rubygems'
 Gem::manage_gems
 require 'rake/gempackagetask'
@@ -32,3 +34,11 @@ end
 
 desc "Build Release"
 task :build_release => [:rdoc, :repackage]
+
+
+desc "Run all examples with RCov"
+Spec::Rake::SpecTask.new('examples_with_rcov') do |t|
+  t.spec_files = FileList['spec/**/*.rb']
+  t.rcov = true
+  t.rcov_opts = ['--exclude', 'spec']
+end
