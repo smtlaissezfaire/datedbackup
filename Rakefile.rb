@@ -1,8 +1,6 @@
 require 'rake'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
-require 'rubygems'
-Gem::manage_gems
 require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
