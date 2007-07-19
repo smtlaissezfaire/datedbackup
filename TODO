@@ -1,7 +1,14 @@
 
+keep this_weeks_backups
+keep last_weeks_backups
+keep monthly backups
+keep weekly backups from this month
+delete all others
+
 pre_run_hook => "cmd_to_execute"
 post_run_hook => "cmd.."
 pre_run_hooks => ["cmd1", "cmd2"]
+pre and post run scripts (as array or single value)
 a logger for subversion like logs
 a utility, class level run method
 specs?
@@ -14,6 +21,6 @@ DSL/configuration file, & command line tool
 refactor new(hash)
 permissions
 transactions?
-deletion of backups by rotation (for instance, delete the all but one of last weeks backups)
 rcov = 100% coverage
 heckle  
+documentation in directory, with spec docs, rcov, and rdoc
