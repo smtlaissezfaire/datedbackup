@@ -175,7 +175,7 @@ describe dsl, "integration testing with examples" do
   it "should parse the samba_shares script correctly" 
   
   it "should parse the example.com script correctly" #do
-  #  require 'rubygems'; require 'ruby-debug'; debugger;
+  #  #require 'rubygems'; require 'ruby-debug'; debugger;
   #  dsl.parse(@file_path + "/example.com").should == {
   #    :sources => ["/etc", "/home"],
   #    :destination => ["/var/backups/network/backups/example.com"],
@@ -183,6 +183,46 @@ describe dsl, "integration testing with examples" do
   #    :user_domain => ["nbackup@example.com"]
   #  }
   #end
+end
+
+describe dsl, "regression testing for failing examples" do
+  before :each do
+    @dsl = dsl.new
+  end
+  
+  
+  it "should parse the first part of the example.com script correctly" do
+    s = "
+    sources       = /etc, /home
+    destination   = /var/backups/network/backups/example.com
+"   
+    @dsl.parse!(s)
+    
+    @dsl.data_hash.should == {
+      :sources => ["/etc", "/home"],
+      :destination => ["/var/backups/network/backups/example.com"]
+    }
+  end
+  
+  it "should parse the second part correctly" do
+    s = "
+# the last value must be quoted, since it has an equal sign
+rsync_options = --verbose,                          
+                %q(-e 'ssh -i /root/.ssh/rsync-key'),   
+                %q(--rsync-path = sudo rsync)
+
+"   
+    @dsl.parse!(s)
+
+
+    @dsl.data_hash.should == {
+      :rsync_options => [
+        "--verbose", 
+        "-e \"ssh -i /root/.ssh/rsync-key\"", 
+        "--rsync-path = \"sudo rsync\""
+      ]
+    }
+  end
 end
 
 

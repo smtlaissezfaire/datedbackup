@@ -5,6 +5,21 @@ class Object
   end
 end
 
+class Array
+  
+  def firsts
+    l = []
+    
+    self.each do |obj|
+      if obj.respond_to? :first
+        l += obj.first
+      else
+        l += obj
+      end
+    end
+  end
+end
+
 class DatedBackup
   class DSL
     class Base
@@ -15,7 +30,7 @@ class DatedBackup
         # finally, rebuild the entire string, with the rules from
         # the escaped and non-escaped data in their original order
         def non_escaped_data(data)
-          filter(data, regexps[:non_escaped]) do |non_escaped|
+          filter(data, regexps[:non_escaped], true) do |non_escaped|
             yield non_escaped
           end
         end      
@@ -34,12 +49,16 @@ class DatedBackup
             #    of @parsed_data (which is usually the non-escaped section of that)
             #    string
       
-        def filter(data, pattern)
-          scanned_data = data.scan(pattern) 
-          scanned_data = [[data]] if scanned_data.nil? || scanned_data.empty?
+        def filter(data, pattern, negation=false)
+          #if negation 
+          #  scanned_data = data.split(pattern)
+          #else
+            scanned_data = data.scan(pattern).join.to_a
+            scanned_data = [data] if scanned_data.nil? || scanned_data.empty?
+          #end
 
           scanned_data.each do |array|
-            original = array.first
+            original = array
             modified = original.dup
 
             create_side_effects_for modified, :affecting => data,

@@ -28,19 +28,17 @@ class DatedBackup
           # remove the extra newlines
           non_escaped_data.gsub!(/\n\n/, "\n")
           
-          # find all lines that end w/ a comma and join with the preceding line
-          non_escaped_data.gsub!(/\,\s*\n/,',')
-
-          # remove unnecessary tabs in the whole file
-          non_escaped_data.gsub!(/\t/, '')
-          
           # compact the values, so that there is no space in between commas
           filter_values(non_escaped_data, :with_spaces => true) do |val|
-            val.gsub! /\s?\,\s/, ','
+            val.gsub! /\s*\,\s*/, ','
           end
 
           # changes to all_data must come last because replacements to 
-          # all_data will not affect the object state of the escaped_data         
+          # all_data will not affect the object state of the escaped_data
+          
+          # remove unnecessary tabs in the whole file
+          non_escaped_data.gsub!(/\t/, '')
+                   
           # remove spaces from the start and end of *whole* values
           filter_values(all_data, :with_spaces => true) do |val|
             val.strip!
