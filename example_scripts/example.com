@@ -7,4 +7,6 @@ rsync_options = --verbose,
                 %q(-e 'ssh -i /root/.ssh/rsync-key'),   
                 %q(--rsync-path = sudo rsync)
                 
+
+                
 user_domain   = nbackup@example.com
