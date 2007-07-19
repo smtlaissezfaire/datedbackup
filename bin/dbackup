@@ -22,8 +22,8 @@ require File.dirname(__FILE__) + "/../lib/dated_backup"
 
 source = ARGV[0]
 
-File.open source, "r" do |file|
-  file_contents = YAML.load file.read
+File.open(source, "r") do |file|
+  file_contents = YAML.load(file.read)
   
   DatedBackup.new(file_contents).run
 end
