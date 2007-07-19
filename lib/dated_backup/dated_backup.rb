@@ -1,4 +1,3 @@
-require File.dirname(__FILE__) + "/command_line"
 
 class Array
   def empty_or_nil?
@@ -11,6 +10,7 @@ class DirectoryError < RuntimeError;  end
 class DatedBackup    
   
   include DatedBackup::CommandLine
+  include DatedBackup::Tasks
   
   attr_accessor :sources, :destination, :options, :backup_root, :user_domain
   attr_reader :pre_run_commands, :kernel
@@ -47,33 +47,8 @@ class DatedBackup
     end            
   end
   
-  def run_tasks
-    create_main_backup_directory                     
-    cp_last_backup_to_new_backup unless Dir.glob("#{@backup_root}/*").empty?
-    create_backup
-  end
   
-  def create_backup 
-    @sources.each do |source|        
-      cmd = "rsync -a --delete #{options} #{source} #{@destination}"
-      execute cmd, kernel
-      puts "\n\n"
-    end
-  end
 
-  def cp_last_backup_to_new_backup
-    last_backup_dir = find_last_backup_filename
-    
-    cmd = "cp -al #{last_backup_dir} #{@destination}"
-    execute cmd, kernel
-  end           
-  
-  def create_main_backup_directory
-    unless File.exists? backup_root
-      puts "* Creating main backup directory #{backup_root}"
-      Dir.mkdir backup_root 
-    end
-  end
   
 private
 
