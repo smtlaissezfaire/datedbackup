@@ -30,6 +30,17 @@ task :rdoc => [:clobber_rdoc] do
   %x(rdoc -o doc/rdoc)
 end
 
+desc "Generate RSpec Report"
+task :rspec_report do
+  files = FileList["spec/**/*.rb"].to_s
+  %x(spec #{files} --format html:doc/rspec_report.html)
+end
+
+desc "Remove RSpec Report"
+task :clobber_rspec_report do
+  %x(rm -rf doc/rspec_report.html)
+end
+
 desc "Remove Rdoc"
 task :clobber_rdoc do
   %x(rm -rf doc/rdoc)
@@ -41,10 +52,10 @@ task :clobber_rcov do
 end
 
 desc "Generate all documentation"
-task :generate_documentation => [:rdoc, :rcov]
+task :generate_documentation => [:rdoc, :rcov, :rspec_report]
 
 desc "Remove all documentation"
-task :clobber_documentation => [:clobber_rdoc, :clobber_rcov]
+task :clobber_documentation => [:clobber_rdoc, :clobber_rcov, :clobber_rspec_report]
 
 desc "Build Release"
 task :build_release => [:pre_commit, :repackage]
