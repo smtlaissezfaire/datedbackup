@@ -45,6 +45,16 @@ describe DatedBackup, "accessor methods" do
     @db.set_attributes("pre_run_command" => "cmd1")
     @db.pre_run_commands.should == ["cmd1"]
   end
+  
+  it "should have the user and domain" do
+    @db.set_attributes "user_domain" => "scott@railsnewbie.com"
+    @db.user_domain.should == "scott@railsnewbie.com"
+  end
+  
+  it "should have the user and domain prepended upon each source" do
+    @db.set_attributes "user_domain" => "scott@railsnewbie.com", "sources" => ["dir1", "dir2"]
+    @db.sources.should == ["scott@railsnewbie.com:dir1", "scott@railsnewbie.com:dir2"]
+  end
 end
 
 describe DatedBackup, "pre_run_commands" do
@@ -56,6 +66,19 @@ describe DatedBackup, "pre_run_commands" do
   
   it "should be called by the run command"
   it "should run the one command given before running the script"
+end
+
+describe DatedBackup, "running" do
+  before :each do
+    @kernel = mock 'Kernel'
+    @db = DatedBackup.new(@kernel)
+  end
+  
+  it "should call the run_tasks method" do
+    @db.should_receive(:run_tasks).with no_args
+    @db.stub!(:check_for_directory_errors).and_return nil
+    @db.run
+  end
 end
 
 describe DatedBackup, "errors" do
