@@ -8,8 +8,8 @@ class DatedBackup
     end
 
     def create_backup 
-      @sources.each do |source|        
-        cmd = "rsync -a --delete #{options} #{source} #{@destination}"
+      sources.each do |source|        
+        cmd = "rsync -a --delete #{options} #{source} #{destination}"
         execute cmd, kernel
         puts "\n\n"
       end
@@ -18,13 +18,13 @@ class DatedBackup
     def cp_last_backup_to_new_backup
       last_backup_dir = find_last_backup_filename
 
-      cmd = "cp -al #{last_backup_dir} #{@destination}"
+      cmd = "cp -al #{last_backup_dir} #{destination}"
       execute cmd, kernel
     end           
 
     def create_main_backup_directory
       unless File.exists? backup_root
-        puts "* Creating main backup directory #{backup_root}"
+        kernel.puts "* Creating main backup directory #{backup_root}"
         Dir.mkdir backup_root 
       end
     end

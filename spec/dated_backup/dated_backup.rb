@@ -6,8 +6,6 @@ describe DatedBackup, "accessor methods" do
     @db = DatedBackup.new(@kernel)
   end
   
-  @db
-  
   it "should have source directory as array if only one provided" do
     @db.set_attributes("source" => "dir")
     @db.sources.should == ["dir"]
