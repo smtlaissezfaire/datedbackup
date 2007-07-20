@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+#
 # DatedBackup, A snapshot backup utility
 # Copyright (C) Scott Taylor (scott@railsnewbie.com), 2007
 # 
@@ -13,8 +15,15 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
+#
 
-require File.dirname(__FILE__) + "/dated_backup/command_line"
-require File.dirname(__FILE__) + "/dated_backup/tasks"
-require File.dirname(__FILE__) + "/dated_backup/dated_backup"
+require 'yaml'
+require File.dirname(__FILE__) + "/../lib/dated_backup"
+
+source = ARGV[0]
+
+File.open(source, "r") do |file|
+  file_contents = YAML.load(file.read)
+  
+  DatedBackup.new(file_contents).run
+end

@@ -10,9 +10,10 @@ requires rsync.  For more information on this technique, see:
 
   http://www.mikerubel.org/computers/rsync_snapshots/
   
-For some example scripts, see the example_scripts directory.  Those scripts
-were used in a production environment, so it should allow you some idea 
-of what can be done.
+For some example scripts, see the example_scripts directory.  The example
+scripts can be run with the command dbackup:
+
+% dbackup my_script
 
 Contributions
 -------------
