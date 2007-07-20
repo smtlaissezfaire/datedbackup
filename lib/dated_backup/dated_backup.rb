@@ -15,13 +15,16 @@ class DatedBackup
   attr_accessor :sources, :destination, :options, :backup_root, :user_domain
   attr_reader :pre_run_commands, :kernel
   
-  def initialize(h={}, kernel=Kernel)
+  def initialize(kernel=Kernel)
     @kernel = kernel
+  end
+  
+  def set_attributes(h={})
     parse_command_options(h)
     @destination = generate_backup_filename    
     if @user_domain
       @sources.map! { |src| "#{@user_domain}:#{src}" }
-    end    
+    end        
   end
   
   
