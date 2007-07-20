@@ -72,11 +72,17 @@ describe DatedBackup, "running" do
   before :each do
     @kernel = mock 'Kernel'
     @db = DatedBackup.new(@kernel)
+    @db.stub!(:check_for_directory_errors).and_return nil
+    @db.stub!(:run_tasks).and_return nil
+  end
+  
+  it "should check for directory errors" do
+    @db.should_receive(:check_for_directory_errors).with no_args
+    @db.run
   end
   
   it "should call the run_tasks method" do
     @db.should_receive(:run_tasks).with no_args
-    @db.stub!(:check_for_directory_errors).and_return nil
     @db.run
   end
 end
