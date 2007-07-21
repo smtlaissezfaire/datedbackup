@@ -1,3 +1,5 @@
+2007.07.20
+Added basic DSL configuration.
 
 2007.07.15
 YAML support.  Now all configuration files are written in yaml, and
