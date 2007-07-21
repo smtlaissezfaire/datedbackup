@@ -67,14 +67,14 @@ private
 protected
 
   def parse_command_options(h={})
-    @pre_run_commands = h["pre_run_commands"]
-    @pre_run_commands = h["pre_run_command"].to_a if h["pre_run_command"]
+    @pre_run_commands = h[:pre_run_commands]
+    @pre_run_commands = h[:pre_run_command].to_a if h[:pre_run_command]
     
-    @backup_root = h["destination"]
-    @options = h["options"] || ""
-    @user_domain = h["user_domain"]    
+    @backup_root = h[:destination]
+    @options = h[:options] || ""
+    @user_domain = h[:user_domain]    
     
-    @sources = h["sources"] || [h["source"]]
+    @sources = h[:sources] || [h[:source]]
   end
   
   
