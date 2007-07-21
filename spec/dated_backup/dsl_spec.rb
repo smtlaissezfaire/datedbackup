@@ -97,5 +97,28 @@ describe DatedBackup::DSL, "loading from a file" do
       :source => ["a single quoted value"]
     }
   end
+end
 
+describe DatedBackup::DSL, "pre and post run scripts" do
+  before :each do
+    @dsl = DatedBackup::DSL.new
+  end
+  
+  it "should have the before method" do
+    @dsl.should respond_to(:before)
+  end
+  
+  it "should have the after method" do
+    @dsl.should respond_to(:after)
+  end
+  
+  it "should raise an error if no block is given to the before method" do
+    lambda { @dsl.before }.should raise_error(NoBlockGiven, "A block (do...end) must be given")
+  end
+  
+  it "should raise an error if no block is given to the after method" do
+    lambda { @dsl.after }.should raise_error(NoBlockGiven,  "A block (do...end) must be given")
+  end
+  
+  
 end

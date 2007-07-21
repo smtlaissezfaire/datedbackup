@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + "/../spec_helper"
 describe DatedBackup, "accessor methods" do
   before :each do
     @kernel = mock 'Kernel'
-    @db = DatedBackup.new(@kernel)
+    @db = DatedBackup.new({}, @kernel)
   end
   
   it "should have source directory as array if only one provided" do
@@ -55,21 +55,64 @@ describe DatedBackup, "accessor methods" do
   end
 end
 
-describe DatedBackup, "pre_run_commands" do
+describe DatedBackup, "pre and post run" do
   before :each do
     @kernel = mock 'Kernel'
     @kernel.stub!(:`).and_return "execution output"
+
     @backup_dir = mock 'File'
+
+    @obj = mock Object
+
+    @proc = mock Proc
+    @proc.stub!(:call).and_return @obj
   end
   
-  it "should be called by the run command"
-  it "should run the one command given before running the script"
+  it "should initialize the DatedBackup class with a before hash which contains a proc object" do
+    db = DatedBackup.new({:before => @proc}, @kernel)
+    db.before_run.should == @proc
+  end
+  
+  it "should initialize the DatedBackup class with an after hash which contains a proc object" do
+    db = DatedBackup.new({:after => @proc}, @kernel)
+    db.after_run.should == @proc
+  end
+  
+  it "should initialize the DatedBackup class with an empty before procedure even if no before key is given" do
+    Proc.stub!(:new).and_return @proc
+    Proc.should_receive(:new).and_return @proc
+    db = DatedBackup.new({:after => "blah blah" }, @kernel)
+    db.before_run.should == @proc
+  end
+  
+  it "should initialize the DatedBackup class with an empty after procedure even if no after key is given" do
+    Proc.stub!(:new).and_return @proc
+    Proc.should_receive(:new).and_return @proc
+    db = DatedBackup.new({:before => "blah blah"}, @kernel)
+    db.after_run.should == @proc
+  end
+  
+  it "should execute the block given in the pre run before the real running" do
+    db = DatedBackup.new({:before => @proc}, @kernel)
+    db.stub!(:check_for_directory_errors).and_return nil
+    db.stub!(:run_tasks).and_return nil
+    @proc.should_receive(:call).and_return @obj
+    db.run
+  end
+  
+  it "should execute the block given in the post run after the real running" do
+    db = DatedBackup.new({:after => @proc}, @kernel)
+    db.stub!(:check_for_directory_errors).and_return nil
+    db.stub!(:run_tasks).and_return nil
+    @proc.should_receive(:call).and_return @obj
+    db.run
+  end
 end
 
 describe DatedBackup, "running" do
   before :each do
     @kernel = mock 'Kernel'
-    @db = DatedBackup.new(@kernel)
+    @db = DatedBackup.new({}, @kernel)
     @db.stub!(:check_for_directory_errors).and_return nil
     @db.stub!(:run_tasks).and_return nil
   end
@@ -92,7 +135,7 @@ describe DatedBackup, "errors" do
       :destination => ["something"]
     }
     @kernel = mock 'Kernel'
-    @db = DatedBackup.new(@kernel)
+    @db = DatedBackup.new({}, @kernel)
   end
   
   it "should raise an error if not given a source directory" do
@@ -117,7 +160,7 @@ end
 describe DatedBackup, "with invalid directories" do
   before :each do
     @kernel = mock 'Kernel'
-    @db = DatedBackup.new(@kernel)
+    @db = DatedBackup.new({}, @kernel)
   end
   
   it "should raise an error if the object was not given a directory" do

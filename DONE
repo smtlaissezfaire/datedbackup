@@ -1,5 +1,8 @@
 2007.07.20
-Added basic DSL configuration.
+Added basic DSL configuration, so no more rake for config files
+Documentation via Rake, Rcov, and the spec reports are now
+available in doc/
+specs have been added, and code coverage is now at 100%
 
 2007.07.15
 YAML support.  Now all configuration files are written in yaml, and

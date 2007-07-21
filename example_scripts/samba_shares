@@ -15,8 +15,14 @@
 # NFS drives, or even for a rudimentary Version Control
 # for any set of files (locally, or remotely)
 
+
 source      '/mnt/shares'
 destination '/var/backups/network/backups/shares'
 options     '-v' 
 
-
+after do
+  keep this weeks backups
+  keep weekly backups
+  keep monthly backups
+  remove all other backups  
+end
