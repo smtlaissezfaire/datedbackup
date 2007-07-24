@@ -1,6 +1,6 @@
 
-require File.dirname(__FILE__) + "/dsl"
-require File.dirname(__FILE__) + "/directory_time_extensions"
+require File.dirname(__FILE__) + "/main"
+require File.dirname(__FILE__) + "/time_extensions"
 
 class DatedBackup
   class DSL
