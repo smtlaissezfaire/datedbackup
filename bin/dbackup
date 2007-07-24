@@ -22,4 +22,4 @@ require File.dirname(__FILE__) + "/../lib/dated_backup"
 
 filename = ARGV[0]
 
-DatedBackup::DSL.load filename
+DatedBackup::DSL::Main.load filename
