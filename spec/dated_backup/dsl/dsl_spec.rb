@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + "/../../spec_helper"
 
-describe DatedBackup::DSL, "parsing" do
+describe DatedBackup::DSL::Main, "parsing" do
   before :each do
-    @dsl = DatedBackup::DSL.new
+    @dsl = DatedBackup::DSL::Main.new
   end
   
   it "should add the method given as a key if it is a valid keyword, with its paramaters" do
@@ -20,33 +20,33 @@ describe DatedBackup::DSL, "parsing" do
   
 end
 
-describe DatedBackup::DSL, "load class method" do
+describe DatedBackup::DSL::Main, "load class method" do
   before :each do
-    @dsl = mock DatedBackup::DSL
+    @dsl = mock DatedBackup::DSL::Main
     @dsl.stub!(:load).and_return @dsl
-    DatedBackup::DSL.stub!(:new).and_return @dsl
+    DatedBackup::DSL::Main.stub!(:new).and_return @dsl
     @filename = mock String
   end
   
   it "should call new" do
-    DatedBackup::DSL.should_receive(:new).with(no_args).and_return @dsl
-    DatedBackup::DSL.load @filename
+    DatedBackup::DSL::Main.should_receive(:new).with(no_args).and_return @dsl
+    DatedBackup::DSL::Main.load @filename
   end
   
   it "should call load with the filename" do
     @dsl.should_receive(:load).with(@filename).and_return @dsl
-    DatedBackup::DSL.load @filename
+    DatedBackup::DSL::Main.load @filename
   end 
 end
 
-describe DatedBackup::DSL, "loading from a file" do
+describe DatedBackup::DSL::Main, "loading from a file" do
   before :each do
     @db = mock DatedBackup
     DatedBackup.stub!(:new).and_return @db
     @db.stub!(:set_attributes).and_return nil
     @db.stub!(:run).and_return nil
 
-    @dsl = DatedBackup::DSL.new
+    @dsl = DatedBackup::DSL::Main.new
 
     @filename = mock String
     
@@ -108,9 +108,9 @@ describe DatedBackup::DSL, "loading from a file" do
   end
 end
 
-describe DatedBackup::DSL, "pre and post run scripts" do
+describe DatedBackup::DSL::Main, "pre and post run scripts" do
   before :each do
-    @dsl = DatedBackup::DSL.new
+    @dsl = DatedBackup::DSL::Main.new
     @proc = Proc.new {}
   end
   
