@@ -1,4 +1,7 @@
 
+require File.dirname(__FILE__) + "/dsl"
+require File.dirname(__FILE__) + "/directory_time_extensions"
+
 class DatedBackup
   class ExecutionContext
     
