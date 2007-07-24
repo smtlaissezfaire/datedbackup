@@ -1,6 +1,6 @@
 
 class DatedBackup
-  class DirectoryTimeExtentions
+  class DirectoryTimeExtensions
   
     attr_reader :last_time, :time_range
     attr_reader :kept
