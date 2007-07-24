@@ -14,9 +14,12 @@ class DatedBackup
   
   attr_accessor :sources, :destination, :options, :backup_root, :user_domain
   attr_reader :pre_run_commands, :kernel
+  attr_reader :before_run, :after_run
   
-  def initialize(kernel=Kernel)
+  def initialize(procs={}, kernel=Kernel)
     @kernel = kernel
+    @before_run = procs[:before] || Proc.new {}
+    @after_run = procs[:after] || Proc.new {}
   end
   
   def set_attributes(h={})
@@ -26,8 +29,7 @@ class DatedBackup
       @sources.map! { |src| "#{@user_domain}:#{src}" }
     end        
   end
-  
-  
+    
   def check_for_directory_errors
     if sources.empty_or_nil?
       raise DirectoryError, "No source directory given"
@@ -36,22 +38,22 @@ class DatedBackup
     end
   end
   
-  
   # create the first backup, if non-existent  
   # otherwise cp -al (or # replace cp -al a b with cd a && find . -print | cpio -dpl ../b )
   # and then create the backup of the dirs using rsync -a --delete
   # the files, in the end, should be read only and undeletable
   def run
+    instance_eval &before_run
+    
     begin
       check_for_directory_errors
       run_tasks
     rescue
       raise DirectoryError, "-- Exiting script because main directory could not be created. \n"      
-    end            
+    end  
+    
+    instance_eval &after_run
   end
-  
-  
-
   
 private
 

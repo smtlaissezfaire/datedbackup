@@ -55,10 +55,19 @@ describe DatedBackup::DSL, "loading from a file" do
                                    destination \"dir2\""
 
     File.stub!(:open).and_yield @file
+    @proc = Proc.new {}
   end
   
   it "should create a new DatedBackup object" do
-    DatedBackup.should_receive(:new).with(no_args).and_return @db
+    DatedBackup.should_receive(:new).and_return @db
+    @dsl.load @filename
+  end
+  
+  it "should create the DatedBackup object with the before and after procs" do
+    @dsl.before &@proc
+    @dsl.after &@proc
+    
+    DatedBackup.should_receive(:new).with({:before => @proc, :after => @proc}).and_return @db
     @dsl.load @filename
   end
   
@@ -97,5 +106,45 @@ describe DatedBackup::DSL, "loading from a file" do
       :source => ["a single quoted value"]
     }
   end
-
 end
+
+describe DatedBackup::DSL, "pre and post run scripts" do
+  before :each do
+    @dsl = DatedBackup::DSL.new
+    @proc = Proc.new {}
+  end
+  
+  it "should have the before method" do
+    @dsl.should respond_to(:before)
+  end
+  
+  it "should have the after method" do
+    @dsl.should respond_to(:after)
+  end
+  
+  it "should raise an error if no block is given to the before method" do
+    lambda { @dsl.before }.should raise_error(NoBlockGiven, "A block (do...end) must be given")
+  end
+  
+  it "should raise an error if no block is given to the after method" do
+    lambda { @dsl.after }.should raise_error(NoBlockGiven,  "A block (do...end) must be given")
+  end
+  
+  it "should make the before proc a class readable entity" do
+    @dsl.before &@proc
+    @dsl.procs.should == {:before => @proc}
+  end
+  
+  it "should make the proc passed to after readable by the class" do
+    @dsl.after &@proc
+    @dsl.procs.should == {:after => @proc}
+  end
+  
+  it "should be able to use both before and after as the procs, with appropriate proc keys" do
+    @dsl.before &@proc
+    @second_proc = Proc.new {}
+    @dsl.after &@second_proc
+    @dsl.procs.should == {:before => @proc, :after => @second_proc}
+  end
+end
+

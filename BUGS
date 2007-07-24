@@ -1,0 +1,5 @@
+- Problem with deleting based on timestamp - 
+  Times do not include microseconds, so any microseconds between the
+  last second at the end of the day, month, etc, and the actual
+  end of the day, month, etc. will be excluded, even though they 
+  should be included

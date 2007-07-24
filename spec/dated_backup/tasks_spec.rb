@@ -4,7 +4,7 @@ module CommonMock
   def include_common_mocks
     @kernel = mock Kernel
     @kernel.stub!(:puts).and_return @kernel
-    @db = DatedBackup.new @kernel
+    @db = DatedBackup.new({}, @kernel)
     
     @db.stub!(:execute).and_return nil
     

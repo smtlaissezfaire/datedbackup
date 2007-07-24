@@ -2,3 +2,9 @@
 
 source       '/etc'
 destination  '/root/etc_backup'
+
+after do
+  keep this weeks backups
+  keep monthly backups
+  remove the rest
+end
