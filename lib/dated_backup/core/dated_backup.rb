@@ -3,7 +3,7 @@ module DatedBackup
   class Core
 
     include DatedBackup::Core::CommandLine
-    include DatedBackup::Tasks
+    include DatedBackup::Core::Tasks
 
     attr_accessor :sources, :destination, :options, :backup_root, :user_domain
     attr_reader :pre_run_commands, :kernel
