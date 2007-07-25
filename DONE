@@ -9,6 +9,7 @@ call in /bin, and later on in the DatedBackup class.
 
 Any number of scripts can now be passed to the dbackup command line
 utility.  So specify the scripts one after another:
+dbackup script1 script2 script3
 
 2007.07.20
 Added basic DSL configuration, so no more rake for config files
