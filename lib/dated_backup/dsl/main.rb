@@ -2,11 +2,6 @@
 class DatedBackup
   class DSL
     module Main
-      #class << self
-      #  def load(filename)
-      #    new.load(filename)
-      #  end
-      #end
 
       attr_reader :hash, :procs
 
@@ -14,16 +9,6 @@ class DatedBackup
         @hash = {}
         @procs = {}
       end
-
-      #def load filename 
-      #  File.open(filename) do |f|
-      #    self.instance_eval f.read
-      #  end
-      #
-      #  dated_backup = DatedBackup.new(procs)
-      #  dated_backup.set_attributes(hash) 
-      #  dated_backup.run
-      #end
 
       def before &blk
         raise_without_block if !block_given?
