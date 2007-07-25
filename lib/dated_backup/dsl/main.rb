@@ -1,7 +1,4 @@
 
-class NoBlockGiven < RuntimeError; end
-class InvalidKeyError < RuntimeError; end
-
 class DatedBackup
   class DSL
     module Main
