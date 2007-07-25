@@ -1,5 +1,5 @@
 
-class DatedBackup
+module DatedBackup
   module Tasks
     def run_tasks
       create_main_backup_directory                     

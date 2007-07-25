@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + "/../../spec_helper"
 
-class DatedBackup
+module DatedBackup
   
   describe ExecutionContext, ":main" do
     before :each do
@@ -41,7 +41,7 @@ end
 
 
 
-class DatedBackup
+module DatedBackup
   class ExecutionContext
     
     

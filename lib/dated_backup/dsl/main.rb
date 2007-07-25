@@ -1,5 +1,5 @@
 
-class DatedBackup
+module DatedBackup
   class DSL
     module Main
 

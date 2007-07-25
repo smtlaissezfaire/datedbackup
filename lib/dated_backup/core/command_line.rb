@@ -1,4 +1,4 @@
-class DatedBackup
+module DatedBackup
   module CommandLine
     def execute(cmd, kernel_class=Kernel)
       kernel_class.puts "* running: #{cmd}"

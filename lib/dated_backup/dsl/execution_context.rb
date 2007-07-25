@@ -1,5 +1,5 @@
 
-class DatedBackup
+module DatedBackup
   class ExecutionContext
 
     def initialize(name, *params, &blk)  
