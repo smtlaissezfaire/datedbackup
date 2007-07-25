@@ -17,7 +17,7 @@
 
 
 require 'rubygems'
-require File.dirname(__FILE__) + "/dated_backup/base_extensions"
+require File.dirname(__FILE__) + "/dated_backup/extensions"
 require File.dirname(__FILE__) + "/dated_backup/command_line"
 require File.dirname(__FILE__) + "/dated_backup/tasks"
 require File.dirname(__FILE__) + "/dated_backup/dated_backup"
