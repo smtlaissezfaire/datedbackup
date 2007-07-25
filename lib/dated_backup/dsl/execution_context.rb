@@ -1,7 +1,4 @@
 
-require File.dirname(__FILE__) + "/main"
-require File.dirname(__FILE__) + "/time_extensions"
-
 class DatedBackup
   class ExecutionContext
 
