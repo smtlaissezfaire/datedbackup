@@ -3,20 +3,24 @@ require File.dirname(__FILE__) + "/../../spec_helper"
 class DatedBackup
   
   describe ExecutionContext, ":main" do
-    
     before :each do
       @filename = mock String
+      @filename2 = mock String
+      ExecutionContext::Main.stub!(:load).and_return nil
     end
 
-    it "should call DatedBackup::DSL::Main.load with the filename" do
-      ExecutionContext::Main.stub!(:load).and_return nil
+    it "should call DatedBackup::DSL::Main.load with the first filename" do
       ExecutionContext::Main.should_receive(:load).with(@filename).and_return nil
       ExecutionContext.new(:main, @filename)
     end
+
+    it "should call DatedBackup::DSL::Main.load with the second filename" do
+      ExecutionContext::Main.should_receive(:load).with(@filename2).and_return nil
+      ExecutionContext.new(:main, @filename, @filename2)
+    end
   end
 
-  describe ExecutionContext, ":before and :after" do
-    
+  describe ExecutionContext, ":before and :after" do    
     before :each do
       @blk = Proc.new {}
       ExecutionContext::Around.stub!(:new).and_return nil

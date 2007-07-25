@@ -7,6 +7,9 @@ have become modules, mixed in to the anonymous classes.
 Work still needs to be done on calling these, both from the initial
 call in /bin, and later on in the DatedBackup class.
 
+Any number of scripts can now be passed to the dbackup command line
+utility.  So specify the scripts one after another:
+
 2007.07.20
 Added basic DSL configuration, so no more rake for config files
 Documentation via Rake, Rcov, and the spec reports are now

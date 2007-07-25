@@ -20,6 +20,4 @@
 require 'yaml'
 require File.dirname(__FILE__) + "/../lib/dated_backup"
 
-filename = ARGV[0]
-
-DatedBackup::DSL::Main.load filename
+DatedBackup::ExecutionContext.new :main, *ARGV
