@@ -11,12 +11,12 @@ class DatedBackup
       end
 
       def before &blk
-        raise_without_block if !block_given?
+        raise_without_block &blk
         @procs[:before] = blk
       end
 
       def after &blk
-        raise_without_block if !block_given?
+        raise_without_block &blk
         @procs[:after] = blk
       end
 
@@ -30,8 +30,8 @@ class DatedBackup
 
     protected
 
-      def raise_without_block
-        raise NoBlockGiven, "A block (do...end) must be given"
+      def raise_without_block &blk
+        raise NoBlockGiven, "A block (do...end) must be given" if !block_given?
       end
 
       RSYNC_OPTIONS = [:source, :sources, :destination, :options, :user_domain]
