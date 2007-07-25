@@ -1,5 +1,9 @@
 require File.dirname(__FILE__) + "/../../spec_helper"
 
+TimeExtension = Class.new
+TimeExtension.class_eval do
+  include DatedBackup::DSL::TimeExtensions
+end
 
 describe "A method which has an equivalent plural alias", :shared => true do
   it "should respond to the plural version" do
@@ -24,9 +28,9 @@ describe "A method which is responded to", :shared => true do
 end
 
 
-describe DatedBackup::DirectoryTimeExtensions, "backup" do
+describe TimeExtension, "backup" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @method_name = :backup
   end
   
@@ -35,9 +39,9 @@ describe DatedBackup::DirectoryTimeExtensions, "backup" do
   it_should_behave_like "A method which has an equivalent plural alias"
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "other" do
+describe TimeExtension, "other" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @method_name = :backup
   end
   
@@ -46,9 +50,9 @@ describe DatedBackup::DirectoryTimeExtensions, "other" do
   it_should_behave_like "A method which has an equivalent plural alias"
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "week" do
+describe TimeExtension, "week" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @method_name = :week
   end
   
@@ -62,9 +66,9 @@ describe DatedBackup::DirectoryTimeExtensions, "week" do
   end  
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "day" do
+describe TimeExtension, "day" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @method_name = :day
   end
   
@@ -78,9 +82,9 @@ describe DatedBackup::DirectoryTimeExtensions, "day" do
   end
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "months" do
+describe TimeExtension, "months" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @method_name = :month
   end
   
@@ -94,9 +98,9 @@ describe DatedBackup::DirectoryTimeExtensions, "months" do
   end
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "year" do
+describe TimeExtension, "year" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @method_name = :year
   end
   
@@ -110,9 +114,9 @@ describe DatedBackup::DirectoryTimeExtensions, "year" do
   end
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "keeping" do
+describe TimeExtension, "keeping" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @t = Time.now
     @time_range = @t.at_beginning_of_week...@t
     @method_name = :keep
@@ -154,9 +158,9 @@ describe DatedBackup::DirectoryTimeExtensions, "keeping" do
   end
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "this" do
+describe TimeExtension, "this" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @t = Time.now
     @method_name = :this
   end
@@ -193,9 +197,9 @@ describe DatedBackup::DirectoryTimeExtensions, "this" do
 end
 
 
-describe DatedBackup::DirectoryTimeExtensions, "last" do
+describe TimeExtension, "last" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @t = Time.now
     @method_name = :last
   end
@@ -231,9 +235,9 @@ describe DatedBackup::DirectoryTimeExtensions, "last" do
   end
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "the *ly methods" do
+describe TimeExtension, "the *ly methods" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
   end
   
   it "should add type => :daily unto the time_range hash" do
@@ -261,9 +265,9 @@ describe DatedBackup::DirectoryTimeExtensions, "the *ly methods" do
   end
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "from" do
+describe TimeExtension, "from" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @method_name = :from
   end
   
@@ -271,9 +275,9 @@ describe DatedBackup::DirectoryTimeExtensions, "from" do
   it_should_behave_like "A method which is responded to"
 end
 
-describe DatedBackup::DirectoryTimeExtensions, "all" do
+describe TimeExtension, "all" do
   before :each do
-    @extension = DatedBackup::DirectoryTimeExtensions.new
+    @extension = TimeExtension.new
     @method_name = :all
     @t = Time.now
   end
