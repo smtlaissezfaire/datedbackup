@@ -4,7 +4,7 @@ module CommonMock
   def include_common_mocks
     @kernel = mock Kernel
     @kernel.stub!(:puts).and_return @kernel
-    @db = DatedBackup.new({}, @kernel)
+    @db = DatedBackup::Core.new({}, @kernel)
     
     @db.stub!(:execute).and_return nil
     
@@ -13,7 +13,7 @@ module CommonMock
   end
 end
   
-describe DatedBackup, "- running tasks" do
+describe DatedBackup::Core, "- running tasks" do
   include CommonMock
   
   before :each do
@@ -40,7 +40,7 @@ describe DatedBackup, "- running tasks" do
   end
 end
 
-describe DatedBackup, "- creating the backup" do
+describe DatedBackup::Core, "- creating the backup" do
   include CommonMock
   
   before :each do
@@ -65,7 +65,7 @@ describe DatedBackup, "- creating the backup" do
   end
 end
 
-describe DatedBackup, "- copying last backup to new backup" do
+describe DatedBackup::Core, "- copying last backup to new backup" do
   include CommonMock
   
   before :each do
@@ -84,7 +84,7 @@ describe DatedBackup, "- copying last backup to new backup" do
   end
 end
 
-describe DatedBackup, "- creating the main backup directory" do
+describe DatedBackup::Core, "- creating the main backup directory" do
   include CommonMock
   
   before :each do

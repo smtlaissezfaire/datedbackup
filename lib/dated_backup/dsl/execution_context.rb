@@ -23,7 +23,7 @@ class DatedBackup
             instance.instance_eval file.read
           end
           
-          dated_backup = DatedBackup.new(instance.procs)
+          dated_backup = DatedBackup::Core.new(instance.procs)
           dated_backup.set_attributes(instance.hash)
           dated_backup.run
         end

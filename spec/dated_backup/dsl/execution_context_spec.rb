@@ -106,10 +106,10 @@ class DatedBackup
       include CommonMock
       
       before :each do
-        @db = mock DatedBackup
+        @db = mock DatedBackup::Core
         @db.stub!(:set_attributes).and_return nil
         @db.stub!(:run).and_return nil
-        DatedBackup.stub!(:new).and_return @db
+        DatedBackup::Core.stub!(:new).and_return @db
 
         @filename = mock String
         @contents = mock String
@@ -160,12 +160,12 @@ class DatedBackup
       end
 
       it "should create a new DatedBackup object" do
-        DatedBackup.should_receive(:new).and_return @db
+        DatedBackup::Core.should_receive(:new).and_return @db
         Main.load @filename
       end
 
       it "should create the DatedBackup object with the before and after procs" do
-        DatedBackup.should_receive(:new).with({:before => @proc, :after => @proc}).and_return @db
+        DatedBackup::Core.should_receive(:new).with({:before => @proc, :after => @proc}).and_return @db
         Main.load @filename
       end
       
