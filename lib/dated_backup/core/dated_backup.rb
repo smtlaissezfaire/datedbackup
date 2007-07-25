@@ -36,7 +36,7 @@ module DatedBackup
     # and then create the backup of the dirs using rsync -a --delete
     # the files, in the end, should be read only and undeletable
     def run
-      instance_eval &before_run
+      DatedBackup::ExecutionContext.new :before, &@before_run
 
       begin
         check_for_directory_errors
@@ -45,7 +45,7 @@ module DatedBackup
         raise DirectoryError, "-- Exiting script because main directory could not be created. \n"      
       end  
 
-      instance_eval &after_run
+      DatedBackup::ExecutionContext.new :after, &@after_run
     end
 
   private

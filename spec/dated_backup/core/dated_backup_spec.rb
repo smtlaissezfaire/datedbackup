@@ -66,8 +66,7 @@ module DatedBackup
 
       @obj = mock Object
 
-      @proc = mock Proc
-      @proc.stub!(:call).and_return @obj
+      @proc = Proc.new {}
 
       @execution_context = mock ExecutionContext
       ExecutionContext.stub!(:new).and_return @execution_context
@@ -96,9 +95,28 @@ module DatedBackup
       db = Core.new({:before => "blah blah"}, @kernel)
       db.after_run.should == @proc
     end
+    
+    it "should initialize the Core class with an empty before procedure even if no before key is given in the hash" do
+      Proc.stub!(:new).and_return @proc
+      Proc.should_receive(:new).twice.and_return @proc
+      db = Core.new({}, @kernel)
+      db.before_run.should == @proc
+    end
 
     it "should run the before_run before the actual running of the backup" do
-
+      ExecutionContext.should_receive(:new).with(:before, &@proc)
+      db = Core.new({:before => @proc}, @kernel)
+      db.stub!(:check_for_directory_errors).and_return nil
+      db.stub!(:run_tasks).and_return nil
+      db.run
+    end
+    
+    it "should run the after_run proc after the actual running of the backup" do
+      ExecutionContext.should_receive(:new).with(:after, &@proc)
+      db = Core.new({:after => @proc}, @kernel)
+      db.stub!(:check_for_directory_errors).and_return nil
+      db.stub!(:run_tasks).and_return nil
+      db.run
     end
 
   end
@@ -109,6 +127,9 @@ module DatedBackup
       @db = Core.new({}, @kernel)
       @db.stub!(:check_for_directory_errors).and_return nil
       @db.stub!(:run_tasks).and_return nil
+      
+      @execution_context = mock ExecutionContext
+      ExecutionContext.stub!(:new).and_return @execution_context
     end
 
     it "should check for directory errors" do
