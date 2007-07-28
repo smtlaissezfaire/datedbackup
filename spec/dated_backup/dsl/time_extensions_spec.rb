@@ -243,25 +243,25 @@ describe TimeExtension, "the *ly methods" do
   it "should add type => :daily unto the time_range hash" do
     @extension.time_range.should == {}
     @extension.daily
-    @extension.time_range.should == {:type => :daily}
+    @extension.time_range.should == {:scope => :daily}
   end
   
   it "should add type => :weekly unto the time_range hash" do
     @extension.time_range.should == {}
     @extension.weekly
-    @extension.time_range.should == {:type => :weekly}
+    @extension.time_range.should == {:scope => :weekly}
   end
   
   it "should add type => :monthly unto the time_range hash" do
     @extension.time_range.should == {}
     @extension.monthly
-    @extension.time_range.should == {:type => :monthly}
+    @extension.time_range.should == {:scope => :monthly}
   end
   
   it "should add type => :yearly unto the time_range hash" do
     @extension.time_range.should == {}
     @extension.yearly
-    @extension.time_range.should == {:type => :yearly}
+    @extension.time_range.should == {:scope => :yearly}
   end
 end
 

@@ -67,3 +67,13 @@ describe Time, "last week" do
     @time.last_week.should == 1.week.ago.beginning_of_week
   end
 end
+
+describe Time, "week range" do
+  before :each do
+    @time = Time.now
+  end
+  
+  it "should return a range of time this week" do
+    @time.week.should == (@time.beginning_of_week...@time.end_of_week)
+  end
+end

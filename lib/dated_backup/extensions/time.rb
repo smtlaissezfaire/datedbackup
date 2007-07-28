@@ -38,6 +38,10 @@ class Time
   alias :at_end_of_day   :end_of_day
   alias :at_end_of_year  :end_of_year
   
+  def week
+    beginning_of_week...end_of_week
+  end
+  
 end
 
 class Fixnum

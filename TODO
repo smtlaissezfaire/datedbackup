@@ -19,3 +19,8 @@ permissions
 transactions?
 heckle  
 remove dependency on GNU cp
+
+Add class that acts like a combination of Array + Set + ReverseSortedUniqueArray.
+The class should essentially act like an Array, but have a callback mechanism so
+that every time a method changes the internal representation of the data, the data
+gets resorted and checked for uniqueness

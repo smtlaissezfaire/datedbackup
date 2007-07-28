@@ -1,6 +1,16 @@
 
 module DatedBackup
   class DSL
+    
+    # After a run through the DSL,
+    # the TimeExtensions#kept method should contain an array
+    # of all of the items to keep.  Each item will be a hash
+    # with two keys: a :constraint key, which contains a 
+    # range of Times (from oldest to newest), and a :scope
+    # key, which will indicate whether the backup to look
+    # at is a weekly, monthly, etc.  If no :scope key is given,
+    # then all of the backups in the time range given by
+    # the :constraint key will be assumed to be kept.
     module TimeExtensions
 
       attr_reader :last_time, :time_range
@@ -17,26 +27,20 @@ module DatedBackup
 
       alias :backups :backup
 
-      VALID_TIME_COMPONENTS = [:day, :week, :month, :year]
-
-      VALID_TIME_COMPONENTS.each do |t|
-        singular = t.to_sym
-        plural = "#{t}s".to_sym
-        adverb = t == :day ? :daily : "#{t}ly".to_sym
-
-        # To create the singular method, i.e. 'day', 'month'
-        define_method singular do |*args|
-          self.send :time_component, singular
-        end
-
-        # An alias for the plural, i.e. 'days', 'weeks'
-        alias_method plural, singular
-
-        # the adverbial form, i.e. 'daily', 'weekly'        
-        define_method adverb do
-          @time_range[:type] = adverb
+      TimeSymbol.valid_symbols.each do |sym|
+        time_sym = TimeSymbol.new sym
+        
+        define_method time_sym.singular do |*args|
+          self.send :time_component, time_sym.singular
+        end        
+        
+        alias_method time_sym.plural, time_sym.singular
+        
+        define_method time_sym.adverb do
+          @time_range[:scope] = time_sym.adverb
         end
       end
+
 
       def this arg, now=Time.now
         set_time_range :this, now
