@@ -25,9 +25,9 @@ after do
   # CAREFUL! This will remove all old backups
   # except the ones specified inside the block by the 'keep' rules
   remove_old do
-    keep this weeks backups # or: keep weekly backups from this week
-    keep last weeks backups # or: keep weekly backups from last week
-    keep weekly backups from this month # or; keep this months weekly backups
+    keep this weeks backups 
+    keep last weeks backups 
+    keep weekly backups from this month # or: keep this months weekly backups
     keep monthly backups # or: keep all monthly backups
   end
   
