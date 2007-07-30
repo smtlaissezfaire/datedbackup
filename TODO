@@ -7,8 +7,6 @@ refactor new(hash) - what is this?
 remove dependency on GNU cp
 remove unix dependency - try to remove as many Kernel.` calls as possible
 remove unbound method if we really don't need it
-add activesupport dependency in Rakefile
-remove spec/** files from being included into the Rdoc
 
 change ReverseSortedArray so that it has a callback mechanism - every time a 
 method changes the internal representation of the data, the data

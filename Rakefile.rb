@@ -15,7 +15,9 @@ spec = Gem::Specification.new do |s|
   s.files     = FileList["{bin,lib,example_scripts,bin}/**/*"].to_a + %w(README COPYRIGHT)
   
   s.bindir   = 'bin'
-  s.executables = ["dbackup"]                
+  s.executables = ["dbackup"]   
+  
+  s.add_dependency 'activesupport', '>= 1.4.2'             
       
   s.has_rdoc          = true
   s.extra_rdoc_files  = %w(README COPYRIGHT)
