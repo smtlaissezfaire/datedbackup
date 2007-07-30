@@ -5,6 +5,13 @@ module DatedBackup
     class BackupSet < ReverseSortedUniqueArray
 
       class << self    
+        # Given the base of the backup directories as a string, this method should find all of the Backup Directories,
+        # and return these Directories as a BackupSet
+        def find_files_in_directory(dir)
+          raise InvalidDirectoryError, "A valid directory must be given." unless File.directory?(dir)
+          new(Dir.glob "#{dir}/*")
+        end
+        
         # Creates the boolean include_*? methods (include_month?, include_year? and so on).
         # See the notes on the create_per_time_methods, and TimeSymbol.valid_symbols
         def create_include_time_boolean_methods(*methods)

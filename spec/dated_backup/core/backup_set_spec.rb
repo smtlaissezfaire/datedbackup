@@ -126,6 +126,40 @@ module DatedBackup
       end
     end  
     
+    describe BackupSet, "find_files_in_directory" do
+      before :each do
+        @dir = mock String
+        @dir.stub!(:to_s).and_return "dir"
+        
+        Dir.stub!(:glob).and_return ["dir1", "dir2"]
+        @backup_set = mock BackupSet
+        BackupSet.stub!(:new).and_return @backup_set
+        
+        File.stub!(:directory?).and_return true
+      end
+      
+      it "should take a directory" do
+        BackupSet.find_files_in_directory @dir
+      end
+      
+      it "should raise an error if not given a valid directory" do
+        File.stub!(:directory?).and_return false
+        lambda { BackupSet.find_files_in_directory(@dir) }.should raise_error(InvalidDirectoryError, "A valid directory must be given.")
+      end
+      
+      it "should find all of the files in that directory which have a timestamp" do
+        Dir.should_receive(:glob).with("#{@dir}/*").and_return ["dir1", "dir2"]
+        BackupSet.find_files_in_directory @dir
+      end
+      
+      it "should not find the files in a directory which do not correspond to a timestamp" 
+      
+      it "should call new with the files found" do
+        BackupSet.should_receive(:new).with(["dir1", "dir2"]).and_return @backup_set
+        BackupSet.find_files_in_directory @dir
+      end
+    end
+    
   end  
 end
 
