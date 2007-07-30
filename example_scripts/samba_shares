@@ -21,8 +21,14 @@ destination '/var/backups/network/backups/shares'
 options     '-v' 
 
 after do
-  keep this weeks backups
-  keep weekly backups
-  keep monthly backups
-  remove all other backups  
+
+  # CAREFUL! This will remove all old backups
+  # except the ones specified inside the block by the 'keep' rules
+  remove_old do
+    keep this weeks backups 
+    keep last weeks backups 
+    keep weekly backups from this month # or: keep this months weekly backups
+    keep monthly backups # or: keep all monthly backups
+  end
+  
 end

@@ -1,10 +1,3 @@
-
-keep this_weeks_backups
-keep last_weeks_backups
-keep monthly backups
-keep weekly backups from this month
-delete all others
-
 pre_run_hook => "cmd_to_execute"
 post_run_hook => "cmd.."
 pre_run_hooks => ["cmd1", "cmd2"]
@@ -19,3 +12,11 @@ permissions
 transactions?
 heckle  
 remove dependency on GNU cp
+remove unix dependency - try to remove as many Kernel.` calls as possible
+remove unbound method if we really don't need it
+add activesupport dependency in Rakefile
+remove spec/** files from being included into the Rdoc
+
+change ReverseSortedArray so that it has a callback mechanism - every time a 
+method changes the internal representation of the data, the data
+gets resorted and checked for uniqueness

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + "/../../spec_helper"
 
 describe DatedBackup, "loading from the binary" do
   before :each do
-    @dsl = mock DatedBackup::DSL
+    @dsl = mock DatedBackup::DSL::Main
     @filename = mock String
     @filename.stub!(:to_s).and_return @filename
   end
@@ -15,10 +15,10 @@ describe DatedBackup, "loading from the binary" do
   # gets imported into *this* environement.  The real mystery
   # is why the stub on DSL.load doesn't carry over. 
   it "should call the DSL with the first file argument" #do
-  #  DatedBackup::DSL.stub!(:load).and_return nil
-  #  DatedBackup::DSL.load.should == nil
+  #  DatedBackup::DSL::Main.stub!(:load).and_return nil
+  #  DatedBackup::DSL::Main.load.should == nil
   #
-  #  DatedBackup::DSL.should_receive(:load)
+  #  DatedBackup::DSL::Main.should_receive(:load)
   #  ARGV[0] = @filename
   #  load File.dirname(__FILE__) + "/../../../bin/dbackup"      
   #end

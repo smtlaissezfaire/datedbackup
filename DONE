@@ -1,3 +1,16 @@
+2007.07.25
+ExecutionContext class added, so now the separate parts of the DSL
+can execute in separate contexts.  The Execution Contexts
+will execute the DSL in an anonymous class + instance, so methods
+used to run the DSL do not need be included.  The DSL's themselves
+have become modules, mixed in to the anonymous classes.  
+Work still needs to be done on calling these, both from the initial
+call in /bin, and later on in the DatedBackup class.
+
+Any number of scripts can now be passed to the dbackup command line
+utility.  So specify the scripts one after another:
+dbackup script1 script2 script3
+
 2007.07.20
 Added basic DSL configuration, so no more rake for config files
 Documentation via Rake, Rcov, and the spec reports are now
