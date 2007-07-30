@@ -46,7 +46,9 @@ class TimeSymbol
     @sym.to_s
   end
   
-  alias :inspect :to_sym
+  def inspect
+    @sym.inspect
+  end
 end
 
 TimeSymbols = TimeSymbol.all

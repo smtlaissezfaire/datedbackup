@@ -104,4 +104,17 @@ describe TimeSymbol, "all class method" do
   end
 end
 
+describe TimeSymbol, "conversion methods" do
+  it "should return the singular version of the symbol when to_sym is called" do
+    TimeSymbol.new(:month).to_sym.should == :month
+  end
+  
+  it "should return the singular version of the symbol as a string when to_s is called" do
+    TimeSymbol.new(:month).to_s.should == "month"
+  end
+  
+  it "should call the singular symbol's inspect to inspect" do
+    TimeSymbol.new(:month).inspect.should == :month.inspect
+  end
+end
 
