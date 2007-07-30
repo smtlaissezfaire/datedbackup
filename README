@@ -10,12 +10,12 @@ requires rsync.  For more information on this technique, see:
 
   http://www.mikerubel.org/computers/rsync_snapshots/
   
-For some example scripts, see the example_scripts directory.  The example
+For some example scripts, see the example_scripts directory.  The 
 scripts can be run with the command dbackup:
 
-% dbackup my_script
+% dbackup my_first_script my_second_script
 
 Contributions
 -------------
-If you are interested in contributing, or have any tips on how to improve
-the class, please contact me, Scott Taylor, at scott AT railsnewbie DOT com.
+If you are interested in contributing code, please contact me, Scott Taylor, 
+at scott AT railsnewbie DOT com.

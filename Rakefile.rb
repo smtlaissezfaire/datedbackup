@@ -12,13 +12,13 @@ spec = Gem::Specification.new do |s|
   s.platform  = Gem::Platform::RUBY
   s.summary   = "Incremental Dated Backups Using Rsync"
               
-  s.files     = FileList["{lib,example_scripts,bin}/**/*"].to_a + %w(README COPYRIGHT)
+  s.files     = FileList["{bin,lib,example_scripts,bin}/**/*"].to_a + %w(README COPYRIGHT)
   
   s.bindir   = 'bin'
   s.executables = ["dbackup"]                
       
   s.has_rdoc          = true
-  s.extra_rdoc_files  = %w(README DONE COPYRIGHT)
+  s.extra_rdoc_files  = %w(README COPYRIGHT)
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
@@ -27,7 +27,7 @@ end
 
 desc "Generate Rdoc"
 task :rdoc => [:clobber_rdoc] do
-  %x(rdoc -o doc/rdoc)
+  %x(rdoc -o doc/rdoc --exclude "Rakefile.rb" --exclude "spec/")
 end
 
 desc "Generate RSpec Report"

@@ -1,16 +1,9 @@
-pre_run_hook => "cmd_to_execute"
-post_run_hook => "cmd.."
-pre_run_hooks => ["cmd1", "cmd2"]
-pre and post run scripts (as array or single value)
-a logger for subversion like logs
-move my scripts to mask domains, and use them as example scripts
+
 only create new directory when the root directory has no dated backup
   this way, another directory can still be used inside of here &
   dated backups will still occur
-refactor new(hash)
-permissions
-transactions?
-heckle  
+refactor new(hash) - what is this? 
+
 remove dependency on GNU cp
 remove unix dependency - try to remove as many Kernel.` calls as possible
 remove unbound method if we really don't need it
@@ -20,3 +13,14 @@ remove spec/** files from being included into the Rdoc
 change ReverseSortedArray so that it has a callback mechanism - every time a 
 method changes the internal representation of the data, the data
 gets resorted and checked for uniqueness
+
+heckle - does not work, as it leads to an infinite recursion
+
+features:
+pre_run_hook => "cmd_to_execute"
+post_run_hook => "cmd.."
+pre_run_hooks => ["cmd1", "cmd2"]
+pre and post run scripts (as array or single value)
+a logger for subversion like logs
+permissions
+transactions?
