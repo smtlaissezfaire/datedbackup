@@ -1,6 +1,4 @@
 
-class TimeSymbolError < RuntimeError; end
-
 # Used to change the the TimeSymbols (:year, :month, :day, and :week) into the
 # various natural language forms (the symbols singular, plural, and adverb).  
 # Initialize with the singular symbol name, or call TimeSymbol.valid_symbols
