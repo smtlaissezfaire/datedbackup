@@ -1,5 +1,11 @@
-- Problem with deleting based on timestamp - 
+- [TINY] Problem with deleting based on timestamp - 
   Times do not include microseconds, so any microseconds between the
   last second at the end of the day, month, etc, and the actual
   end of the day, month, etc. will be excluded, even though they 
   should be included
+- The BackupSet class acts like a unique array, which is sorted and
+  reversed.  This action occurs at initialization, but really it
+  should occur after every method call on the class.  
+  How to do this pragmatically is still escaping me, and am looking
+  for a clean solution.  Two solution can be found in branches/method_filter,
+  but they are rather ugly.

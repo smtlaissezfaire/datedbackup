@@ -1,6 +1,10 @@
 
 class TimeSymbolError < RuntimeError; end
 
+# Used to change the the TimeSymbols (:year, :month, :day, and :week) into the
+# various natural language forms (the symbols singular, plural, and adverb).  
+# Initialize with the singular symbol name, or call TimeSymbol.valid_symbols
+# to give an array of valid symbols.
 class TimeSymbol
   VALID_TIME_COMPONENTS = [:year, :month, :week, :day]
   
@@ -36,11 +40,15 @@ class TimeSymbol
     end
   end
   
+  def to_sym
+    @sym.to_sym
+  end
+  
   def to_s
     @sym.to_s
   end
   
-  alias :inspect :to_s
+  alias :inspect :to_sym
 end
 
 TimeSymbols = TimeSymbol.all
