@@ -3,9 +3,9 @@
 source       = '/etc'
 destination  = '/root/etc_backup'
 
-after do
-  remove_old do
+after {
+  remove_old {
     keep this weeks backups
     keep monthly backups    
-  end
-end
+  }
+}

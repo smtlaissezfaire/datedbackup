@@ -16,7 +16,7 @@ module DatedBackup
       class << self
         def load(filename)
           klass = Class.new
-          klass.include ::DatedBackup::DSL::Main
+          klass.send(:include, ::DatedBackup::DSL::Main)
           instance = klass.new          
           
           File.open filename, "r" do |file|
@@ -37,7 +37,7 @@ module DatedBackup
 
       def remove_old(&blk)
         klass = Class.new
-        klass.include ::DatedBackup::DSL::TimeExtensions
+        klass.send(:include, ::DatedBackup::DSL::TimeExtensions)
         instance = klass.new
 
         instance.instance_eval &blk

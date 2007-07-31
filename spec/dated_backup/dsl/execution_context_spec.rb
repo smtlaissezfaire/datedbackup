@@ -48,6 +48,7 @@ module DatedBackup
     module CommonMock
       def common_mock
         @klass = mock Class
+        @klass.stub!(:send).and_return @klass
         @klass.stub!(:include).and_return true
         Class.stub!(:new).and_return @klass
         @instance = mock @klass
@@ -87,7 +88,7 @@ module DatedBackup
       end
 
       it "should include the TimeExtension module" do
-        @klass.should_receive(:include).with(::DatedBackup::DSL::TimeExtensions).and_return true
+        @klass.should_receive(:send).with(:include, ::DatedBackup::DSL::TimeExtensions).and_return true
         @around.remove_old
       end
 
@@ -140,7 +141,7 @@ module DatedBackup
       end
       
       it "should include the Main module" do
-        @klass.should_receive(:include).with(::DatedBackup::DSL::Main).and_return true
+        @klass.should_receive(:send).with(:include, ::DatedBackup::DSL::Main).and_return true
         Main.load @filename
       end
       
