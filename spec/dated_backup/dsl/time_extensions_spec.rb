@@ -139,7 +139,7 @@ describe TimeExtension, "keeping" do
     @extension.time_range.should == {:constraint => @time_range}
         
     @extension.keep(@extension.week, @t)
-    @extension.time_range.should == []
+    @extension.time_range.should == {}
   end
   
   it "should return the last_time to it\'s initial state" do

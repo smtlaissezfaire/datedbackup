@@ -113,7 +113,7 @@ module DatedBackup
       end
 
       def reset_times
-        @time_range = []
+        @time_range = {}
         @last_time = nil      
       end
     end
