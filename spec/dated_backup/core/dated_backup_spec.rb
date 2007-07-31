@@ -5,10 +5,11 @@ module DatedBackup
     before :each do
       @kernel = mock 'Kernel'
       @db = Core.new({}, @kernel)
+      @db.stub!(:check_for_directory_errors).and_return nil
     end
 
     it "should have source directory as array if only one provided" do
-      @db.set_attributes :source => "dir"
+      @db.set_attributes :source => ["dir"]
       @db.sources.should == ["dir"]
     end
 
@@ -18,20 +19,20 @@ module DatedBackup
     end
 
     it "should assign the original destination as the backup_root" do
-      @db.set_attributes :destination => "dest"
+      @db.set_attributes :destination => ["dest"]
       @db.backup_root.should == "dest"
     end
 
     it "should have the options as a string" do
-      @db.set_attributes :options => "opt1, opt2"
-      @db.options.should == "opt1, opt2"
+      @db.set_attributes :options => ["-v", "-a"]
+      @db.options.should == "-v -a"
     end
 
     it "should have the destination as the destination dir/timestamp" do
       time = Time.now
       time_format = time.strftime "%Y-%m-%d-%Hh-%Mm-%Ss"
 
-      @db.set_attributes :destination => "dest"
+      @db.set_attributes :destination => ["dest"]
       @db.destination.should == "dest/#{time_format}"
     end
 
@@ -41,17 +42,17 @@ module DatedBackup
     end
 
     it "should have the pre_run_commands as an array if given one element" do
-      @db.set_attributes :pre_run_command => "cmd1"
+      @db.set_attributes :pre_run_command => ["cmd1"]
       @db.pre_run_commands.should == ["cmd1"]
     end
 
     it "should have the user and domain" do
-      @db.set_attributes :user_domain => "scott@railsnewbie.com"
+      @db.set_attributes :source => ["blahblah"], :user_domain => "scott@railsnewbie.com"
       @db.user_domain.should == "scott@railsnewbie.com"
     end
 
     it "should have the user and domain prepended upon each source" do
-      @db.set_attributes :user_domain => "scott@railsnewbie.com", :sources => ["dir1", "dir2"]
+      @db.set_attributes :user_domain => ["scott@railsnewbie.com"], :sources => ["dir1", "dir2"]
       @db.sources.should == ["scott@railsnewbie.com:dir1", "scott@railsnewbie.com:dir2"]
     end
   end
@@ -132,11 +133,6 @@ module DatedBackup
       ExecutionContext.stub!(:new).and_return @execution_context
     end
 
-    it "should check for directory errors" do
-      @db.should_receive(:check_for_directory_errors).with no_args
-      @db.run
-    end
-
     it "should call the run_tasks method" do
       @db.should_receive(:run_tasks).with no_args
       @db.run
@@ -155,19 +151,17 @@ module DatedBackup
 
     it "should raise an error if not given a source directory" do
       h = @valid_hash.reject { |key, _| key == :sources }
-      @db.set_attributes h
 
       lambda { 
-        @db.check_for_directory_errors 
+        @db.set_attributes h
       }.should raise_error(DirectoryError, "No source directory given")
     end
 
     it "should raise an error if not given a destination directory" do
       h = @valid_hash.reject { |key, _| key == :destination }
-      @db.set_attributes h
 
       lambda { 
-        @db.check_for_directory_errors 
+        @db.set_attributes h
       }.should raise_error(DirectoryError, "No destination directory given")
     end
   end
@@ -179,14 +173,10 @@ module DatedBackup
     end
 
     it "should raise an error if the object was not given a directory" do
-      @db.set_attributes :pre_run_command => "cmd1"
       lambda {
-        @db.run
+        @db.set_attributes :pre_run_command => "cmd1"
       }.should raise_error(DirectoryError)
     end
   end
-
-
   
 end
-

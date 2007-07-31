@@ -24,7 +24,7 @@ module DatedBackup
     end
 
     def check_for_directory_errors
-      if sources.empty_or_nil?
+      if sources.nil? || sources.empty?
         raise DirectoryError, "No source directory given"
       elsif backup_root.nil? || backup_root.empty?
         raise DirectoryError, "No destination directory given"
@@ -38,12 +38,7 @@ module DatedBackup
     def run
       DatedBackup::ExecutionContext.new :before, &@before_run
 
-      begin
-        check_for_directory_errors
-        run_tasks
-      rescue
-        raise DirectoryError, "-- Exiting script because main directory could not be created. \n"      
-      end  
+      run_tasks
 
       DatedBackup::ExecutionContext.new :after, &@after_run
     end
@@ -65,11 +60,15 @@ module DatedBackup
       @pre_run_commands = h[:pre_run_commands]
       @pre_run_commands = h[:pre_run_command].to_a if h[:pre_run_command]
 
-      @backup_root = h[:destination]
-      @options = h[:options] || ""
+      @backup_root = *h[:destination]
+      @options = h[:options] ? h[:options].map { |e| "#{e} "}.to_s.strip : ""
+
+      
       @user_domain = h[:user_domain]    
 
-      @sources = h[:sources] || [h[:source]]
+      @sources = h[:sources] || h[:source]
+      
+      check_for_directory_errors
     end
 
 
