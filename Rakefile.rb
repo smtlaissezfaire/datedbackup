@@ -70,7 +70,7 @@ Spec::Rake::SpecTask.new('rcov') do |t|
   t.rcov_dir = "doc/rcov"
 end
 
-RCov::VerifyTask.new(:verify_rcov => :spec) do |t|
+RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
   t.threshold = 100.0
   t.index_html = 'doc/rcov/index.html'
 end
