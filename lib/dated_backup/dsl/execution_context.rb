@@ -23,10 +23,14 @@ module DatedBackup
             instance.instance_eval file.read
           end
           
-          dated_backup = DatedBackup::Core.new(instance.procs)
-          dated_backup.set_attributes(instance.hash)
-          dated_backup.run
+          @main_instance = DatedBackup::Core.new(instance.procs)
+          @main_instance.set_attributes(instance.hash)
+          @main_instance.run
         end
+        
+        attr_reader :main_instance
+        alias :core_instance :main_instance
+        alias :instance      :main_instance
       end
     end
 

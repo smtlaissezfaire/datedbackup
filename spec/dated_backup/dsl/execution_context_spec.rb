@@ -184,5 +184,31 @@ module DatedBackup
         Main.load @filename
       end
     end
+    
+    describe Main, "core/main instance" do
+      before :each do
+        File.stub!(:open).and_return nil
+        @core_mock = mock DatedBackup::Core
+        DatedBackup::Core.stub!(:new).and_return @core_mock
+        @core_mock.stub!(:set_attributes).and_return nil
+        @core_mock.stub!(:run).and_return nil
+      end
+      
+      it "should have class level main instance available" do
+        ExecutionContext::Main.load "mock filename"
+        ExecutionContext::Main.main_instance.should == @core_mock
+      end
+      
+      it "should have core instance which is a synonym for a the main instance" do
+        ExecutionContext::Main.load "mock filename"
+        ExecutionContext::Main.core_instance.should == @core_mock
+      end
+      
+      it "should have the instance, which is a synonymn for the main the instance" do
+        ExecutionContext::Main.load "mock filename"
+        ExecutionContext::Main.instance.should == @core_mock
+      end
+    end
+    
   end
 end
