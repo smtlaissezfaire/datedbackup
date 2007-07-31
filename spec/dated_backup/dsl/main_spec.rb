@@ -10,44 +10,19 @@ describe MainExecutionContext, "parsing" do
   end
   
   it "should add the method given as a key if it is a valid keyword, with its paramaters" do
-    @dsl.source "some_val"
+    @dsl.source = "some_val"
     @dsl.hash.should == { :source => ["some_val"]}
   end
   
   it "should raise an InvalidKeyError if the method called is not a key" do
     lambda {
-      @dsl.an_invalid_key
+      @dsl.an_invalid_key = "something"
     }.should raise_error(InvalidKeyError, "The key 'an_invalid_key' is not a recognized expression")
   end
   
   it "should raise a friendly SyntaxError message when a syntax error is encountered"
   
 end
-
-
-#  it "should assign the appropriate hash after loading the file" do
-#    Main.load @filename
-#    @dsl.hash.should == {
-#      :source => ['dir1'],
-#      :destination => ['dir2']
-#    }
-#  end
-#
-#  
-#  it "should be able to use a single quoted value" do
-#    @dsl.instance_eval "source 'a single quoted value'"
-#    @dsl.hash.should == {
-#      :source => ['a single quoted value']
-#    }
-#  end
-#  
-#  it "should be able to use a double quoted value" do
-#    @dsl.instance_eval "source \"a single quoted value\""
-#    @dsl.hash.should == {
-#      :source => ["a single quoted value"]
-#    }
-#  end
-
 
 describe MainExecutionContext, "pre and post run scripts" do
   before :each do
