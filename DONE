@@ -1,3 +1,9 @@
+trunk:
+[2007.07.21]
+- removed dependency on GNU cp, so now we can DatedBackup on Mac OS X
+- outputting of deleted directories
+- fixed small bugs
+
 2007.07.25
 ExecutionContext class added, so now the separate parts of the DSL
 can execute in separate contexts.  The Execution Contexts

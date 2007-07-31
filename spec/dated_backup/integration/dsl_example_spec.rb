@@ -75,11 +75,7 @@ describe "DSL Integration/Regression Test with the local_etc_backup script with 
   end
   
   
-  it "should send rm -rf to all of the directories which are not kept" #do
-  #  require 'rubygems'; require 'ruby-debug'; debugger;
-  #  Kernel.should_receive(:`).with("rm -rf dest/2007-06-31-00h-00m-00s dest/2007-05-31-00h-00m-00s")
-  #  DatedBackup::ExecutionContext.new :before, &@after_run
-  #end
+  it "should send rm -rf to all of the directories which are not kept" 
 end
 
 describe "DSL Integration/Regression Tests with the samba_shares script" do
@@ -116,4 +112,5 @@ describe "DSL Integration/Regression Tests with the samba_shares script" do
     })
     DatedBackup::ExecutionContext.new :main, @file
   end
+  
 end

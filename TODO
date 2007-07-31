@@ -1,4 +1,4 @@
-output printing deleted directories
+remove warnings
 
 only create new directory when the root directory has no dated backup
   this way, another directory can still be used inside of here &

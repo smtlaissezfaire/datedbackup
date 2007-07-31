@@ -78,7 +78,14 @@ module DatedBackup
         common_mock
         
         @instance.stub!(:instance_eval).and_return nil
+        @instance.stub!(:kept).and_return Hash.new
+        
         @around = Around.new(@instance, &@blk)
+        DatedBackup::Core::BackupRemover.stub!(:remove!).and_return nil
+        
+        @main_instance = mock DatedBackup::Core
+        ExecutionContext::Main.stub!(:instance).and_return @main_instance
+        @main_instance.stub!(:destination).and_return "a_destination_directory"
       end
       
       
@@ -99,6 +106,11 @@ module DatedBackup
 
       it "should instance eval the block inside the instance of the anonymous class" do
         @instance.should_receive(:instance_eval).with(&@blk)
+        @around.remove_old
+      end
+      
+      it "should call the BackupRemover with the Main instance's destination and the DSL's rules" do
+        DatedBackup::Core::BackupRemover.should_receive(:remove!).with(@main_instance.destination, @instance.kept)
         @around.remove_old
       end
     end 
