@@ -13,6 +13,8 @@ gets resorted and checked for uniqueness
 
 heckle - does not work, as it leads to an infinite recursion
 
+need to add alot of error checking
+
 features:
 execute_script functions in before and after
 execute_command(s)

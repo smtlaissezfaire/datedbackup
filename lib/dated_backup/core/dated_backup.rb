@@ -2,6 +2,8 @@
 module DatedBackup 
   class Core
 
+    BACKUP_REGEXP = /[12][0-9]{3}\-[01][0-9]\-[0-3][0-9]\-[0-2][0-9]h\-[0-6][0-9]m\-[0-6][0-9]s/
+
     include DatedBackup::Core::CommandLine
     include DatedBackup::Core::Tasks
 
@@ -37,9 +39,7 @@ module DatedBackup
     # the files, in the end, should be read only and undeletable
     def run
       DatedBackup::ExecutionContext.new :before, &@before_run
-
       run_tasks
-
       DatedBackup::ExecutionContext.new :after, &@after_run
     end
 
@@ -50,10 +50,6 @@ module DatedBackup
       "#{@backup_root}/#{timestamp}"
     end                         
 
-    def find_last_backup_filename
-      Dir.glob("#{@backup_root}/*").sort.last
-    end
-
   protected
 
     def parse_command_options(h={})
@@ -63,14 +59,10 @@ module DatedBackup
       @backup_root = *h[:destination]
       @options = h[:options] ? h[:options].map { |e| "#{e} "}.to_s.strip : ""
 
-      
       @user_domain = h[:user_domain]    
-
       @sources = h[:sources] || h[:source]
-      
       check_for_directory_errors
     end
-
 
   end
     
