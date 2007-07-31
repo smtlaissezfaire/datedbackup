@@ -1,5 +1,5 @@
 remove warnings
-
+remove the class/module redundancy from the specs
 only create new directory when the root directory has no dated backup
   this way, another directory can still be used inside of here &
   dated backups will still occur

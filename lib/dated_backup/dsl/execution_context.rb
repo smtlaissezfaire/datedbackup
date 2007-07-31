@@ -46,7 +46,7 @@ module DatedBackup
 
         instance.instance_eval &blk
         
-        Core::BackupRemover.remove!(Main.instance.destination, instance.kept)
+        Core::BackupRemover.remove!(Main.instance.backup_root, instance.kept)
       end
     end
   

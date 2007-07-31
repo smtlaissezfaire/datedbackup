@@ -85,7 +85,7 @@ module DatedBackup
         
         @main_instance = mock DatedBackup::Core
         ExecutionContext::Main.stub!(:instance).and_return @main_instance
-        @main_instance.stub!(:destination).and_return "a_destination_directory"
+        @main_instance.stub!(:backup_root).and_return "a_destination_directory"
       end
       
       
@@ -109,8 +109,8 @@ module DatedBackup
         @around.remove_old
       end
       
-      it "should call the BackupRemover with the Main instance's destination and the DSL's rules" do
-        DatedBackup::Core::BackupRemover.should_receive(:remove!).with(@main_instance.destination, @instance.kept)
+      it "should call the BackupRemover with the Main instance's backup root and the DSL's rules" do
+        DatedBackup::Core::BackupRemover.should_receive(:remove!).with(@main_instance.backup_root, @instance.kept)
         @around.remove_old
       end
     end 
