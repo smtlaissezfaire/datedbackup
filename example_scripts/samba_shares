@@ -16,9 +16,9 @@
 # for any set of files (locally, or remotely)
 
 
-source      = '/mnt/shares'
-destination = '/var/backups/network/backups/shares'
-options     = '-v' 
+source       '/mnt/shares'
+destination  '/var/backups/network/backups/shares'
+options      '-v' 
 
 after do
 
