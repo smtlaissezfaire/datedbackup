@@ -4,11 +4,14 @@ module DatedBackup
   class Core
     class BackupRemover
       class << self
+        
+        include DatedBackup::Core::CommandLine
+        
         def remove!(dir, rules={})
           complete_set = BackupSet.find_files_in_directory dir
           set_to_remove = remove_successively(complete_set, rules)
           
-          Kernel.send :`, "rm -rf #{set_to_remove.map{ |element| "#{element} " }.to_s}"
+          execute("rm -rf #{set_to_remove.map{ |element| "#{element} " }.to_s}")
         end
         
         private

@@ -20,6 +20,8 @@ module DatedBackup
         @backup_set.stub!(:map).and_return @backup_set
         @backup_set.stub!(:to_s).and_return "dir1 dir2"
         
+        BackupRemover.stub!(:execute).and_return nil
+        
         Kernel.stub!(:`).and_return nil
       end
       
@@ -36,20 +38,17 @@ module DatedBackup
         @backup_set.should_receive(:filter_by_rule).twice.and_return @backup_set
         BackupRemover.remove!(@dir, @rules)
       end
-      
-      # this is done, but I've already implemented it.  Move it to a new describe block
-      it "should remove all directories from the original directories found, minus the directories to be kept" 
-      
+            
       it "should collect the directories into a spaced string" do
         @backup_set.should_receive(:to_s).and_return "dir1 dir2"
         BackupRemover.remove!(@dir, @rules)
       end
       
       it "should remove the directories to be removed" do
-        Kernel.should_receive(:`).with("rm -rf dir1 dir2").and_return nil
+        BackupRemover.should_receive(:execute).with("rm -rf dir1 dir2").and_return nil
         BackupRemover.remove!(@dir, @rules)
       end
-      
+            
     end
   end
 end
