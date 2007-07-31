@@ -26,7 +26,7 @@
 # 
 
 
-user_domain = "nbackup@example.com"
-options     = "-v -e 'ssh -i /root/.ssh/rsync-key' --rsync-path='sudo rsync'"
-sources     = "/etc", "/home"
-destination = "/var/backups/network/backups/example.com"
+user_domain  "nbackup@example.com"
+options      "-v -e 'ssh -i /root/.ssh/rsync-key' --rsync-path='sudo rsync'"
+sources      "/etc", "/home"
+destination  "/var/backups/network/backups/example.com"

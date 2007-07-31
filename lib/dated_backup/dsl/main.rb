@@ -21,11 +21,10 @@ module DatedBackup
       end
 
       def method_missing sym, *args
-        
-        if sym.to_s =~ /(.*)\=$/ && RSYNC_OPTIONS.include?($1.to_sym)
-          @hash[$1.to_sym] = args
+        if RSYNC_OPTIONS.include?(sym)
+          @hash[sym] = args
         else
-          raise InvalidKeyError, "The key '#{$1}' is not a recognized expression"
+          raise InvalidKeyError, "The key '#{sym}' is not a recognized expression"
         end
       end
 

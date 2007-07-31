@@ -10,13 +10,13 @@ describe MainExecutionContext, "parsing" do
   end
   
   it "should add the method given as a key if it is a valid keyword, with its paramaters" do
-    @dsl.source = "some_val"
+    @dsl.source "some_val"
     @dsl.hash.should == { :source => ["some_val"]}
   end
   
   it "should raise an InvalidKeyError if the method called is not a key" do
     lambda {
-      @dsl.an_invalid_key = "something"
+      @dsl.an_invalid_key "some val"
     }.should raise_error(InvalidKeyError, "The key 'an_invalid_key' is not a recognized expression")
   end
   
