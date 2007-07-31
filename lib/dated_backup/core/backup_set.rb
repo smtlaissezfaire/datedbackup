@@ -104,6 +104,20 @@ module DatedBackup
           yield obj.to_time
         end
       end
+      
+      define_method "-" do |obj|
+        (self.to_a - obj.to_a).to_backup_set
+      end
+      
+      #alias_method :__array_subtraction, '-'
+      #
+      ## This needed to be added because subtracting of 
+      ## two backup sets results in an Array, not a new instance of BackupSet
+      #define_method '-' do |obj|
+      #  require 'rubygems'; require 'ruby-debug'; debugger;
+      #  self.to_a - 
+      #end
+     
 
     end
         

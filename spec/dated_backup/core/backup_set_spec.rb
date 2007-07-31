@@ -160,6 +160,17 @@ module DatedBackup
       end
     end
     
+    describe BackupSet, "subtracting two BackupSets (regression test)" do
+      before :each do
+        @a = BackupSet.new []
+        @b = BackupSet.new []
+      end
+      
+      it "should return a new BackupSet" do
+        (@a - @b).kind_of?(BackupSet).should be_true
+      end
+    end
+    
   end  
 end
 
