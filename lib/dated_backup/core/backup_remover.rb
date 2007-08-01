@@ -28,12 +28,12 @@ module DatedBackup
           to_remove.empty?
         end
         
-        def set_to_remove(set, rules)
-          if rules.empty?
-            return []
+        def set_to_remove(set, keep_rules)
+          if keep_rules.empty?
+            set
           else
-            to_remove = set - set.filter_by_rule(rules.car)
-            return(to_remove - set_to_remove(to_remove, rules.cdr))
+            to_remove = set - set.filter_by_rule(keep_rules.car)
+            return set_to_remove(to_remove, keep_rules.cdr)
           end
         end
       end

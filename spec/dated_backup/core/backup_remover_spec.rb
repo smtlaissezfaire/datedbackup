@@ -79,5 +79,35 @@ module DatedBackup
         BackupRemover.remove!(@backup_root, [{:constraint => Time.gm(1970)...Time.gm(2019)}])
       end
     end
+    
+    describe BackupRemover, "removing directories with multiple filter rules (regression test)" do
+      before :each do
+        @complete_set = BackupSet.new [
+          "/root/etc_backup/2007-08-01-16h-36m-47s", 
+          "/root/etc_backup/2007-08-01-16h-28m-59s", 
+          "/root/etc_backup/2007-07-31-07h-16m-15s",
+          "/root/etc_backup/2007-07-20-16h-27m-03s"
+        ]
+        @backup_root = "/root/etc_backup"
+        @keep_rules = [
+          # keep backups from this day
+          {
+            :constraint => Time.gm('2007', '08', '01')...Time.gm('2007', '08', '01', '23', '59', '59')
+          },          
+          # keep monthly backups
+          {
+            :scope => :monthly, 
+            :constraint=>Time.gm('2007', '01', '01')...Time.gm('2007', '08', '01', '16', '37', '10')
+          }
+        ]
+        BackupRemover.stub!(:execute).and_return nil
+        BackupSet.stub!(:find_files_in_directory).and_return @complete_set
+      end
+      
+      it "should issue the rm command only on the one directory which does not match the filter rule" do
+        BackupRemover.should_receive(:execute).with("rm -rf /root/etc_backup/2007-07-20-16h-27m-03s").and_return nil
+        BackupRemover.remove!(@backup_root, @keep_rules)
+      end
+    end
   end
 end

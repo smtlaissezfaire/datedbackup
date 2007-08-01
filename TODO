@@ -1,12 +1,13 @@
 fix bugs
-rm -rf should not output if no files to delete
 remove warnings
-remove the class/module redundancy from the specs
+
 only create new directory when the root directory has no dated backup
   this way, another directory can still be used inside of here &
   dated backups will still occur
+  
+from this day => alias for todays backups, from today
+from last day => alias for yesterdays, from yesterday
 
-remove dependency on GNU cp
 remove unix dependency - try to remove as many Kernel.` calls as possible
 
 change ReverseSortedArray so that it has a callback mechanism - every time a 
