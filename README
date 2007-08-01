@@ -1,21 +1,59 @@
 
-Dated Backup is a small class which does exactly what it's name says: 
+Introduction
+
+Dated Backup is a program which does exactly what it's name says: 
 It creates backups of any directory, timestamping the backups, and then 
-performing incremental backups on any subsequent runs.  The really nice thing here 
+performing incremental backups on every subsequent run.  The really nice thing here 
 is that those backups are fully viewable as snapshots, even though they are 
 also incremental.
 
-This method of backup requires GNU's cp (so Mac OS X is out), and it also
-requires rsync.  For more information on this technique, see: 
+This method of backup uses the hard-link technique in combination
+with rsync.  For more information on this technique, see: 
 
   http://www.mikerubel.org/computers/rsync_snapshots/
   
-For some example scripts, see the example_scripts directory.  The 
-scripts can be run with the command dbackup:
+Dated Backup no longer depends on GNU cp, but instead uses rsync's --link-dest
+option to simulate the hard-link method.
+
+
+Backup Assumptions
+
+Your backup server is POSIX compliant (a modern day UNIX - Linux, *BSD, Mac OS X)
+You would like to perform incremental snapshots with timestamps
+
+
+Dependencies
+
+Dated Backup has the following dependencies:
+
+  * Ruby
+  * Rubygems
+  * ActiveSupport gem
+  * A copy of rsync, which supports the --link-dest option.  
+
+Rsync is not required on the machine to be backed up - only on the machine which stores
+the backup.  
+
+
+HOWTO Backup with Dated Backup
+
+Each backup source will correspond to a configuration file, which defines the source 
+directory (or remote location), and the local destination directory.  These two 
+parameters are the only requirements for a backup configuration file to be valid.  
+The script can be run with the command executable dbackup:
+
+% dbackup my_script
+
+Other scripts can be run sequentially by listing them in order:
 
 % dbackup my_first_script my_second_script
 
+Other options are available, such as feeding in extra paramters to the rsync 
+command as well as automatic deletion of old backups based on natural language 
+keep rules.  For some example scripts, see the example_scripts directory.
+
+
 Contributions
--------------
-If you are interested in contributing code, please contact me, Scott Taylor, 
-at scott AT railsnewbie DOT com.
+
+If you are interested in contributing code or documentation, please contact me, 
+Scott Taylor, at scott AT railsnewbie DOT com.
