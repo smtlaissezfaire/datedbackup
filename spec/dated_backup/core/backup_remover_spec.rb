@@ -13,6 +13,7 @@ module DatedBackup
         @backup_set.stub!(:-).and_return @backup_set
         @backup_set.stub!(:map).and_return @backup_set
         @backup_set.stub!(:to_s).and_return "dir1 dir2"
+        @backup_set.stub!(:empty?).and_return false
         
         BackupRemover.stub!(:execute).and_return nil
         
@@ -42,8 +43,6 @@ module DatedBackup
         BackupRemover.should_receive(:execute).with("rm -rf dir1 dir2").and_return nil
         BackupRemover.remove!(@dir, @rules)
       end
-      
-      it "should not issue the rm command if no directories are to be removed"
     end
     
     describe BackupRemover, "removing directories (regression tests)" do
@@ -65,6 +64,19 @@ module DatedBackup
       it "should remove the directories" do
         Core::BackupRemover.should_receive(:execute).with("rm -rf /root/etc_backup/2007-08-01-16h-28m-59s /root/etc_backup/2007-07-20-16h-27m-03s")
         Core::BackupRemover.remove!(@backup_root, @keep_rules)
+      end
+      
+      
+      it "should not issue the rm command if no directories are found" do
+        BackupSet.stub!(:find_files_in_directory).and_return BackupSet.new([])
+        
+        BackupRemover.should_not_receive(:execute)
+        BackupRemover.remove!(@backup_root, @keep_rules)
+      end
+      
+      it "should not issue the rm command if no directories match the filter rules" do
+        BackupRemover.should_not_receive(:execute)
+        BackupRemover.remove!(@backup_root, [{:constraint => Time.gm(1970)...Time.gm(2019)}])
       end
     end
   end
