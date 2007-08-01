@@ -1,3 +1,4 @@
+require File.dirname(__FILE__) + "/core/warnings"
 require File.dirname(__FILE__) + "/core/backup_set"
 require File.dirname(__FILE__) + "/core/tasks"
 require File.dirname(__FILE__) + "/core/command_line"
