@@ -3,12 +3,14 @@ module DatedBackup
   class ExecutionContext
 
     def initialize(name, *params, &blk)  
-      if name == :main
-        params.each do |filename|
-          Main.load filename
-        end
-      elsif name == :before || name == :after
-        Around.new &blk
+      DatedBackup::Warnings.execute_silently do
+        if name == :main
+          params.each do |filename|
+            Main.load filename
+          end
+        elsif name == :before || name == :after
+          Around.new &blk
+        end        
       end
     end
     

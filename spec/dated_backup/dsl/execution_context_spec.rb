@@ -37,6 +37,17 @@ module DatedBackup
     end
   end
   
+  describe ExecutionContext, "turning off warnings" do
+    before :each do
+      DatedBackup::Warnings.stub!(:execute_silently).and_return nil
+    end
+    
+    it "should turn off the warnings when executing" do
+      DatedBackup::Warnings.should_receive(:execute_silently).and_return nil
+      DatedBackup::ExecutionContext.new(nil)
+    end
+  end
+  
 end
 
 
