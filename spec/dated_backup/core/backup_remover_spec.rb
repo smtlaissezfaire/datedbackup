@@ -42,7 +42,30 @@ module DatedBackup
         BackupRemover.should_receive(:execute).with("rm -rf dir1 dir2").and_return nil
         BackupRemover.remove!(@dir, @rules)
       end
-            
+      
+      it "should not issue the rm command if no directories are to be removed"
+    end
+    
+    describe BackupRemover, "removing directories (regression tests)" do
+      before :each do
+        @complete_set = BackupSet.new [
+          "/root/etc_backup/2007-08-01-16h-36m-47s", 
+          "/root/etc_backup/2007-08-01-16h-28m-59s", 
+          "/root/etc_backup/2007-07-31-07h-16m-15s",
+          "/root/etc_backup/2007-07-20-16h-27m-03s", ]
+        @backup_root = "/root/etc_backup"
+        @keep_rules = [{
+          :scope=>:monthly, 
+          :constraint=>Time.gm('1969', '12', '31', '19')...Time.gm('2007', '08', '01', '16', '37', '10')
+        }]
+        BackupSet.stub!(:find_files_in_directory).and_return @complete_set
+        Core::BackupRemover.stub!(:execute).and_return nil
+      end
+      
+      it "should remove the directories" do
+        Core::BackupRemover.should_receive(:execute).with("rm -rf /root/etc_backup/2007-08-01-16h-28m-59s /root/etc_backup/2007-07-20-16h-27m-03s")
+        Core::BackupRemover.remove!(@backup_root, @keep_rules)
+      end
     end
   end
 end

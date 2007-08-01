@@ -1,3 +1,5 @@
+fix bugs
+rm -rf should not output if no files to delete
 remove warnings
 remove the class/module redundancy from the specs
 only create new directory when the root directory has no dated backup

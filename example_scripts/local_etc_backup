@@ -5,7 +5,6 @@ destination   '/root/etc_backup'
 
 after {
   remove_old {
-    keep this weeks backups
     keep monthly backups    
   }
 }
