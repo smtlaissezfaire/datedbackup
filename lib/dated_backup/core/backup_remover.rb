@@ -9,19 +9,18 @@ module DatedBackup
         
         def remove!(dir, rules=[])
           complete_set = BackupSet.find_files_in_directory dir
-          set_to_remove = remove_successively(complete_set, rules)
           
-          execute("rm -rf #{set_to_remove.map{ |element| "#{element} " }.to_s.strip}")
+          execute("rm -rf #{set_to_remove(complete_set, rules).map{ |element| "#{element} " }.to_s.strip}")
         end
         
         private
         
-        def remove_successively(set, rules)
+        def set_to_remove(set, rules)
           if rules.empty?
             return []
           else
             to_remove = set - set.filter_by_rule(rules.car)
-            return(to_remove - remove_successively(to_remove, rules.cdr))
+            return(to_remove - set_to_remove(to_remove, rules.cdr))
           end
         end
       end
