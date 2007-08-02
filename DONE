@@ -1,39 +1,17 @@
-trunk:
-[2007.08.01]
-- many misc. bug fixes
-- documentation added in README file
-- Backup Deletion now seems to work (almost too well)
 
-[2007.07.21]
-- removed dependency on GNU cp, so now we can DatedBackup on Mac OS X
-- outputting of deleted directories
-- fixed small bugs
+0.2.0
+===========
+- A Script Runner/binary has been added (dbackup)
+- A DSL has been added for configuring backups
+- Removal of old backups can now be specified in the DSL, using
+  natural language forms
+- Before + After actions for the script runner
+- RSpec + RCov = Bug free code
+- Documentation added in the README file
+- Developer Documentation in Rake and RSpec Report
+- A series of example config files have been attached for Documentation
+- Root backup directories are now created automatically
 
-[2007.07.25]
-- ExecutionContext class added, so now the separate parts of the DSL
-  can execute in separate contexts.  The Execution Contexts
-  will execute the DSL in an anonymous class + instance, so methods
-  used to run the DSL do not need be included.  The DSL's themselves
-  have become modules, mixed in to the anonymous classes.  
-  Work still needs to be done on calling these, both from the initial
-  call in /bin, and later on in the DatedBackup class.
-  
-- Any number of scripts can now be passed to the dbackup command line
-  utility.  So specify the scripts one after another:
-  dbackup script1 script2 script3
-  
-[2007.07.20]
-- Added basic DSL configuration, so no more rake for config files
-  Documentation via Rake, Rcov, and the spec reports are now
-  available in doc/
-  specs have been added, and code coverage is now at 100%
-  
-[2007.07.15]
-- YAML support.  Now all configuration files are written in yaml, and
-  should be loaded by running dbackup config_file.yaml
-
-[2007.07.12] 
-- Command line runner, dbackup added to bin.  Scripts can now be called
-  with the dbackup script_name.  Scripts no longer have to include
-  the requirement of the gem, be executable, or end in .rb syntax.
-
+0.1.0
+===========
+- Initial Release
