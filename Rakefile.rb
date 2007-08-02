@@ -63,7 +63,9 @@ desc "Remove all documentation"
 task :clobber_documentation => [:clobber_rdoc, :clobber_rcov, :clobber_rspec_report]
 
 desc "Build Release"
-task :build_release => [:pre_commit, :repackage]
+task :build_release => [:pre_commit, :repackage] do
+  %x(mv pkg gem)
+end
 
 desc "Run all examples with RCov"
 Spec::Rake::SpecTask.new('rcov') do |t|
