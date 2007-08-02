@@ -53,31 +53,6 @@ describe "DSL Integration/Regression Test with the local_etc_backup script" do
   end
 end
 
-describe "DSL Integration/Regression Test with the local_etc_backup script with a block" do
-  before :each do
-    t = Time.gm '2007', '07', '31'
-    @directories = [
-      "2007-07-31-00h-00m-00s", #tuesday
-      "2007-07-30-00h-00m-00s",
-      "2007-07-27-00h-00m-00s", # last week
-      "2007-06-31-00h-00m-00s",
-      "2007-06-30-00h-00m-00s",
-      "2007-05-31-00h-00m-00s"
-    ]
-    
-    @after_run = lambda {
-      remove_old {
-        keep this weeks backups
-        keep monthly backups
-      }
-    }
-    Kernel.stub!(:`).and_return nil
-  end
-  
-  
-  it "should send rm -rf to all of the directories which are not kept" 
-end
-
 describe "DSL Integration/Regression Tests with the samba_shares script" do
   before :each do
     @dbackup = mock DatedBackup::Core
@@ -112,5 +87,4 @@ describe "DSL Integration/Regression Tests with the samba_shares script" do
     })
     DatedBackup::ExecutionContext.new :main, @file
   end
-  
 end
