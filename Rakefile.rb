@@ -5,7 +5,7 @@ require 'rake/gempackagetask'
 
 
 spec = Gem::Specification.new do |s|
-  extra_rdoc_files = %w(README COPYRIGHT DONE)
+  extra_rdoc_files = %w(README COPYRIGHT RELEASES CHANGELOG)
   
   s.name      = "dated_backup"
   s.version   = "0.1.1"
