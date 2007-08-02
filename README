@@ -12,6 +12,10 @@ with rsync.  For more information on this technique, see:
 
   http://www.mikerubel.org/computers/rsync_snapshots/
   
+At the moment, this program can be thought of as a limited, Ruby version of
+the popular utility rsnapshot.  In the future, it's feature set will be diverging
+from that of rsnapshot.
+  
 Dated Backup no longer depends on GNU cp, but instead uses rsync's --link-dest
 option to simulate the hard-link method.
 
@@ -21,6 +25,9 @@ Backup Assumptions
 * Your backup *server* is POSIX compliant (a modern day UNIX - Linux, *BSD, Mac OS X)
 * You would like to perform incremental snapshots with timestamps
 
+Installation:
+
+* sudo gem install 'datedbackup' --include-dependencies
 
 Dependencies
 
@@ -28,7 +35,7 @@ Dated Backup has the following dependencies:
 
   * Ruby
   * Rubygems
-  * ActiveSupport gem
+  * Rails' 'ActiveSupport' gem
   * A copy of rsync, which supports the --link-dest option.  
 
 Rsync is not required on the machine to be backed up - only on the machine which stores
