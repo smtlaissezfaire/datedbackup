@@ -1,0 +1,21 @@
+
+= 0.2.0
+=======
+
+- A Script Runner/binary has been added (dbackup)
+- A DSL has been added for configuring backups
+- Removal of old backups can now be specified in the DSL, using
+  natural language forms
+- Before + After actions for the script runner
+- RSpec + RCov = Bug free code
+- Documentation added in the README file
+- Developer Documentation in Rake and RSpec Report
+- A series of example config files have been attached for Documentation
+- Root backup directories are now created automatically
+- Removed dependency on GNU's cp, so now this utility can be used
+  on any *NIX, including Mac OS X
+
+= 0.1.0
+=======
+
+- Initial Release

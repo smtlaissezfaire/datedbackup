@@ -1,0 +1,186 @@
+
+= Introduction
+
+Dated Backup is a program which does exactly what it's name says: 
+It creates backups of any directory, timestamping the backups. It then 
+performs incremental backups on every subsequent run.  The really nice thing here 
+is that those backups are fully viewable as snapshots, even though they are 
+also incremental.
+
+This method of backup uses the hard-link technique in combination
+with rsync.  For more information on this technique, see: 
+
+  http://www.mikerubel.org/computers/rsync_snapshots/
+  
+At the moment, this program can be thought of as a limited, Ruby version of
+the popular unix utility rsnapshot.  Dated Backup's feature set already does
+things a little different from rsnapshot, and in the future will diverge widely.
+  
+Dated Backup no longer depends on GNU cp, but instead uses rsync's --link-dest
+option to simulate the hard-link method.
+
+
+== Backup Assumptions
+
+* Your backup *server* is POSIX compliant (a modern day UNIX - Linux, *BSD, Mac OS X)
+* You would like to perform incremental snapshots with timestamps
+
+= Installation:
+
+* sudo gem install 'datedbackup' --include-dependencies
+
+== Dependencies
+
+Dated Backup has the following dependencies:
+
+  * Ruby
+  * Rubygems
+  * Rails' 'ActiveSupport' gem
+  * A copy of rsync, which supports the --link-dest option.  
+
+Rsync is not required on the machine to be backed up - only on the machine which stores
+the backup.  
+
+
+= HOWTO Backup with Dated Backup
+
+Each backup source will correspond to a configuration file, which defines the source 
+directory (or remote location), and the local destination directory.  These two 
+parameters are the only requirements for a backup configuration file to be valid.  
+The script can be run with the executable dbackup:
+
+% dbackup my_script
+
+Other scripts can be run sequentially by listing them in order:
+
+% dbackup my_first_script my_second_script
+
+All of the configuration occurs in the configuration file.
+
+
+== The DSL, or How To Write A Configuration File
+
+Here are the valid key words which can be set in the main section of the configuration file:
+
+  * source
+  * sources
+  * destination
+  * options
+  * user_domain
+  
+The values for these should be strings.  They are specified like so:
+
+  source '/etc'
+  
+Multiple values can also be given:
+
+  sources '/etc', '/home'
+  
+The destination keyword only takes one value, but in the next release (0.3), this should
+be fixed to allow backups to be copied to multiple locations.
+
+The 'source' (or 'sources') keyword and the 'destination' keyword
+are the only ones needed for a valid backup config file.  The 'user_domain' keyword is used 
+when the source is not a local directory (or local file).  The user_domain should be in user@server
+style.  As for the 'options' keyword, this should be specified as a string for extra options to be
+feed into rsync.  It too, is optional.
+
+
+=== Before and After Filters
+
+It is very convenient, and often necessary to perform something before or after a backup script
+runs.  Any actions must be inside a 'before' or 'after' block:
+
+before do
+ ...some before action here
+end
+
+after {
+  ..some other action here
+}
+
+You have the pick of do...end, or { ... }, thanks to Matz.  No doubt, this will be familiar to any
+Ruby programmer.
+
+At the time of this release (0.2), there is only one valid action - 'remove_old'.  Other actions, such
+as running a script (or any number of scripts, in sequence), as well as running a command specified 
+in the configuration file itself, should be coming in subsequent releases.
+
+For some example configuration files, see the examples bundled with RDoc, or in the example_configs
+directory.
+
+
+=== remove_old
+
+The remove_old block takes several different natural language time forms.  All of the statements inside
+a remove_old block must begin with 'keep'.  An example would work best to illustrate how to use this:
+
+after do
+  remove_old do
+    keep this months backups
+    keep last months backups
+    keep monthly backups
+  end
+end
+
+This says the following: After the backup runs, remove all backups that do not conform to the criteria
+given.  The first line will save all backups which have occured this month, regardless of what time 
+they occurred (as long as they occurred in the current month).  The next line says the same, except for
+last month's backups.
+
+The last line, "keep monthly backups", will keep one backup from each month not already kept.  If you perform
+daily backups every day, this would end of keeping the last day's backup from every month (the 29, 30, or 31,
+according to the month)
+
+A few things should be notice here: These config files read very easily, so don't let them fool you.  
+They will delete your backups, forever lost.  I've already burned myself with the following: 
+
+after {
+  remove_old {
+    keep this weeks backups 
+    keep last weeks backups 
+    keep weekly backups from this month # or: keep this months weekly backups
+    keep monthly backups # or: keep all monthly backups
+  }
+}
+
+After a month of backups, the month rolled over, and the next backup on the first of the month deleted
+all backups, except the one just performed, and the one from the last day of the month before.  
+So beware, and think before you specify any remove_old block at all.  
+
+Another thing to notice (for any of you non-ruby programmers out there): The config file must be in valid
+ruby, so specifying a "week's backups" should be written as a 'weeks backups', 
+i.e., don't put any apostrophes in there.
+
+The config file shown above should give you some hints on the possibilities.  Here are the valid keywords:
+
+  Time specifiers:
+    * this
+    * last
+  Time ranges (these can also be pluralized):
+    * day 
+    * month
+    * week
+    * year
+  Incremental time slices (one per * methods):
+    * daily
+    * weekly
+    * monthly
+    * yearly
+  And some placeholders, which have no affect, but allow the file to read nicely:
+    * backup
+    * backups
+    * from
+    * all
+
+Some other keywords, such as 'yesterday', and 'today' will be added in subsequent releases.
+
+And finally, a final warning: If a remove_old block is given, but no keep rules are given, every backup
+will be deleted!  This may change in a subsequent release, but for now, beware!
+
+
+= Contributions
+
+If you are interested in contributing code or documentation, please contact me, 
+Scott Taylor, at scott AT railsnewbie DOT com.
+
