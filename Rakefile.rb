@@ -3,8 +3,9 @@ require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
 require 'rake/gempackagetask'
 
+
 spec = Gem::Specification.new do |s|
-  extra_doc_list = %w(README COPYRIGHT DONE)
+  extra_rdoc_files = %w(README COPYRIGHT DONE)
   
   s.name      = "dated_backup"
   s.version   = "0.1.1"
@@ -14,7 +15,7 @@ spec = Gem::Specification.new do |s|
   s.platform  = Gem::Platform::RUBY
   s.summary   = "Incremental Dated Backups Using Rsync"
               
-  s.files     = FileList["{bin,lib,example_configs}/**/*"].to_a + extra_doc_list
+  s.files     = FileList["{bin,lib,example_configs}/**/*"].to_a + extra_rdoc_files
   
   s.bindir   = 'bin'
   s.executables = ["dbackup"]   
@@ -22,7 +23,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '>= 1.4.2'             
       
   s.has_rdoc          = true
-  s.extra_rdoc_files  = FileList["example_configs/**/*"] + extra_rdoc_files
+  s.extra_rdoc_files  = FileList["example_configs/**/*"].to_a + extra_rdoc_files
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
