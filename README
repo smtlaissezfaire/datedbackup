@@ -1,6 +1,5 @@
 
-Introduction
--------------
+= Introduction
 
 Dated Backup is a program which does exactly what it's name says: 
 It creates backups of any directory, timestamping the backups. It then 
@@ -21,16 +20,16 @@ Dated Backup no longer depends on GNU cp, but instead uses rsync's --link-dest
 option to simulate the hard-link method.
 
 
-Backup Assumptions
+== Backup Assumptions
 
 * Your backup *server* is POSIX compliant (a modern day UNIX - Linux, *BSD, Mac OS X)
 * You would like to perform incremental snapshots with timestamps
 
-Installation:
+= Installation:
 
 * sudo gem install 'datedbackup' --include-dependencies
 
-Dependencies
+== Dependencies
 
 Dated Backup has the following dependencies:
 
@@ -43,7 +42,7 @@ Rsync is not required on the machine to be backed up - only on the machine which
 the backup.  
 
 
-HOWTO Backup with Dated Backup
+= HOWTO Backup with Dated Backup
 
 Each backup source will correspond to a configuration file, which defines the source 
 directory (or remote location), and the local destination directory.  These two 
@@ -59,7 +58,7 @@ Other scripts can be run sequentially by listing them in order:
 All of the configuration occurs in the configuration file.
 
 
-The DSL, or How To Write A Configuration File
+== The DSL, or How To Write A Configuration File
 
 Here are the valid key words which can be set in the main section of the configuration file:
 
@@ -87,7 +86,7 @@ style.  As for the 'options' keyword, this should be specified as a string for e
 feed into rsync.  It too, is optional.
 
 
-Before and After Filters
+=== Before and After Filters
 
 It is very convenient, and often necessary to perform something before or after a backup script
 runs.  Any actions must be inside a 'before' or 'after' block:
@@ -111,7 +110,7 @@ For some example configuration files, see the examples bundled with RDoc, or in 
 directory.
 
 
-remove_old
+=== remove_old
 
 The remove_old block takes several different natural language time forms.  All of the statements inside
 a remove_old block must begin with 'keep'.  An example would work best to illustrate how to use this:
@@ -180,7 +179,7 @@ And finally, a final warning: If a remove_old block is given, but no keep rules 
 will be deleted!  This may change in a subsequent release, but for now, beware!
 
 
-Contributions
+= Contributions
 
 If you are interested in contributing code or documentation, please contact me, 
 Scott Taylor, at scott AT railsnewbie DOT com.
