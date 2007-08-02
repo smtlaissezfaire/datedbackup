@@ -1,5 +1,4 @@
 
-for 0.2 release
 - include example scripts in rdoc
 - rdoc documentation should include README, COPYRIGHT, even when generating normally
 - gem generation should include all documentation
