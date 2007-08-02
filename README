@@ -1,5 +1,6 @@
 
 Introduction
+-------------
 
 Dated Backup is a program which does exactly what it's name says: 
 It creates backups of any directory, timestamping the backups. It then 

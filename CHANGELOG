@@ -3,6 +3,7 @@ trunk:
 - many misc. bug fixes
 - documentation added in README file
 - Backup Deletion now seems to work (almost too well)
+- warnings turned off for DSL
 
 [2007.07.21]
 - removed dependency on GNU cp, so now we can DatedBackup on Mac OS X

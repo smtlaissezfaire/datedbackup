@@ -1,40 +1,29 @@
 
-bug fixes
-
-documentation on DSL
-
-fix/turn off all warnings that don't come directly from the DSL
-
-rdoc documentation should include README, COPYRIGHT, even when generating normally
-gem generation should include all documentation
-
-Parameter in config to name backups, + output this when running
-
-only operate on Timestamped directories, not other directories
-
-remove unix dependency - try to remove as many Kernel.` calls as possible
-after this is done, fix the formating
-
-change ReverseSortedArray so that it has a callback mechanism - every time a 
-method changes the internal representation of the data, the data
-gets resorted and checked for uniqueness
-
-heckle - does not work, as it leads to an infinite recursion
-
-need to add a lot of error checking
-
-include example scripts in rdoc
+for 0.2 release
+- include example scripts in rdoc
+- rdoc documentation should include README, COPYRIGHT, even when generating normally
+- gem generation should include all documentation
+  
+- Parameter in config to name backups, + output this when running
+- only operate on Timestamped directories, not other directories
+- remove unix dependency - try to remove as many Kernel.` calls as possible
+    - after this is done, fix the output to the 'execute' method
+- change ReverseSortedArray so that it has a callback mechanism - every time a 
+  method changes the internal representation of the data, the data
+  gets resorted and checked for uniqueness
+- get heckle to work.  Right now it recurs infinitely
+- lots of error checking needs to occur
+- use rbehave to perform integration tests
 
 
 DSL aliases:  
-from this day => alias for todays backups, from today
-from last day => alias for yesterdays, from yesterday
-weeklies, monthlies => weekly, monthly
+- from this day => alias for todays backups, from today
+- from last day => alias for yesterdays, from yesterday
+- weeklies, monthlies => weekly, monthly
 
-features:
-execute_script functions in before and after
-include + exclude rules
-execute_command(s)
-a logger for subversion like logs
-permissions
-transactions?
+- execute_script functions in before and after
+- include + exclude rules
+- execute_command(s)
+- a logger for subversion like logs
+- permissions
+- transactions?

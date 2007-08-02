@@ -11,6 +11,8 @@
 - Developer Documentation in Rake and RSpec Report
 - A series of example config files have been attached for Documentation
 - Root backup directories are now created automatically
+- Removed dependency on GNU's cp, so now this utility can be used
+  on any *NIX, including Mac OS X
 
 0.1.0
 ===========
