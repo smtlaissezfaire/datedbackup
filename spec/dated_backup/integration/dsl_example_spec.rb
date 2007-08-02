@@ -6,7 +6,7 @@ describe "DSL Integration/Regression Test with example.com Script" do
     DatedBackup::Core.stub!(:new).and_return @dbackup
     @dbackup.stub!(:run).and_return @dbackup
     @dbackup.stub!(:set_attributes).and_return @dbackup
-    @files = "example_scripts/example.com"
+    @files = "example_configs/example.com"
   end
   
   #user_domain  "nbackup@example.com"
@@ -31,7 +31,7 @@ describe "DSL Integration/Regression Test with the local_etc_backup script" do
     DatedBackup::Core.stub!(:new).and_return @dbackup
     @dbackup.stub!(:run).and_return @dbackup
     @dbackup.stub!(:set_attributes).and_return @dbackup
-    @file = "example_scripts/local_etc_backup"
+    @file = "example_configs/local_etc_backup"
   end
 
   #source       '/etc'
@@ -59,7 +59,7 @@ describe "DSL Integration/Regression Tests with the samba_shares script" do
     DatedBackup::Core.stub!(:new).and_return @dbackup
     @dbackup.stub!(:run).and_return @dbackup
     @dbackup.stub!(:set_attributes).and_return @dbackup
-    @file = "example_scripts/samba_shares"
+    @file = "example_configs/samba_shares"
   end
 
   # source      = '/mnt/shares'
