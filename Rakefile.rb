@@ -8,7 +8,7 @@ spec = Gem::Specification.new do |s|
   extra_rdoc_files = %w(README COPYRIGHT RELEASES CHANGELOG)
   
   s.name      = "dated_backup"
-  s.version   = "0.1.1"
+  s.version   = "0.2.0"
   s.author    = "Scott Taylor"
   s.email     = "scott@railsnewbie.com"
   s.homepage  = "http://rubyforge.org/projects/datedbackup"
