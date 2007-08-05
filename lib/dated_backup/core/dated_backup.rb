@@ -46,7 +46,7 @@ module DatedBackup
   private
 
     def generate_backup_filename
-      timestamp = Time.now.strftime "%Y-%m-%d-%Hh-%Mm-%Ss"
+      timestamp = Time.now.to_string
       "#{@backup_root}/#{timestamp}"
     end                         
 

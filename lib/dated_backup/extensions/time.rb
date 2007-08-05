@@ -52,6 +52,10 @@ class Time
     self.class.days_in_month(self.month, self.year)
   end
   
+  def to_string
+    strftime("%Y-%m-%d-%Hh-%Mm-%Ss")
+  end
+  
 end
 
 class Fixnum
