@@ -42,6 +42,16 @@ class Time
     beginning_of_week...end_of_week
   end
   
+  def each_day_in_month
+    1.upto(days_in_month) do |day_num|
+      yield beginning_of_month + (day_num - 1).day
+    end
+  end
+  
+  def days_in_month
+    self.class.days_in_month(self.month, self.year)
+  end
+  
 end
 
 class Fixnum
