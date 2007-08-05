@@ -19,4 +19,4 @@
 
 require File.dirname(__FILE__) + "/../lib/dated_backup"
 
-DatedBackup::ExecutionContext.new :main, *ARGV
+DatedBackup::ExecutionContext.new(:main, *ARGV)
