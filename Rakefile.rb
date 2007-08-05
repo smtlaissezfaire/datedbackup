@@ -1,21 +1,23 @@
 require 'rake'
+require "rake/rdoctask"
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
 require 'rake/gempackagetask'
 
+rdoc_files = FileList["{bin,lib,example_configs}/**/*"].to_a
+extra_rdoc_files = %w(README COPYRIGHT RELEASES CHANGELOG)
 
 spec = Gem::Specification.new do |s|
-  extra_rdoc_files = %w(README COPYRIGHT RELEASES CHANGELOG)
   
   s.name      = "dated_backup"
-  s.version   = "0.2.0"
+  s.version   = "0.2.1"
   s.author    = "Scott Taylor"
   s.email     = "scott@railsnewbie.com"
   s.homepage  = "http://rubyforge.org/projects/datedbackup"
   s.platform  = Gem::Platform::RUBY
   s.summary   = "Incremental Dated Backups Using Rsync"
               
-  s.files     = FileList["{bin,lib,example_configs}/**/*"].to_a + extra_rdoc_files
+  s.files     = rdoc_files + extra_rdoc_files
   
   s.bindir   = 'bin'
   s.executables = ["dbackup"]   
@@ -30,11 +32,20 @@ Rake::GemPackageTask.new(spec) do |pkg|
   pkg.need_tar = true
 end
 
-desc "Generate Rdoc"
-task :rdoc => [:clobber_rdoc] do
-  %x(rdoc -o doc/rdoc --exclude "Rakefile.rb" --exclude "spec/")
+Rake::RDocTask.new do |rd|
+  rd.main = "README"
+  rd.rdoc_files.include(rdoc_files, extra_rdoc_files)
+  rd.rdoc_dir = "doc/rdoc/"
 end
 
+#desc "Generate Rdoc"
+#task :rdoc => [:clobber_rdoc] do
+#  %x(rdoc -o doc/rdoc --exclude "Rakefile.rb" --exclude "spec/")
+#  extra_rdoc_files.each do |f|
+#    %x(cp #{f} doc/rdoc/)
+#  end
+#end
+#
 desc "Generate RSpec Report"
 task :rspec_report do
   files = FileList["spec/**/*.rb"].to_s

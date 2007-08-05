@@ -22,12 +22,12 @@ option to simulate the hard-link method.
 
 == Backup Assumptions
 
-* Your backup *server* is POSIX compliant (a modern day UNIX - Linux, *BSD, Mac OS X)
-* You would like to perform incremental snapshots with timestamps
+  * Your backup *server* is POSIX compliant (a modern day UNIX - Linux, *BSD, Mac OS X)
+  * You would like to perform incremental snapshots with timestamps
 
 = Installation:
 
-* sudo gem install 'datedbackup' --include-dependencies
+  * sudo gem install 'dated_backup' --include-dependencies
 
 == Dependencies
 
@@ -49,11 +49,11 @@ directory (or remote location), and the local destination directory.  These two
 parameters are the only requirements for a backup configuration file to be valid.  
 The script can be run with the executable dbackup:
 
-% dbackup my_script
+<tt>$ dbackup my_script</tt>
 
 Other scripts can be run sequentially by listing them in order:
 
-% dbackup my_first_script my_second_script
+<tt>$ dbackup my_first_script my_second_script</tt>
 
 All of the configuration occurs in the configuration file.
 
@@ -90,14 +90,14 @@ feed into rsync.  It too, is optional.
 
 It is very convenient, and often necessary to perform something before or after a backup script
 runs.  Any actions must be inside a 'before' or 'after' block:
+  
+  before do
+    # ...some before action here
+  end
 
-before do
- ...some before action here
-end
-
-after {
-  ..some other action here
-}
+  after {
+    # ...some other action here
+  }
 
 You have the pick of do...end, or { ... }, thanks to Matz.  No doubt, this will be familiar to any
 Ruby programmer.
@@ -115,13 +115,13 @@ directory.
 The remove_old block takes several different natural language time forms.  All of the statements inside
 a remove_old block must begin with 'keep'.  An example would work best to illustrate how to use this:
 
-after do
-  remove_old do
-    keep this months backups
-    keep last months backups
-    keep monthly backups
+  after do
+    remove_old do
+      keep this months backups
+      keep last months backups
+      keep monthly backups
+    end
   end
-end
 
 This says the following: After the backup runs, remove all backups that do not conform to the criteria
 given.  The first line will save all backups which have occured this month, regardless of what time 
@@ -135,14 +135,14 @@ according to the month)
 A few things should be notice here: These config files read very easily, so don't let them fool you.  
 They will delete your backups, forever lost.  I've already burned myself with the following: 
 
-after {
-  remove_old {
-    keep this weeks backups 
-    keep last weeks backups 
-    keep weekly backups from this month # or: keep this months weekly backups
-    keep monthly backups # or: keep all monthly backups
+  after {
+    remove_old {
+      keep this weeks backups 
+      keep last weeks backups 
+      keep weekly backups from this month # or: keep this months weekly backups
+      keep monthly backups # or: keep all monthly backups
+    }
   }
-}
 
 After a month of backups, the month rolled over, and the next backup on the first of the month deleted
 all backups, except the one just performed, and the one from the last day of the month before.  
@@ -175,12 +175,19 @@ The config file shown above should give you some hints on the possibilities.  He
 
 Some other keywords, such as 'yesterday', and 'today' will be added in subsequent releases.
 
-And finally, a final warning: If a remove_old block is given, but no keep rules are given, every backup
+And finally, a warning: If a remove_old block is given, but no keep rules are given, every backup
 will be deleted!  This may change in a subsequent release, but for now, beware!
+
+
+= License
+
+Dated Backup is released under the GNU GPL.  This means that you can use it for no charge as an individual
+or business.  It also means that if you are a hacker, you can modify it at your will.
+The license is attached under 'COPYRIGHT'.
 
 
 = Contributions
 
 If you are interested in contributing code or documentation, please contact me, 
-Scott Taylor, at scott AT railsnewbie DOT com.
+Scott Taylor, at scott AT railsnewbie DOT com.  I'm also up for hire (hint, hint).
 
