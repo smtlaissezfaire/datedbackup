@@ -46,8 +46,7 @@ module DatedBackup
   private
 
     def generate_backup_filename
-      timestamp = Time.now.to_string
-      "#{@backup_root}/#{timestamp}"
+      "#{@backup_root}/#{Time.now.to_string}"
     end                         
 
   protected
