@@ -127,15 +127,19 @@ module DatedBackup
       include BackupRemoverHelper
       
       before :each do
-        Time.stub!(:now).and_return Time.gm('2007', 'Aug', '05', '22', '29', '45')
-        
-        @complete_set = BackupSet.new ["/var/backups/network/backups/shares/2007-08-03-01h-05m-15s"]
+        Time.stub!(:now).and_return Time.gm('2007', 'Aug', '06', '06', '33', '46')
+      
+        @complete_set = BackupSet.new [
+          "/var/backups/network/backups/shares/2007-08-06-01h-41m-47s", 
+          "/var/backups/network/backups/shares/2007-08-03-01h-05m-15s"
+        ]
         @backup_root = "/var/backups/network/backups/shares"
         @keep_rules = [
-          {:constraint => Time.gm('2007', 'Jul', '23')...Time.gm('2007', 'Jul', '29', '23', '59', '59')}, 
-          {:scope=>:weekly , :constraint => Time.gm('2007', 'Aug', '01')...Time.gm('2007', 'Aug', '05', '22', '29', '44')}, 
-          {:scope=>:weekly , :constraint => Time.gm('2007', 'Jul', '01')...Time.gm('2007', 'Jul', '31', '23', '59', '59')}, 
-          {:scope=>:monthly, :constraint => Time.gm('1969', 'Dec', '31')...Time.gm('2007', 'Aug', '05', '22', '29', '45')}
+          {:constraint => Time.gm('2007', 'Aug', '06')...Time.gm('2007', 'Aug', '06')}, 
+          {:constraint => Time.gm('2007', 'Jul', '30')...Time.gm('2007', 'Aug', '05')}, 
+          {:scope => :weekly , :constraint => Time.gm('2007', 'Aug', '01')...Time.gm('2007', 'Aug', '06', '06', '33', '46')}, 
+          {:scope => :weekly , :constraint => Time.gm('2007', 'Jul', '01')...Time.gm('2007', 'Jul', '31', '23', '59', '59')}, 
+          {:scope => :monthly, :constraint => Time.gm('1969', 'Dec', '31')...Time.gm('2007', 'Aug', '06', '06', '33', '46')}
         ]
         
         include_helpers
