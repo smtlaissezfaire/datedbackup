@@ -38,14 +38,6 @@ Rake::RDocTask.new do |rd|
   rd.rdoc_dir = "doc/rdoc/"
 end
 
-#desc "Generate Rdoc"
-#task :rdoc => [:clobber_rdoc] do
-#  %x(rdoc -o doc/rdoc --exclude "Rakefile.rb" --exclude "spec/")
-#  extra_rdoc_files.each do |f|
-#    %x(cp #{f} doc/rdoc/)
-#  end
-#end
-#
 desc "Generate RSpec Report"
 task :rspec_report do
   files = FileList["spec/**/*.rb"].to_s
