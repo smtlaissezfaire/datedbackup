@@ -20,7 +20,13 @@ describe MainExecutionContext, "parsing" do
     }.should raise_error(InvalidKeyError, "The key 'an_invalid_key' is not a recognized expression")
   end
   
-  it "should raise a friendly SyntaxError message when a syntax error is encountered"
+  it "should raise a friendly SyntaxError message when a syntax error is encountered" do
+    pending "Friendly Syntax error" do
+      lambda {
+        @dsl.instance_eval "x = :~&"      
+      }.should raise_error(SyntaxError, "A config file must be in valid Ruby")      
+    end
+  end
   
 end
 

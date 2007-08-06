@@ -13,7 +13,7 @@ describe ReverseSortedUniqueArray do
     ReverseSortedUniqueArray.new().class.should == ReverseSortedUniqueArray
   end
   
-  it "should hold a unique array even after a method which changes the state of the array"
+  it "should hold a unique array even after a method has changed the state of the array"
   it "should hold a reverse-sorted unique array even after a method has changed the state of the array" 
 end
 
