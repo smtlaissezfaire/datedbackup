@@ -2,6 +2,14 @@ require File.dirname(__FILE__) + "/../../spec_helper"
 
 module DatedBackup
   class Core
+    
+    module BackupRemoverHelper
+      def include_helpers
+        BackupSet.stub!(:find_files_in_directory).and_return @complete_set
+        BackupRemover.stub!(:execute).and_return nil
+      end
+    end
+    
     describe BackupRemover, "removing directories" do
       before :each do
         @dir = mock Dir
@@ -46,6 +54,8 @@ module DatedBackup
     end
     
     describe BackupRemover, "removing directories (regression tests)" do
+      include BackupRemoverHelper
+      
       before :each do
         @complete_set = BackupSet.new [
           "/root/etc_backup/2007-08-01-16h-36m-47s", 
@@ -54,11 +64,11 @@ module DatedBackup
           "/root/etc_backup/2007-07-20-16h-27m-03s", ]
         @backup_root = "/root/etc_backup"
         @keep_rules = [{
-          :scope=>:monthly, 
-          :constraint=>Time.gm('1969', '12', '31', '19')...Time.gm('2007', '08', '01', '16', '37', '10')
+          :scope => :monthly, 
+          :constraint => Time.gm('1969', '12', '31', '19')...Time.gm('2007', '08', '01', '16', '37', '10')
         }]
-        BackupSet.stub!(:find_files_in_directory).and_return @complete_set
-        Core::BackupRemover.stub!(:execute).and_return nil
+
+        include_helpers
       end
       
       it "should remove the directories" do
@@ -81,6 +91,8 @@ module DatedBackup
     end
     
     describe BackupRemover, "removing directories with multiple filter rules (regression test)" do
+      include BackupRemoverHelper
+      
       before :each do
         @complete_set = BackupSet.new [
           "/root/etc_backup/2007-08-01-16h-36m-47s", 
@@ -100,8 +112,8 @@ module DatedBackup
             :constraint=>Time.gm('2007', '01', '01')...Time.gm('2007', '08', '01', '16', '37', '10')
           }
         ]
-        BackupRemover.stub!(:execute).and_return nil
-        BackupSet.stub!(:find_files_in_directory).and_return @complete_set
+        
+        include_helpers
       end
       
       it "should issue the rm command only on the one directory which does not match the filter rule" do
@@ -109,5 +121,31 @@ module DatedBackup
         BackupRemover.remove!(@backup_root, @keep_rules)
       end
     end
+  
+  
+    describe BackupRemover, "regression test for multiple filter rules w/ deletion for samba shares script" do
+      include BackupRemoverHelper
+      
+      before :each do
+        Time.stub!(:now).and_return Time.gm('2007', 'Aug', '05', '22', '29', '45')
+        
+        @complete_set = BackupSet.new ["/var/backups/network/backups/shares/2007-08-03-01h-05m-15s"]
+        @backup_root = "/var/backups/network/backups/shares"
+        @keep_rules = [
+          {:constraint => Time.gm('2007', 'Jul', '23')...Time.gm('2007', 'Jul', '29', '23', '59', '59')}, 
+          {:scope=>:weekly , :constraint => Time.gm('2007', 'Aug', '01')...Time.gm('2007', 'Aug', '05', '22', '29', '44')}, 
+          {:scope=>:weekly , :constraint => Time.gm('2007', 'Jul', '01')...Time.gm('2007', 'Jul', '31', '23', '59', '59')}, 
+          {:scope=>:monthly, :constraint => Time.gm('1969', 'Dec', '31')...Time.gm('2007', 'Aug', '05', '22', '29', '45')}
+        ]
+        
+        include_helpers
+      end
+      
+      it "should delete none of the files" do
+        BackupRemover.should_not_receive(:execute)
+        BackupRemover.remove!(@backup_root, @keep_rules)
+      end
+    end
+  
   end
 end
