@@ -1,10 +1,10 @@
 
-class TimeSymbolError < RuntimeError; end
-class StringToTimeConversionError < RuntimeError; end
+# Base Class Errors
+class TimeSymbolError < StandardError; end
+class StringToTimeConversionError < StandardError; end
 
-
-class DatedBackupError < RuntimeError; end
-
+# DatedBackup Errors
+class DatedBackupError < StandardError; end
 class DirectoryError < DatedBackupError; end
 class InvalidDirectoryError < DirectoryError; end
 class NoBlockGiven < DatedBackupError; end
