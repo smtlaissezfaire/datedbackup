@@ -36,7 +36,8 @@ Dated Backup has the following dependencies:
   * Ruby
   * Rubygems
   * Rails' 'ActiveSupport' gem
-  * A copy of rsync, which supports the --link-dest option.  
+  * A copy of rsync, which supports the --link-dest option (version 2.5.7 or greater).
+  * A POSIX-like (Linux, BSD*, Mac OS X, Solaris) OS to store the backups  
 
 Rsync is not required on the machine to be backed up - only on the machine which stores
 the backup.  

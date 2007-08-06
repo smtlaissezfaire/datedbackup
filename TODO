@@ -14,7 +14,7 @@
 - lots of error checking needs to occur
 - use rbehave to perform integration tests
 - add umimplemented specs
-
+- -t flag to simulate running
 
 DSL aliases:  
 - from this day => alias for todays backups, from today

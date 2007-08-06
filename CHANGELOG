@@ -1,17 +1,27 @@
 trunk:
+
+= Rel 0.2.1
+* Rakfile's redundancies removed and generally cleaned up
+* Regression test finally fixed String#to_time bug
+* Error raising on String#to_time
+* Testing added for bin/dbackup
+* Errors now subclass from StandardError (not RuntimeError)
+* Time#each_day_in_month added
+
+= Rel 0.2
 [2007.08.01]
-- many misc. bug fixes
-- documentation added in README file
-- Backup Deletion now seems to work (almost too well)
-- warnings turned off for DSL
+* many misc. bug fixes
+* documentation added in README file
+* Backup Deletion now seems to work (almost too well)
+* warnings turned off for DSL
 
 [2007.07.21]
-- removed dependency on GNU cp, so now we can DatedBackup on Mac OS X
-- outputting of deleted directories
-- fixed small bugs
+* removed dependency on GNU cp, so now we can DatedBackup on Mac OS X
+* outputting of deleted directories
+* fixed small bugs
 
 [2007.07.25]
-- ExecutionContext class added, so now the separate parts of the DSL
+* ExecutionContext class added, so now the separate parts of the DSL
   can execute in separate contexts.  The Execution Contexts
   will execute the DSL in an anonymous class + instance, so methods
   used to run the DSL do not need be included.  The DSL's themselves
@@ -19,22 +29,23 @@ trunk:
   Work still needs to be done on calling these, both from the initial
   call in /bin, and later on in the DatedBackup class.
   
-- Any number of scripts can now be passed to the dbackup command line
+* Any number of scripts can now be passed to the dbackup command line
   utility.  So specify the scripts one after another:
   dbackup script1 script2 script3
   
 [2007.07.20]
-- Added basic DSL configuration, so no more rake for config files
+* Added basic DSL configuration, so no more rake for config files
   Documentation via Rake, Rcov, and the spec reports are now
   available in doc/
   specs have been added, and code coverage is now at 100%
   
 [2007.07.15]
-- YAML support.  Now all configuration files are written in yaml, and
+* YAML support.  Now all configuration files are written in yaml, and
   should be loaded by running dbackup config_file.yaml
 
 [2007.07.12] 
-- Command line runner, dbackup added to bin.  Scripts can now be called
+* Command line runner, dbackup added to bin.  Scripts can now be called
   with the dbackup script_name.  Scripts no longer have to include
   the requirement of the gem, be executable, or end in .rb syntax.
 
+= 0.1
