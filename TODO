@@ -1,8 +1,8 @@
 
-- include example scripts in rdoc
-- rdoc documentation should include README, COPYRIGHT, even when generating normally
+- build website for dbackup (webgen?)
+
+- include example scripts in rdoc (link to, in the future, since they get mangled)
 - gem generation should include all documentation
-  
 - Parameter in config to name backups, + output this when running
 - only operate on Timestamped directories, not other directories
 - remove unix dependency - try to remove as many Kernel.` calls as possible
@@ -13,7 +13,8 @@
 - get heckle to work.  Right now it recurs infinitely
 - lots of error checking needs to occur
 - use rbehave to perform integration tests
-
+- add umimplemented specs
+- -t flag to simulate running
 
 DSL aliases:  
 - from this day => alias for todays backups, from today
