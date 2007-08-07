@@ -63,11 +63,17 @@ module DatedBackup
         set_time_range :last, now
       end
       
-      def today arg=nil, now=Time.now
+      def today(arg=nil, now=Time.now)
         this(day, now)
       end
       
       alias :todays :today
+      
+      def yesterday(arg=nil, now=Time.now)
+        last(day, now)
+      end
+      
+      alias :yesterdays :yesterday
 
       def keep arg, now=Time.now
         all(self, now) unless time_range[:constraint]

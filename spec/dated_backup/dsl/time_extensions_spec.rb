@@ -129,6 +129,16 @@ describe TimeExtension, "year" do
   end
 end
 
+describe "A method which is callable with one or no arguments", :shared => true do
+  it "should be callable with no arguments" do
+    @extension.instance_eval "keep #{@method_name}"
+  end
+  
+  it "should be callable with one argument" do
+    @extension.instance_eval "keep #{@method_name} backups"
+  end
+end
+
 describe TimeExtension, "todays" do
   before :each do
     @extension = TimeExtension.new
@@ -150,22 +160,40 @@ describe TimeExtension, "todays" do
     @extension.should == @extension_two
   end
   
-  it "should be callable with no arguments" do
-    @extension.instance_eval do
-      keep todays
-    end
-  end
-  
-  it "should be callable with one argument" do
-    @extension.instance_eval do
-      keep todays backups
-    end
-  end
-  
+  it_should_behave_like "A method which is callable with one or no arguments"
   it_should_behave_like "A method which returns self"
   it_should_behave_like "A method which is responded to"  
   it_should_behave_like "A method which has an equivalent singular alias"
 end
+
+describe TimeExtension, "yesterdays" do
+  before :each do
+    @extension = TimeExtension.new
+    @extension_two = TimeExtension.new
+    
+    @method_name = :yesterdays
+    @time = Time.now
+    Time.stub!(:now).and_return @time
+  end
+  
+  it "should act like last(day)" do
+    @extension.instance_eval do
+      keep yesterdays backups
+    end
+    
+    @extension_two.instance_eval do
+      keep last days backups
+    end
+    
+    @extension.should == @extension_two
+  end
+  
+  it_should_behave_like "A method which is callable with one or no arguments"
+  it_should_behave_like "A method which returns self"
+  it_should_behave_like "A method which is responded to"
+  it_should_behave_like "A method which has an equivalent singular alias"
+end
+
 
 describe TimeExtension, "object with #==" do
   before :each do
@@ -209,7 +237,17 @@ describe TimeExtension, "object with #==" do
     @obj_one.should == @obj_two
   end
   
-  it "should be equal to the other object if equivalent method calls have been peformed on both objects" 
+  it "should be equal to the other object if equivalent method calls have been peformed on both objects" do
+    @obj_one.instance_eval do
+      keep backups from today
+    end
+    
+    @obj_two.instance_eval do
+      keep backups from this day
+    end
+    
+    @obj_one.should == @obj_two
+  end
 end
 
 describe TimeExtension, "keeping" do
