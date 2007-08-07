@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + "/../../spec_helper"
 
 TimeExtension = Class.new
 TimeExtension.class_eval do
+  extend DatedBackup::DSL::TimeExtensions::ClassMethods
+  add_all_time_methods
   include DatedBackup::DSL::TimeExtensions
 end
 

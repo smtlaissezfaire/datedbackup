@@ -12,7 +12,77 @@ module DatedBackup
     # then all of the backups in the time range given by
     # the :constraint key will be assumed to be kept.
     module TimeExtensions
+      
+      module ClassMethods
+        
+        # Adds all of the TimeSymbol methods, like
+        # day, days, daily, and dailies
+        def add_all_time_methods
+          add_singular_time_methods
+          add_plural_time_methods
+          add_plural_adverbial_time_methods
+          add_singular_adverbial_time_methods
+        end
+        
+      protected
+        
+        # Adds the methods:
+        # * year
+        # * month
+        # * day
+        # * week
+        def add_singular_time_methods
+          each_time_symbol do |time_sym|
+            define_method time_sym.singular do |*args|
+              self.send :time_component, time_sym.singular
+            end                      
+          end  
+        end
 
+        # Adds the methods:
+        # * years
+        # * months
+        # * days
+        # * weeks        
+        def add_plural_time_methods
+          each_time_symbol do |time_sym|
+            alias_method time_sym.plural, time_sym.singular        
+          end
+        end
+        
+        # Adds the methods:
+        # * yearlies
+        # * monthlies
+        # * dailies
+        # * weeklies
+        def add_plural_adverbial_time_methods
+          each_time_symbol do |time_sym|
+            alias_method time_sym.plural_adverb, time_sym.singular
+          end
+        end
+
+        # Adds the methods:
+        # * yearly
+        # * monthly
+        # * daily
+        # * weekly
+        def add_singular_adverbial_time_methods
+          each_time_symbol do |time_sym|
+            define_method time_sym.adverb do
+              @time_range[:scope] = time_sym.adverb
+            end
+          end
+        end
+                
+        # A helper method to which yields each time
+        # symbol as a time symbol       
+        def each_time_symbol(&blk)
+          TimeSymbol.valid_symbols.each do |sym|
+            yield(TimeSymbol.new(sym))
+          end
+        end
+      end
+      
       attr_reader :last_time, :time_range
       attr_reader :kept
 
@@ -22,40 +92,10 @@ module DatedBackup
         @last_time = nil      
       end
 
+      # placeholders:
       def backup  *args;   return self; end
       def from    *args;   return self; end
-
-      alias :backups :backup
-
-      # TimeSymbol.valid_symbols will yield:
-      # :day
-      # :month
-      # :week
-      # :year
-      # This is the source of the methods:
-      #   * day()
-      #   * week()
-      #   * year()
-      #   * month()
-      # Plus their plural aliases, and the adverbial
-      # forms, (i.e.): 
-      #   weeks, weekly
-      TimeSymbol.valid_symbols.each do |sym|
-        time_sym = TimeSymbol.new sym
-        
-        define_method time_sym.singular do |*args|
-          self.send :time_component, time_sym.singular
-        end        
-        
-        alias_method time_sym.plural, time_sym.singular
-        
-        alias_method time_sym.plural_adverb, time_sym.singular
-        
-        define_method time_sym.adverb do
-          @time_range[:scope] = time_sym.adverb
-        end
-      end
-
+      
       def this arg, now=Time.now
         set_time_range :this, now
       end
@@ -68,13 +108,9 @@ module DatedBackup
         this(day, now)
       end
       
-      alias :todays :today
-      
       def yesterday(arg=nil, now=Time.now)
         last(day, now)
       end
-      
-      alias :yesterdays :yesterday
 
       def keep arg, now=Time.now
         all(self, now) unless time_range[:constraint]
@@ -90,11 +126,17 @@ module DatedBackup
       end
       
       def ==(obj)
+        # return false if obj is not a kind_of this class
         self.instance_variables.each do |iv|
           return false if self.instance_variable_get(iv) != obj.instance_variable_get(iv)
         end
         true
       end
+
+      # convenient aliases:
+      alias :todays :today
+      alias :yesterdays :yesterday
+      alias :backups :backup
 
     protected
 
