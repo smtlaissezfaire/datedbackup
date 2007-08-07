@@ -15,6 +15,21 @@ describe "A method which has an equivalent plural alias", :shared => true do
   end
 end
 
+describe "A method which has an equivalent singular alias", :shared => true do
+  before :each do
+    @singular_name = @method_name.to_s
+    @singular_name = @singular_name[0..@singular_name.size-2]
+  end
+  
+  it "should respond to the singular version" do
+    @extension.should respond_to?("#{@singular_name}.to_sym")
+  end
+  
+  it "should equal the same value as the plural form" do
+    @extension.send(@singular_name.to_sym).should == @extension.send(@method_name.to_sym)
+  end
+end
+
 describe "A method which returns self", :shared => true do
   it "should return self" do
     @extension.send(@method_name, nil).should == @extension
@@ -112,6 +127,89 @@ describe TimeExtension, "year" do
     @extension.year
     @extension.last_time.should == :year
   end
+end
+
+describe TimeExtension, "todays" do
+  before :each do
+    @extension = TimeExtension.new
+    @extension_two = TimeExtension.new
+    @method_name = :todays
+    @time = Time.now
+    Time.stub!(:now).and_return @time
+  end
+  
+  it "should act like this_day" do
+    @extension_two.instance_eval do
+      keep this days backups
+    end
+    
+    @extension.instance_eval do
+      keep todays backups
+    end
+    
+    @extension.should == @extension_two
+  end
+  
+  it "should be callable with no arguments" do
+    @extension.instance_eval do
+      keep todays
+    end
+  end
+  
+  it "should be callable with one argument" do
+    @extension.instance_eval do
+      keep todays backups
+    end
+  end
+  
+  it_should_behave_like "A method which returns self"
+  it_should_behave_like "A method which is responded to"  
+  it_should_behave_like "A method which has an equivalent singular alias"
+end
+
+describe TimeExtension, "object with #==" do
+  before :each do
+    @obj_one = TimeExtension.new
+    @obj_two = TimeExtension.new
+
+    @now = Time.now
+    Time.stub!(:now).and_return @now
+  end
+  
+  it "should be equal to the other object if nothing has been done to either object" do
+    @obj_one.should == @obj_two
+  end
+  
+  it "should not be equal to the other object if something has been done to the object, but not to the other" do
+    @obj_one.instance_eval do
+      keep monthly backups
+    end
+    
+    @obj_one.should_not == @obj_two
+  end
+  
+  it "should not be equal to the other object if something has been done to the other object, but not to this one" do
+    @obj_two.instance_eval do
+      keep monthly backups
+    end
+    
+    @obj_one.should_not == @obj_two
+    @obj_two.should_not == @obj_one
+  end
+  
+  it "should be equal to the other object if the same method calls have been performed on both objects" do    
+    @obj_one.instance_eval do
+      keep monthly backups
+    end
+    
+    @obj_two.instance_eval do
+      keep monthly backups
+    end
+    
+    @obj_one.should == @obj_two
+  end
+  
+  it "should be equal to the other object if equivalent method calls have been peformed on both objects" 
 end
 
 describe TimeExtension, "keeping" do

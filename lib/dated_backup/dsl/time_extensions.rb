@@ -27,6 +27,19 @@ module DatedBackup
 
       alias :backups :backup
 
+      # TimeSymbol.valid_symbols will yield:
+      # :day
+      # :month
+      # :week
+      # :year
+      # This is the source of the methods:
+      #   * day()
+      #   * week()
+      #   * year()
+      #   * month()
+      # Plus their plural aliases, and the adverbial
+      # forms, (i.e.): 
+      #   weeks, weekly
       TimeSymbol.valid_symbols.each do |sym|
         time_sym = TimeSymbol.new sym
         
@@ -49,6 +62,12 @@ module DatedBackup
       def last arg, now=Time.now
         set_time_range :last, now
       end
+      
+      def today arg=nil, now=Time.now
+        this(day, now)
+      end
+      
+      alias :todays :today
 
       def keep arg, now=Time.now
         all(self, now) unless time_range[:constraint]
@@ -62,9 +81,15 @@ module DatedBackup
         @time_range[:constraint] = Time.epoch...now
         self
       end
+      
+      def ==(obj)
+        self.instance_variables.each do |iv|
+          return false if self.instance_variable_get(iv) != obj.instance_variable_get(iv)
+        end
+        true
+      end
 
     protected
-
 
       def set_time_range sym, now
         if sym == :last
