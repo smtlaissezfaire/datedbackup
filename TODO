@@ -1,7 +1,8 @@
 
 - build website for dbackup (webgen?)
 
-- include example scripts in rdoc (link to, in the future, since they get mangled)
+- exclude example scripts in rdoc (in the future we should like to them,
+  since rdoc/SimpleText mangles them)
 - gem generation should include all documentation
 - Parameter in config to name backups, + output this when running
 - only operate on Timestamped directories, not other directories
@@ -13,14 +14,10 @@
 - get heckle to work.  Right now it recurs infinitely
 - lots of error checking needs to occur
 - use rbehave to perform integration tests
-- add umimplemented specs
+- add unimplemented specs
 - -t flag to simulate running
 
 DSL aliases:  
-- from this day => alias for todays backups, from today
-- from last day => alias for yesterdays, from yesterday
-- weeklies, monthlies => weekly, monthly
-
 - execute_script functions in before and after
 - include + exclude rules
 - execute_command(s)

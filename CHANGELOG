@@ -1,4 +1,5 @@
 trunk:
+* refactoring in ExecutionContextHelper
 * time_extensions heavily refactored
 * plural_adverbial methods added to TimeExtension DSL
 * to_plural_adverb methods on TimeSymbol
