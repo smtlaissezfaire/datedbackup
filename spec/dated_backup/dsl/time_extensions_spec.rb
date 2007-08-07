@@ -81,6 +81,39 @@ describe TimeExtension, "week" do
   end  
 end
 
+describe TimeExtension, "weeklies" do
+  it "should set the last time value to the :week symbol" do
+    pending "Waiting on TimeExtension"
+    @extension.weeklies
+    @extension.last_time.should == :week
+  end
+end
+
+describe TimeExtension, "monthlies" do
+  it "should set the last time value to the :week symbol" do
+    pending "Waiting on TimeExtension"
+    @extension.monthlies
+    @extension.last_time.should == :week
+  end
+end
+
+describe TimeExtension, "dailies" do
+  it "should set the last time value to the :week symbol" do
+    pending "Waiting on TimeExtension"
+    @extension.dailies
+    @extension.last_time.should == :week
+  end
+end
+
+describe TimeExtension, "yearlies" do
+  it "should set the last time value to the :week symbol" do
+    pending "Waiting on TimeExtension"
+    @extension.yearlies
+    @extension.last_time.should == :week
+  end
+end
+
+
 describe TimeExtension, "day" do
   before :each do
     @extension = TimeExtension.new

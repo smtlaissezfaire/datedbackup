@@ -31,12 +31,32 @@ describe TimeSymbol, ":year" do
     @ts.singular.should == :year
   end
   
+  it "should have to_singular which is equivalent to #singular" do
+    @ts.to_singular.should == :year
+  end
+  
   it "should have the plural as :years" do
     @ts.plural.should == :years
   end
   
+  it "should have #to_plural which is equivalent to #plural" do
+    @ts.to_plural.should == @ts.plural
+  end
+  
   it "should have the adverb as :yearly" do
     @ts.adverb.should == :yearly
+  end
+  
+  it "should have #to_adverb which is equivalent to #adverb" do
+    @ts.to_adverb.should == @ts.adverb
+  end
+  
+  it "should have the plural_adverb as :yearlies" do
+    @ts.plural_adverb.should == :yearlies
+  end
+  
+  it "should have #to_plural_adverb, which is equivalent to #plural_adverb" do
+    @ts.to_plural_adverb.should == @ts.plural_adverb
   end
 end
 
@@ -49,12 +69,32 @@ describe TimeSymbol, ":month" do
     @ts.singular.should == :month
   end
   
+  it "should have to_singular which is equivalent to #singular" do
+    @ts.to_singular.should == :month
+  end
+  
   it "should have the plural as :months" do
     @ts.plural.should == :months
   end
   
+  it "should have #to_plural which is equivalent to #plural" do
+    @ts.to_plural.should == @ts.plural
+  end
+  
   it "should have the adverb as :monthly" do
     @ts.adverb.should == :monthly
+  end
+
+  it "should have #to_adverb which is equivalent to #adverb" do
+    @ts.to_adverb.should == @ts.adverb
+  end
+  
+  it "should have the plural_adverb as :monthlies" do
+    @ts.plural_adverb.should == :monthlies
+  end
+  
+  it "should have #to_plural_adverb, which is equivalent to #plural_adverb" do
+    @ts.to_plural_adverb.should == @ts.plural_adverb
   end
 end
 
@@ -67,12 +107,32 @@ describe TimeSymbol, ":week" do
     @ts.singular.should == :week
   end
   
+  it "should have to_singular which is equivalent to #singular" do
+    @ts.to_singular.should == :week
+  end
+  
   it "should have the plural as :weeks" do
     @ts.plural.should == :weeks
   end
   
+  it "should have #to_plural which is equivalent to #plural" do
+    @ts.to_plural.should == @ts.plural
+  end
+  
   it "should have the adverb as :weekly" do
     @ts.adverb.should == :weekly
+  end
+  
+  it "should have #to_adverb which is equivalent to #adverb" do
+    @ts.to_adverb.should == @ts.adverb
+  end
+  
+  it "should have the plural_adverb as :weeklies" do
+    @ts.plural_adverb.should == :weeklies
+  end
+  
+  it "should have #to_plural_adverb, which is equivalent to #plural_adverb" do
+    @ts.to_plural_adverb.should == @ts.plural_adverb
   end
 end
 
@@ -85,12 +145,32 @@ describe TimeSymbol, ":day" do
     @ts.singular.should == :day
   end
   
+  it "should have to_singular which is equivalent to #singular" do
+    @ts.to_singular.should == :day
+  end
+  
   it "should have the plural as :days" do
     @ts.plural.should == :days
   end
   
+  it "should have #to_plural which is equivalent to #plural" do
+    @ts.to_plural.should == @ts.plural
+  end
+  
   it "should have the adverb as :dayly" do
     @ts.adverb.should == :daily
+  end
+  
+  it "should have #to_adverb which is equivalent to #adverb" do
+    @ts.to_adverb.should == @ts.adverb
+  end
+  
+  it "should have the plural_adverb as :dailies" do
+    @ts.plural_adverb.should == :dailies
+  end
+  
+  it "should have #to_plural_adverb, which is equivalent to #plural_adverb" do
+    @ts.to_plural_adverb.should == @ts.plural_adverb
   end
 end
 

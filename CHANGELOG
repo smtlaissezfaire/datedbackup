@@ -1,5 +1,7 @@
 trunk:
-
+* to_plural_adverb methods on TimeSymbol
+* to_* methods as aliases on TimeSymbol
+* yesterday, yesterdays, today, todays added to TimeExtension DSL
 
 = Rel 0.2.1
 * Rakfile's redundancies removed and generally cleaned up

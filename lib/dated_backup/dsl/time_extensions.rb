@@ -54,7 +54,6 @@ module DatedBackup
         end
       end
 
-
       def this arg, now=Time.now
         set_time_range :this, now
       end

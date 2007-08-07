@@ -26,9 +26,13 @@ class TimeSymbol
     @sym
   end
   
+  alias :to_singular :singular
+  
   def plural
     "#{@sym}s".to_sym
   end
+  
+  alias :to_plural :plural
   
   def adverb
     if @sym == :day
@@ -37,6 +41,17 @@ class TimeSymbol
       "#{@sym}ly".to_sym
     end
   end
+  
+  alias :to_adverb :adverb
+  
+  # should refactor the rest of the methods like this one,..!!!
+  #
+  #
+  def plural_adverb
+    @sym == :day ? :dailies : "#{@sym}lies".to_sym
+  end
+  
+  alias :to_plural_adverb :plural_adverb
   
   def to_sym
     @sym.to_sym
