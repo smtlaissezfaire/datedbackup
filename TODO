@@ -1,7 +1,6 @@
 
 - build website for dbackup (webgen?)
-
-- exclude example scripts in rdoc (in the future we should like to them,
+- exclude example scripts in rdoc (in the future we should link to them,
   since rdoc/SimpleText mangles them)
 - gem generation should include all documentation
 - Parameter in config to name backups, + output this when running
