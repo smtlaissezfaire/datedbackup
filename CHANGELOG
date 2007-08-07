@@ -1,4 +1,5 @@
 trunk:
+* plural_adverbial methods added to TimeExtension DSL
 * to_plural_adverb methods on TimeSymbol
 * to_* methods as aliases on TimeSymbol
 * yesterday, yesterdays, today, todays added to TimeExtension DSL

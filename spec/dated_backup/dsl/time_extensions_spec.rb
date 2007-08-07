@@ -82,35 +82,63 @@ describe TimeExtension, "week" do
 end
 
 describe TimeExtension, "weeklies" do
+  before :each do
+    @extension = TimeExtension.new
+    @method_name = :weeklies
+  end
+  
   it "should set the last time value to the :week symbol" do
-    pending "Waiting on TimeExtension"
     @extension.weeklies
     @extension.last_time.should == :week
   end
+  
+  it_should_behave_like "A method which returns self"
+  it_should_behave_like "A method which is responded to"
 end
 
 describe TimeExtension, "monthlies" do
-  it "should set the last time value to the :week symbol" do
-    pending "Waiting on TimeExtension"
-    @extension.monthlies
-    @extension.last_time.should == :week
+  before :each do
+    @extension = TimeExtension.new
+    @method_name = :monthlies
   end
+
+  it "should set the last time value to the :month symbol" do
+    @extension.monthlies
+    @extension.last_time.should == :month
+  end
+  
+  it_should_behave_like "A method which returns self"
+  it_should_behave_like "A method which is responded to"
 end
 
 describe TimeExtension, "dailies" do
-  it "should set the last time value to the :week symbol" do
-    pending "Waiting on TimeExtension"
-    @extension.dailies
-    @extension.last_time.should == :week
+  before :each do
+    @extension = TimeExtension.new
+    @method_name = :dailies
   end
+  
+  it "should set the last time value to the :day symbol" do
+    @extension.dailies
+    @extension.last_time.should == :day
+  end
+  
+  it_should_behave_like "A method which returns self"
+  it_should_behave_like "A method which is responded to"
 end
 
 describe TimeExtension, "yearlies" do
-  it "should set the last time value to the :week symbol" do
-    pending "Waiting on TimeExtension"
-    @extension.yearlies
-    @extension.last_time.should == :week
+  before :each do
+    @extension = TimeExtension.new
+    @method_name = :yearlies
   end
+  
+  it "should set the last time value to the :year symbol" do
+    @extension.yearlies
+    @extension.last_time.should == :year
+  end
+  
+  it_should_behave_like "A method which returns self"
+  it_should_behave_like "A method which is responded to"
 end
 
 

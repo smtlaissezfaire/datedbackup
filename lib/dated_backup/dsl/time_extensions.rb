@@ -49,6 +49,8 @@ module DatedBackup
         
         alias_method time_sym.plural, time_sym.singular
         
+        alias_method time_sym.plural_adverb, time_sym.singular
+        
         define_method time_sym.adverb do
           @time_range[:scope] = time_sym.adverb
         end
