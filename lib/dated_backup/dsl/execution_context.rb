@@ -56,7 +56,9 @@ module DatedBackup
       end
 
       def remove_old(&blk)
-        klass = anonymous_class_with_loaded_modules(DSL::TimeExtensions)
+        klass = anonymous_class_with_loaded_modules(DSL::TimeExtensions::ClassMethods, DSL::TimeExtensions)
+        klass.send (:add_time_methods)
+        
         instance = klass.new
         instance.instance_eval &blk
         Core::BackupRemover.remove!(Main.instance.backup_root, instance.kept)

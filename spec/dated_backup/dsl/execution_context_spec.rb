@@ -109,6 +109,16 @@ module DatedBackup
         @klass.should_receive(:send).with(:include, ::DatedBackup::DSL::TimeExtensions).and_return true
         @around.remove_old
       end
+      
+      it "should include the TimeExtension::ClassMethods module" do
+        @klass.should_receive(:send).with(:include, ::DatedBackup::DSL::TimeExtensions::ClassMethods).and_return true
+        @around.remove_old
+      end
+      
+      it "should call the class level method add_time_methods" do
+        @klass.should_receive(:send).with(:add_time_methods).and_return true
+        @around.remove_old
+      end
 
       it "should create a new instance of the anonymous class" do
         @klass.should_receive(:new).and_return @instance
