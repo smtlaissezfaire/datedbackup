@@ -3,10 +3,12 @@ module DatedBackup
   class ExecutionContext
 
     module ExecutionContextHelper
-      def anonymous_instance_loading_module(mod)
+      def anonymous_class_with_loaded_modules(*mods)
         klass = Class.new
-        klass.send(:include, mod)
-        klass.new
+        mods.each do |mod|
+          klass.send(:include, mod)
+        end
+        return klass
       end
     end
 
@@ -28,7 +30,7 @@ module DatedBackup
         include ExecutionContextHelper
 
         def load(filename)
-          instance = anonymous_instance_loading_module(DSL::Main)         
+          instance = anonymous_class_with_loaded_modules(DSL::Main).new
           
           File.open filename, "r" do |file|
             instance.instance_eval file.read
@@ -54,7 +56,8 @@ module DatedBackup
       end
 
       def remove_old(&blk)
-        instance = anonymous_instance_loading_module(DSL::TimeExtensions)
+        klass = anonymous_class_with_loaded_modules(DSL::TimeExtensions)
+        instance = klass.new
         instance.instance_eval &blk
         Core::BackupRemover.remove!(Main.instance.backup_root, instance.kept)
       end
