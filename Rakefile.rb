@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + "/lib/dated_backup/core/version"
+
 require 'rake'
 require "rake/rdoctask"
 require 'rake/gempackagetask'
@@ -11,7 +13,7 @@ extra_rdoc_files = %w(README COPYRIGHT RELEASES CHANGELOG)
 spec = Gem::Specification.new do |s|
   
   s.name      = "dated_backup"
-  s.version   = "0.2.1"
+  s.version   = DatedBackup::Version.string
   s.author    = "Scott Taylor"
   s.email     = "scott@railsnewbie.com"
   s.homepage  = "http://rubyforge.org/projects/datedbackup"
@@ -52,6 +54,10 @@ RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
   t.index_html = 'doc/rcov/index.html'
 end
 
+desc "Current Version"
+task :current_version do
+  puts DatedBackup::Version.string
+end
 
 desc "Generate RSpec Report"
 task :rspec_report => [:clobber_rspec_report] do
