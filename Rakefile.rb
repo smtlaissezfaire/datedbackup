@@ -1,8 +1,9 @@
 require 'rake'
 require "rake/rdoctask"
+require 'rake/gempackagetask'
+$:.unshift File.dirname(__FILE__) + '/vendor/plugins/rspec/rspec/lib/'
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
-require 'rake/gempackagetask'
 
 rdoc_files = FileList["{bin,lib,example_configs}/**/*"].to_a
 extra_rdoc_files = %w(README COPYRIGHT RELEASES CHANGELOG)
