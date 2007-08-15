@@ -1,5 +1,2 @@
 
-Autotest.add_discovery do
-  "Datedbackup"
-end
-
+require File.dirname(__FILE__) + "/../vendor/plugins/rspec/rspec/lib/autotest/discover"

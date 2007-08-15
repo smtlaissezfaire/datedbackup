@@ -1,7 +1,7 @@
 
 require File.dirname(__FILE__) + "/../vendor/plugins/rspec/rspec/lib/autotest/rspec"
 
-class Autotest::Datedbackup < Autotest::Rspec
+class Autotest::Rspec
   alias :old_spec_commands :spec_commands
   
   def spec_commands
