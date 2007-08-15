@@ -34,7 +34,7 @@ module DatedBackup
         raise NoBlockGiven, "A block (do...end) must be given" if !block_given?
       end
 
-      RSYNC_OPTIONS = [:source, :sources, :destination, :options, :user_domain]
+      RSYNC_OPTIONS = [:source, :sources, :destination, :options, :user_domain] unless const_defined?("RSYNC_OPTIONS")
 
     end      
   end

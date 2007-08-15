@@ -15,6 +15,7 @@
 - use rbehave to perform integration tests
 - add unimplemented specs
 - -t flag to simulate running
+- remove warnings for TimeSymbols
 
 DSL aliases:  
 - execute_script functions in before and after

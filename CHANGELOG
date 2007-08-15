@@ -1,4 +1,8 @@
 trunk:
+* removal of warnings in specs (lots of parenthesis) + checking for redefinition of constants
+* autotest + rspec (running on trunk)
+* removal of ExecutionContextHelper, complete rewrite of 
+  ExecutionContext::Main + ExecutionContext::Around
 * refactoring in ExecutionContextHelper
 * time_extensions heavily refactored
 * plural_adverbial methods added to TimeExtension DSL
