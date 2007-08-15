@@ -1,4 +1,5 @@
 
+- better dsl for backup removals + explicit remove message
 - build website for dbackup (webgen?)
 - exclude example scripts in rdoc (in the future we should link to them,
   since rdoc/SimpleText mangles them)
@@ -10,12 +11,10 @@
 - change ReverseSortedArray so that it has a callback mechanism - every time a 
   method changes the internal representation of the data, the data
   gets resorted and checked for uniqueness
-- get heckle to work.  Right now it recurs infinitely
+- get heckle to work.  Right now it (seems to) recurs infinitely
 - lots of error checking needs to occur
-- use rbehave to perform integration tests
-- add unimplemented specs
+- use rbehave/rspec to perform integration tests
 - -t flag to simulate running
-- remove warnings for TimeSymbols
 
 DSL aliases:  
 - execute_script functions in before and after
