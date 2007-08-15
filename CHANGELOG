@@ -1,4 +1,6 @@
 trunk:
+* (rev 213) dual licensing under MIT & GPL.  Removal of GPL notices in programming code.
+  attached MIT license, and changed readme
 * removal of TimeSymbols in production code - now $time_symbols in specs
 * removal of warnings in specs (lots of parenthesis) + checking for redefinition of constants
 * autotest + rspec (running on trunk)

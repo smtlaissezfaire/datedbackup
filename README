@@ -182,10 +182,8 @@ will be deleted!  This may change in a subsequent release, but for now, beware!
 
 = License
 
-Dated Backup is released under the GNU GPL.  This means that you can use it for no charge as an individual
-or business.  It also means that if you are a hacker, you can modify it at your will.
-The license is attached under 'COPYRIGHT'.
-
+Dated Backup is dual licensed under the GNU GPL as well as the MIT license.  This means that you 
+can apply the license you so choose when you obtain this software.
 
 = Contributions
 
