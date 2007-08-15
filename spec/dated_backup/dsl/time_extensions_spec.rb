@@ -213,11 +213,11 @@ describe TimeExtension, "todays" do
   
   it "should act like this_day" do
     @extension_two.instance_eval do
-      keep this days backups
+      keep(this(days(backups)))
     end
     
     @extension.instance_eval do
-      keep todays backups
+      keep(todays(backups))
     end
     
     @extension.should == @extension_two
@@ -241,11 +241,11 @@ describe TimeExtension, "yesterdays" do
   
   it "should act like last(day)" do
     @extension.instance_eval do
-      keep yesterdays backups
+      keep(yesterdays(backups))
     end
     
     @extension_two.instance_eval do
-      keep last days backups
+      keep(last(days(backups)))
     end
     
     @extension.should == @extension_two
@@ -273,7 +273,7 @@ describe TimeExtension, "object with #==" do
   
   it "should not be equal to the other object if something has been done to the object, but not to the other" do
     @obj_one.instance_eval do
-      keep monthly backups
+      keep(monthly(backups))
     end
     
     @obj_one.should_not == @obj_two
@@ -281,7 +281,7 @@ describe TimeExtension, "object with #==" do
   
   it "should not be equal to the other object if something has been done to the other object, but not to this one" do
     @obj_two.instance_eval do
-      keep monthly backups
+      keep(monthly(backups))
     end
     
     @obj_one.should_not == @obj_two
@@ -290,11 +290,11 @@ describe TimeExtension, "object with #==" do
   
   it "should be equal to the other object if the same method calls have been performed on both objects" do    
     @obj_one.instance_eval do
-      keep monthly backups
+      keep(monthly(backups))
     end
     
     @obj_two.instance_eval do
-      keep monthly backups
+      keep(monthly(backups))
     end
     
     @obj_one.should == @obj_two
@@ -302,11 +302,11 @@ describe TimeExtension, "object with #==" do
   
   it "should be equal to the other object if equivalent method calls have been peformed on both objects" do
     @obj_one.instance_eval do
-      keep backups from today
+      keep(backups(from(today)))
     end
     
     @obj_two.instance_eval do
-      keep backups from this day
+      keep(backups(from(this(day))))
     end
     
     @obj_one.should == @obj_two

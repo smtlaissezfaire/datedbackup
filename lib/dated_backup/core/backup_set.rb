@@ -9,7 +9,7 @@ module DatedBackup
         # and return these Directories as a BackupSet
         def find_files_in_directory(dir)
           raise InvalidDirectoryError, "A valid directory must be given." unless File.directory?(dir)
-          new(Dir.glob "#{dir}/*")
+          new(Dir.glob("#{dir}/*"))
         end
         
         # Creates the boolean include_*? methods (include_month?, include_year? and so on).

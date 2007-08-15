@@ -52,17 +52,6 @@ end
 
 module DatedBackup
   class ExecutionContext
-        
-    module CommonMock
-      def common_mock
-        @klass = mock Class
-        @klass.stub!(:send).and_return @klass
-        @klass.stub!(:include).and_return true
-        Class.stub!(:new).and_return @klass
-        @instance = mock @klass
-        @klass.stub!(:new).and_return @instance      
-      end
-    end
 
     describe Around do
       before do
