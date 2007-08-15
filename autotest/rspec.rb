@@ -1,5 +1,5 @@
 
-require File.dirname(__FILE__) + "/../vendor/plugins/rspec/rspec/lib/autotest/rspec"
+require File.dirname(__FILE__) + "/../vendor/plugins/rspec/rspec/autotest/rspec"
 
 class Autotest::Rspec
   alias :old_spec_commands :spec_commands
