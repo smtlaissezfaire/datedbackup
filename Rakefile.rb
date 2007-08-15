@@ -82,9 +82,9 @@ desc "Remove all documentation"
 task :clobber_documentation => [:clobber_rdoc, :clobber_rcov, :clobber_rspec_report]
 
 desc "Build Release"
-task :build_release => [:generate_documentation, :pre_commit, :repackage] do
+task :build_release => [:pre_commit, :generate_documentation, :repackage] do
   %x(mv pkg gem)
 end
 
 desc "Run this before commiting"
-task :pre_commit => [:rcov, :verify_rcov]
+task :pre_commit => [:verify_rcov]
