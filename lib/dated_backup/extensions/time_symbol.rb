@@ -59,4 +59,3 @@ class TimeSymbol
   end
 end
 
-TimeSymbols = TimeSymbol.all
