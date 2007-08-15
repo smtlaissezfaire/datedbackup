@@ -49,6 +49,12 @@ Spec::Rake::SpecTask.new(:rcov) do |t|
   t.rcov_dir = "doc/rcov"
 end
 
+desc "Run all specs"
+Spec::Rake::SpecTask.new(:spec) do |t|
+  t.spec_files = FileList['spec/**/*.rb']
+  t.rcov = false
+end
+
 RCov::VerifyTask.new(:verify_rcov => :rcov) do |t|
   t.threshold = 100.0
   t.index_html = 'doc/rcov/index.html'
