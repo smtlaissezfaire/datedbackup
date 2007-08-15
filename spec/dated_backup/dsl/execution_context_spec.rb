@@ -178,71 +178,60 @@ module DatedBackup
       end
     end
     
-    describe Main, "load class method" do
-      include CommonMock
-      
+    describe Main, "__instance_eval_file_in_new_anonymous_class" do
       before :each do
-        @db = mock DatedBackup::Core
-        @db.stub!(:set_attributes).and_return nil
-        @db.stub!(:run).and_return nil
-        DatedBackup::Core.stub!(:new).and_return @db
+        @filename = "foo.config"
+        @contents = "foo bar baz"
+        File.stub!(:read).and_return @contents
+        
+        @instance = Object.new
+        Main.stub!(:__new_anonymous_class_instance).and_return(@instance)
+        @instance.stub!(:instance_eval).and_return true
+      end
 
-        @filename = mock String
-        @contents = mock String
-        @file = mock 'File'
-        File.stub!(:open).and_yield @file
-        @file.stub!(:read).and_return @contents
-        
-        @proc = Proc.new {}
-        common_mock
-        
-        @instance.stub!(:instance_eval).and_return @instance
+      it "should read the file contents" do
+        File.should_receive(:read).with(@filename).and_return(@contents)
+        Main.__instance_eval_file_in_new_anonymous_class(@filename)
+      end
+      
+      it "should instance eval the contents of the file in the context of the new anonymous object" do
+        @instance.should_receive(:instance_eval).with(@contents).and_return(@instance)
+        Main.__instance_eval_file_in_new_anonymous_class(@filename)
+      end
+      
+      it "should return the new instance of the anonymous class which has been instance evaled" do
+        Main.__instance_eval_file_in_new_anonymous_class(@filename).should == @instance
+      end
+    end
+    
+    describe Main, "load class method" do
+      before :each do
+        @filename = "foo"
+        @instance = mock(Object)
         @instance.stub!(:procs).and_return({:before => @proc, :after => @proc })
         @instance.stub!(:hash).and_return({:source => ["dir1"], :destination => ["dir2"]}) 
+        
+        Main.stub!(:__instance_eval_file_in_new_anonymous_class).and_return @instance
+        
+        @db = mock(DatedBackup::Core)
+        @db.stub!(:set_attributes).and_return nil
+        @db.stub!(:run).and_return nil
+        
+        DatedBackup::Core.stub!(:new).and_return @db
       end
       
       it "should accept the filename as it's params" do
         Main.load(@filename)
       end
       
-      it "should create a new anonymous class" do
-        Class.should_receive(:new).and_return @klass
+      it "should obtain a new instance of the anonymous class and instance eval the file" do
+        Main.should_receive(:__instance_eval_file_in_new_anonymous_class).with(@filename).and_return @instance
         Main.load(@filename)
       end
       
-      it "should create a new instance of the anonymous class" do
-        @klass.should_receive(:new).and_return @instance
-        Main.load @filename
-      end
-      
-      it "should include the Main module" do
-        @klass.should_receive(:send).with(:include, ::DatedBackup::DSL::Main).and_return true
-        Main.load @filename
-      end
-      
-      it "should open the file given with filename" do
-        File.should_receive(:open).with(@filename, "r").and_yield @file
-        Main.load @filename
-      end
-      
-      it "should read the file contents" do
-        @file.should_receive(:read).and_return @contents
-        Main.load @filename
-      end
-      
-      it "should instance eval the contents of the file in the context of the new anonymous object" do
-        @instance.should_receive(:instance_eval).with(@contents).and_return @instance
-        Main.load @filename
-      end
-
-      it "should create a new DatedBackup object" do
-        DatedBackup::Core.should_receive(:new).and_return @db
-        Main.load @filename
-      end
-
       it "should create the DatedBackup object with the before and after procs" do
         DatedBackup::Core.should_receive(:new).with({:before => @proc, :after => @proc}).and_return @db
-        Main.load @filename
+        Main.load(@filename)
       end
       
       it "should set the attributes on the DatedBackup instance" do
@@ -251,36 +240,36 @@ module DatedBackup
           :source => ['dir1'],
           :destination => ['dir2']
         }).and_return nil
-        Main.load @filename
+        Main.load(@filename)
       end
       
       it "should call run after the attributes have been set on the dated backup instance" do
         @db.should_receive(:run).with(no_args).and_return nil
-        Main.load @filename
+        Main.load(@filename)
       end
     end
     
     describe Main, "core/main instance" do
       before :each do
-        File.stub!(:open).and_return nil
+        File.stub!(:read).and_return ""
         @core_mock = mock DatedBackup::Core
-        DatedBackup::Core.stub!(:new).and_return @core_mock
+        DatedBackup::Core.stub!(:new).and_return(@core_mock)
         @core_mock.stub!(:set_attributes).and_return nil
-        @core_mock.stub!(:run).and_return nil
+        @core_mock.stub!(:run)
       end
       
       it "should have class level main instance available" do
-        ExecutionContext::Main.load "mock filename"
+        ExecutionContext::Main.load("mock filename")
         ExecutionContext::Main.main_instance.should == @core_mock
       end
       
       it "should have core instance which is a synonym for a the main instance" do
-        ExecutionContext::Main.load "mock filename"
+        ExecutionContext::Main.load("mock filename")
         ExecutionContext::Main.core_instance.should == @core_mock
       end
       
       it "should have the instance, which is a synonymn for the main the instance" do
-        ExecutionContext::Main.load "mock filename"
+        ExecutionContext::Main.load("mock filename")
         ExecutionContext::Main.instance.should == @core_mock
       end
     end

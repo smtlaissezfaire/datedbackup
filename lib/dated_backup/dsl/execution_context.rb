@@ -2,16 +2,6 @@
 module DatedBackup
   class ExecutionContext
 
-    module ExecutionContextHelper
-      def anonymous_class_with_loaded_modules(*mods)
-        klass = Class.new
-        mods.each do |mod|
-          klass.send(:include, mod)
-        end
-        return klass
-      end
-    end
-
     def initialize(name, *params, &blk)  
       DatedBackup::Warnings.execute_silently do
         if name == :main
@@ -26,9 +16,6 @@ module DatedBackup
     
     class Main
       class << self
-
-        include ExecutionContextHelper
-        
         def __anonymous_class
           Class.new do
             include DSL::Main
@@ -38,13 +25,15 @@ module DatedBackup
         def __new_anonymous_class_instance
           __anonymous_class.new
         end
+        
+        def __instance_eval_file_in_new_anonymous_class(filename)
+          instance = __new_anonymous_class_instance
+          instance.instance_eval(File.read(filename))
+          instance
+        end
 
         def load(filename)
-          instance = anonymous_class_with_loaded_modules(DSL::Main).new
-          
-          File.open filename, "r" do |file|
-            instance.instance_eval file.read
-          end
+          instance = __instance_eval_file_in_new_anonymous_class(filename)
           
           @main_instance = DatedBackup::Core.new(instance.procs)
           @main_instance.set_attributes(instance.hash)
@@ -58,8 +47,6 @@ module DatedBackup
     end
 
     class Around
-      
-      include ExecutionContextHelper
 
       def initialize(around=self, &blk)
         around.instance_eval &blk
