@@ -50,12 +50,9 @@ module DatedBackup
   
 end
 
-
-
 module DatedBackup
   class ExecutionContext
-    
-    
+        
     module CommonMock
       def common_mock
         @klass = mock Class
@@ -81,60 +78,81 @@ module DatedBackup
       end
     end
 
-    describe Around, "remove_old" do
-      include CommonMock
+    describe Around, "__anonymous_time_class" do
+      before :each do
+        @proc = lambda { }
+        @around = Around.new(&@proc)
+      end
       
-      before do
-        @blk = Proc.new {}
-        common_mock
+      it "should return a new anonymous class" do
+        @around.__anonymous_time_class.kind_of?(Class).should be_true
+      end
+      
+      it "should return a new anonymous class with DSL::TimeExtensions included" do
+        @around.__anonymous_time_class.included_modules.include?(DSL::TimeExtensions).should be_true
+      end
+      
+      it "should return a new anonymous class with the class extended by DSL::TimeExtensions::ClassMethods" do
+        @klass = @around.__anonymous_time_class
+        DSL::TimeExtensions::ClassMethods.instance_methods.each do |method|
+          @klass.respond_to?(method).should be_true
+        end
+      end
+      
+      it "should return the new anonymous class with the added time methods" do
+        methods ||= []
+        TimeSymbols.each do |sym|
+          sym = TimeSymbol.new(sym)
+          methods += [sym.singular, sym.plural, sym.adverb, sym.plural_adverb]
+        end
         
-        @instance.stub!(:instance_eval).and_return nil
+        methods.each do |m|
+          @around.__anonymous_time_class.new.respond_to?(m).should be_true
+        end
+      end
+    end
+    
+    describe Around, "__eval_in_context time" do
+      before :each do
+        @klass = Class.new
+        @instance = @klass.new
+        
+        @klass.stub!(:new).and_return @instance
+        
+        @proc = Proc.new { }
+        @around = Around.new(&@proc)
+        @around.stub!(:__anonymous_time_class).and_return @klass
+      end
+      
+      it "should return a new instance of the anonymous class" do
+        @around.__eval_in_context(:time, &@proc).kind_of?(@klass).should be_true
+      end
+      
+      it "should instance_eval the block given" do
+        @instance.should_receive(:instance_eval).and_return true
+        @around.__eval_in_context(:time, &@proc)
+      end
+    end
+    
+    describe Around, "removal of old backups" do
+      
+      before :each do
+        @main_instance = mock(Object)
+        @main_instance.stub!(:backup_root).and_return "/foo/bar"
+        Main.stub!(:instance).and_return @main_instance
+        
+        @proc = Proc.new { }
+        @around = Around.new(&@proc)
+        @instance = mock(Object)
         @instance.stub!(:kept).and_return Hash.new
-        
-        @around = Around.new(@instance, &@blk)
-        DatedBackup::Core::BackupRemover.stub!(:remove!).and_return nil
-        
-        @main_instance = mock DatedBackup::Core
-        ExecutionContext::Main.stub!(:instance).and_return @main_instance
-        @main_instance.stub!(:backup_root).and_return "a_destination_directory"
-      end
-      
-      
-      it "should create a new anonymous class" do
-        Class.should_receive(:new).and_return @klass
-        @around.remove_old
-      end
-
-      it "should include the TimeExtension module" do
-        @klass.should_receive(:send).with(:include, ::DatedBackup::DSL::TimeExtensions).and_return true
-        @around.remove_old
-      end
-      
-      it "should include the TimeExtension::ClassMethods module" do
-        @klass.should_receive(:send).with(:include, ::DatedBackup::DSL::TimeExtensions::ClassMethods).and_return true
-        @around.remove_old
-      end
-      
-      it "should call the class level method add_time_methods" do
-        @klass.should_receive(:send).with(:add_time_methods).and_return true
-        @around.remove_old
-      end
-
-      it "should create a new instance of the anonymous class" do
-        @klass.should_receive(:new).and_return @instance
-        @around.remove_old
-      end
-
-      it "should instance eval the block inside the instance of the anonymous class" do
-        @instance.should_receive(:instance_eval).with(&@blk)
-        @around.remove_old
+        @around.stub!(:__eval_in_context).and_return @instance
       end
       
       it "should call the BackupRemover with the Main instance's backup root and the DSL's rules" do
         DatedBackup::Core::BackupRemover.should_receive(:remove!).with(@main_instance.backup_root, @instance.kept)
-        @around.remove_old
+        @around.remove_old(&@proc)
       end
-    end 
+    end
     
     describe Main, "load class method" do
       include CommonMock

@@ -54,13 +54,25 @@ module DatedBackup
       def initialize(around=self, &blk)
         around.instance_eval &blk
       end
-
+      
+      def __anonymous_time_class
+        Class.new do
+          extend DSL::TimeExtensions::ClassMethods
+          include DSL::TimeExtensions
+          self.add_all_time_methods
+        end
+      end
+      
+      def __eval_in_context(sym=:time, &blk)
+        instance = instance_eval("__anonymous_#{sym}_class.new")
+        instance.instance_eval do
+          instance_eval(&blk)
+        end
+        instance
+      end
+      
       def remove_old(&blk)
-        klass = anonymous_class_with_loaded_modules(DSL::TimeExtensions::ClassMethods, DSL::TimeExtensions)
-        klass.send (:add_time_methods)
-        
-        instance = klass.new
-        instance.instance_eval &blk
+        instance = __eval_in_context(:time, &blk)
         Core::BackupRemover.remove!(Main.instance.backup_root, instance.kept)
       end
     end
