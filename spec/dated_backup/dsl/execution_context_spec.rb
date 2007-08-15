@@ -154,6 +154,30 @@ module DatedBackup
       end
     end
     
+    describe Main, "__anonymous_class" do
+      before :each do
+      end
+      
+      it "should return an anonymous class" do
+        Main.__anonymous_class.kind_of?(Class).should be_true
+      end
+      
+      it "should return an anonymous class which includes the Main DSL" do
+        Main.__anonymous_class.included_modules.include?(::DatedBackup::DSL::Main).should be_true
+      end
+    end
+    
+    describe Main, "__new_anonymous_class_instance" do
+      before :each do
+        @class = Class.new
+        Main.stub!(:__anonymous_class).and_return @class
+      end
+      
+      it "should return a new instance of the anonymous class" do
+        Main.__new_anonymous_class_instance.kind_of?(@class).should be_true
+      end
+    end
+    
     describe Main, "load class method" do
       include CommonMock
       

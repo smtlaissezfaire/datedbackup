@@ -28,6 +28,16 @@ module DatedBackup
       class << self
 
         include ExecutionContextHelper
+        
+        def __anonymous_class
+          Class.new do
+            include DSL::Main
+          end
+        end
+        
+        def __new_anonymous_class_instance
+          __anonymous_class.new
+        end
 
         def load(filename)
           instance = anonymous_class_with_loaded_modules(DSL::Main).new
