@@ -24,7 +24,7 @@ module DatedBackup
           add_singular_adverbial_time_methods
         end
         
-      protected
+      private
         
         # Adds the methods:
         # * year
@@ -138,7 +138,7 @@ module DatedBackup
       alias :yesterdays :yesterday
       alias :backups :backup
 
-    protected
+    private
 
       def set_time_range sym, now
         if sym == :last

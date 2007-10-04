@@ -51,8 +51,6 @@ module DatedBackup
       "#{@backup_root}/#{Time.now.to_string}"
     end                         
 
-  protected
-
     def parse_command_options(h={})
       @pre_run_commands = h[:pre_run_commands]
       @pre_run_commands = h[:pre_run_command].to_a if h[:pre_run_command]

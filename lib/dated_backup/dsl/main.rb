@@ -28,7 +28,7 @@ module DatedBackup
         end
       end
 
-    protected
+    private
 
       def raise_without_block &blk
         raise NoBlockGiven, "A block (do...end) must be given" if !block_given?
