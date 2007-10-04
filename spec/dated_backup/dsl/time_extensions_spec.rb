@@ -24,7 +24,7 @@ describe "A method which has an equivalent singular alias", :shared => true do
   end
   
   it "should respond to the singular version" do
-    @extension.should respond_to?("#{@singular_name}.to_sym")
+    @extension.should respond_to(@singular_name.to_sym)
   end
   
   it "should equal the same value as the plural form" do
