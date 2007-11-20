@@ -1,20 +1,21 @@
 
-- better dsl for backup removals + explicit remove message
-- build website for dbackup (webgen?)
+- minor tweaks to the DSL.  
+- build website for dbackup on rubyforge
 - exclude example scripts in rdoc (in the future we should link to them,
   since rdoc/SimpleText mangles them)
+- better dsl for backup removal + explicit remove message
+- release a 1.0 (it has been used for a while now, in a production setting)
+
 - gem generation should include all documentation
 - Parameter in config to name backups, + output this when running
 - only operate on Timestamped directories, not other directories
-- remove unix dependency - try to remove as many Kernel.` calls as possible
-    - after this is done, fix the output to the 'execute' method
 - change ReverseSortedArray so that it has a callback mechanism - every time a 
   method changes the internal representation of the data, the data
   gets resorted and checked for uniqueness
-- get heckle to work.  Right now it (seems to) recurs infinitely
-- lots of error checking needs to occur
-- use rbehave/rspec to perform integration tests
+- some extra error checking (where?)
 - -t flag to simulate running
+- remove unix dependency - try to remove as many Kernel.` calls as possible
+    - after this is done, fix the output to the 'execute' method
 
 DSL aliases:  
 - execute_script functions in before and after
