@@ -167,7 +167,7 @@ module DatedBackup
       end
 
       # This method adds the end_of_* methods to the object passed in.  They are used in the default case
-      # of the modifyer being "this" and not "last".  In the 'this' case, the time
+      # of the modifier being "this" and not "last".  In the 'this' case, the time
       # *is* now, so end_of_* (end_of_year, end_of_day), etc. should *NOT* need to be called
       # (and in fact, we do not want them to be called, because that would represent
       # some time period in the future).  Those methods are overrided to return self
