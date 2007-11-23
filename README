@@ -179,7 +179,17 @@ Some other keywords, such as 'yesterday', and 'today' will be added in subsequen
 And finally, a warning: If a remove_old block is given, but no keep rules are given, every backup
 will be deleted!  This may change in a subsequent release, but for now, beware!
 
+
 = Specifications / Tests
+
+The rspec specdoc can be found here:
+
+http://datedbackup.rubyforge.org/rspec_report.html
+
+Rcov Coverage can be found here:
+
+http://datedbackup.rubyforge.org/rcov/index.html
+
 
 = License
 
