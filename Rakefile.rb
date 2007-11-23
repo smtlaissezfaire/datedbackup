@@ -38,7 +38,7 @@ end
 Rake::RDocTask.new do |rd|
   rd.main = "README"
   rd.rdoc_files.include(rdoc_files, extra_rdoc_files)
-  rd.rdoc_dir = "doc/rdoc/"
+  rd.rdoc_dir = "doc/"
 end
 
 desc "Run all examples with RCov"
