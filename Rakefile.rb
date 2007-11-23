@@ -12,7 +12,7 @@ extra_rdoc_files = %w(README MIT-LICENSE GPL-LICENSE RELEASES CHANGELOG)
 
 spec = Gem::Specification.new do |s| 
   s.name      = "dated_backup"
-  s.version   = DatedBackup::Version.string
+  s.version   = DatedBackup::Version.to_s
   s.author    = "Scott Taylor"
   s.email     = "scott@railsnewbie.com"
   s.homepage  = "http://rubyforge.org/projects/datedbackup"
