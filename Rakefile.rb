@@ -8,7 +8,7 @@ require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
 
 rdoc_files = FileList["{bin,lib,example_configs}/**/*"].to_a
-extra_rdoc_files = %w(README COPYRIGHT RELEASES CHANGELOG)
+extra_rdoc_files = %w(README MIT-LICENSE GPL-LICENSE RELEASES CHANGELOG)
 
 spec = Gem::Specification.new do |s|
   
