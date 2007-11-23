@@ -5,11 +5,11 @@ module DatedBackup
     MINOR = 2 unless const_defined?("MINOR")
     TINY  = 1 unless const_defined?("TINY")
 
-    def string
+  module_function
+
+    def to_s
       "#{MAJOR}.#{MINOR}.#{TINY}"
     end
-
-    module_function :string
 
   end
 end

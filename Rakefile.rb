@@ -10,8 +10,7 @@ require 'spec/rake/verify_rcov'
 rdoc_files = FileList["{bin,lib,example_configs}/**/*"].to_a
 extra_rdoc_files = %w(README MIT-LICENSE GPL-LICENSE RELEASES CHANGELOG)
 
-spec = Gem::Specification.new do |s|
-  
+spec = Gem::Specification.new do |s| 
   s.name      = "dated_backup"
   s.version   = DatedBackup::Version.string
   s.author    = "Scott Taylor"
@@ -62,7 +61,7 @@ end
 
 desc "Current Version"
 task :current_version do
-  puts DatedBackup::Version.string
+  puts DatedBackup::Version.to_s
 end
 
 desc "Generate RSpec Report"
