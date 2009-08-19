@@ -1,7 +1,14 @@
+require "using"
 
-require File.dirname(__FILE__) + "/extensions/array"
-require File.dirname(__FILE__) + "/extensions/time"
-require File.dirname(__FILE__) + "/extensions/error"
-require File.dirname(__FILE__) + "/extensions/time_symbol"
-require File.dirname(__FILE__) + "/extensions/string"
-require File.dirname(__FILE__) + "/extensions/reverse_sorted_unique_array"
+module DatedBackup
+  module Extensions
+    extend Using
+    
+    using :Array
+    using :Time
+    using :Error
+    using :TimeSymbol
+    using :String
+    using :ReverseSortedUniqueArray
+  end
+end

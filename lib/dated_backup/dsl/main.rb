@@ -1,4 +1,3 @@
-
 module DatedBackup
   class DSL
     module Main

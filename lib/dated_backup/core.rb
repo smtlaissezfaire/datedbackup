@@ -1,7 +1,15 @@
-require File.dirname(__FILE__) + "/core/warnings"
-require File.dirname(__FILE__) + "/core/backup_set"
-require File.dirname(__FILE__) + "/core/tasks"
-require File.dirname(__FILE__) + "/core/command_line"
-require File.dirname(__FILE__) + "/core/backup_remover"
-require File.dirname(__FILE__) + "/core/dated_backup"
-require File.dirname(__FILE__) + "/core/version"
+require "using"
+
+module DatedBackup
+  class Core
+    extend Using
+    
+    using :Warnings
+    using :BackupSet
+    using :Tasks
+    using :CommandLine
+    using :BackupRemover
+    using :DatedBackup
+    using :Version
+  end
+end

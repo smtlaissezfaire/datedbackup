@@ -1,4 +1,11 @@
+require "using"
 
-require File.dirname(__FILE__) + "/dsl/execution_context"
-require File.dirname(__FILE__) + "/dsl/main"
-require File.dirname(__FILE__) + "/dsl/time_extensions"
+module DatedBackup
+  class Dsl
+    extend Using
+    
+    using :ExecutionContext
+    using :Main
+    using :TimeExtensions
+  end
+end
