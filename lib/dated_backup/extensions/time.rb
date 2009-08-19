@@ -1,17 +1,11 @@
-require 'active_support/core_ext/time/calculations'
-require 'active_support/core_ext/numeric/time'
+require "active_support"
 
 class Time
   class << self
-    include ActiveSupport::CoreExtensions::Time::Calculations::ClassMethods  	
-    
     def epoch
       Time.at(0)
     end
-    
   end
-  
-  include ActiveSupport::CoreExtensions::Time::Calculations
   
   def end_of_day
     tomorrow.beginning_of_day - 1
@@ -55,10 +49,4 @@ class Time
   def to_string
     strftime("%Y-%m-%d-%Hh-%Mm-%Ss")
   end
-  
 end
-
-class Fixnum
-  include ActiveSupport::CoreExtensions::Numeric::Time
-end
-
