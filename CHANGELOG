@@ -1,4 +1,6 @@
-trunk:
+== HEAD
+
+== svn trunk: Nov 23, 2007
 * (rev 213) dual licensing under MIT & GPL.  Removal of GPL notices in programming code.
   attached MIT license, and changed readme
 * removal of TimeSymbols in production code - now $time_symbols in specs
