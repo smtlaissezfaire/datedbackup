@@ -1,8 +1,6 @@
-
 module DatedBackup
   class Core
     module Tasks
-      
       def run_tasks
         create_main_backup_directory                     
         create_backup
@@ -38,7 +36,6 @@ module DatedBackup
       def has_backup?
         backup_directories.empty? ? false : true
       end
-      
     end
   end
 end

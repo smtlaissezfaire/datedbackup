@@ -1,7 +1,8 @@
 module DatedBackup
   class DSL
     module Main
-
+      RSYNC_OPTIONS = [:source, :sources, :destination, :options, :user_domain] unless const_defined?("RSYNC_OPTIONS")
+      
       attr_reader :hash, :procs
 
       def initialize
@@ -32,9 +33,6 @@ module DatedBackup
       def raise_without_block &blk
         raise NoBlockGiven, "A block (do...end) must be given" if !block_given?
       end
-
-      RSYNC_OPTIONS = [:source, :sources, :destination, :options, :user_domain] unless const_defined?("RSYNC_OPTIONS")
-
     end      
   end
 end

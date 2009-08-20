@@ -1,9 +1,6 @@
-
 module DatedBackup
   class Core
-    
     class BackupSet < ReverseSortedUniqueArray
-
       class << self    
         # Given the base of the backup directories as a string, this method should find all of the Backup Directories,
         # and return these Directories as a BackupSet
@@ -110,9 +107,6 @@ module DatedBackup
       define_method "-" do |obj|
         (self.to_a - obj.to_a).to_backup_set
       end
-      
     end
-        
   end
 end
-

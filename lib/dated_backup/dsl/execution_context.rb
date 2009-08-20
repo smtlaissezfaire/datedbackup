@@ -1,6 +1,5 @@
 module DatedBackup
   class ExecutionContext
-
     def initialize(name, *params, &blk)  
       DatedBackup::Warnings.execute_silently do
         if name == :main
@@ -46,7 +45,6 @@ module DatedBackup
     end
 
     class Around
-
       def initialize(around=self, &blk)
         around.instance_eval &blk
       end
@@ -72,6 +70,5 @@ module DatedBackup
         Core::BackupRemover.remove!(Main.instance.backup_root, instance.kept)
       end
     end
-  
   end
 end

@@ -1,6 +1,5 @@
 module DatedBackup
   class DSL
-    
     # After a run through the DSL,
     # the TimeExtensions#kept method should contain an array
     # of all of the items to keep.  Each item will be a hash
@@ -11,9 +10,7 @@ module DatedBackup
     # then all of the backups in the time range given by
     # the :constraint key will be assumed to be kept.
     module TimeExtensions
-      
       module ClassMethods
-        
         # Adds all of the TimeSymbol methods, like
         # day, days, daily, and dailies
         def add_all_time_methods
@@ -190,6 +187,5 @@ module DatedBackup
         @last_time = nil      
       end
     end
-    
   end
 end

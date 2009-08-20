@@ -1,10 +1,7 @@
-
-
 module DatedBackup
   class Core
     class BackupRemover
       class << self
-        
         include DatedBackup::Core::CommandLine
         
         def remove!(dir, keep_rules=[])
@@ -37,7 +34,6 @@ module DatedBackup
           end
         end
       end
-
     end
   end
 end

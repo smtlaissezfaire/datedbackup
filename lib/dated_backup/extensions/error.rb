@@ -1,4 +1,3 @@
-
 # Base Class Errors
 class TimeSymbolError < StandardError; end
 class StringToTimeConversionError < StandardError; end

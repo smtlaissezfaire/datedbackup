@@ -1,4 +1,3 @@
-
 class Array
   def car
     first

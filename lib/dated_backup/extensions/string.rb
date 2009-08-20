@@ -1,4 +1,3 @@
-
 class String
   # This must take a time in a format similar to the
   # format generated the Time.to_string.  The format should be like this:
