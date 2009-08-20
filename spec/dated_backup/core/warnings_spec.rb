@@ -5,7 +5,6 @@ describe DatedBackup::Warnings, "executing silently" do
     @warnings = $VERBOSE
   end
   
-  
   it "should turn off warnings" do
     $VERBOSE.should == @warnings
     
@@ -15,5 +14,4 @@ describe DatedBackup::Warnings, "executing silently" do
     
     $VERBOSE.should == @warnings
   end
-
 end
