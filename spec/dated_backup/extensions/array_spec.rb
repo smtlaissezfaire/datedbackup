@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../../spec_helper"
+require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
 describe Array, "car" do
   it "should return the first element of the array" do
