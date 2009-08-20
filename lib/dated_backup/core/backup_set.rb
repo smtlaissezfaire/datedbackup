@@ -1,7 +1,7 @@
 module DatedBackup
   class Core
     class BackupSet < ReverseSortedUniqueArray
-      class << self    
+      class << self
         # Given the base of the backup directories as a string, this method should find all of the Backup Directories,
         # and return these Directories as a BackupSet
         def find_files_in_directory(dir)
