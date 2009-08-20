@@ -1,6 +1,6 @@
 module DatedBackup 
   class Core
-    unless const_defined?("BACKUP_REGEXP")
+    unless const_defined? :BACKUP_REGEXP
       BACKUP_REGEXP = /[12][0-9]{3}\-[01][0-9]\-[0-3][0-9]\-[0-2][0-9]h\-[0-6][0-9]m\-[0-6][0-9]s/ 
     end
 

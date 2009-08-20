@@ -3,7 +3,9 @@
 # Initialize with the singular symbol name, or call TimeSymbol.valid_symbols
 # to give an array of valid symbols.
 class TimeSymbol
-  VALID_TIME_COMPONENTS = [:year, :month, :week, :day] unless const_defined?("VALID_TIME_COMPONENTS")
+  unless const_defined? :VALID_TIME_COMPONENTS
+    VALID_TIME_COMPONENTS = [:year, :month, :week, :day]
+  end
   
   class << self
     def all

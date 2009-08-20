@@ -1,7 +1,9 @@
 module DatedBackup
   class DSL
     module Main
-      RSYNC_OPTIONS = [:source, :sources, :destination, :options, :user_domain] unless const_defined?("RSYNC_OPTIONS")
+      unless const_defined? :RSYNC_OPTIONS
+        RSYNC_OPTIONS = [:source, :sources, :destination, :options, :user_domain]
+      end
       
       attr_reader :hash, :procs
 
