@@ -1,5 +1,5 @@
 class Array
-  def cdr
+  def rest
     self.[](1..self.length)
   end
 end
