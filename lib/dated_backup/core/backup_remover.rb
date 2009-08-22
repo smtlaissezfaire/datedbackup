@@ -30,8 +30,12 @@ module DatedBackup
             set
           else
             to_remove = set - set.filter_by_rule(keep_rules.first)
-            return set_to_remove(to_remove, keep_rules.rest)
+            return set_to_remove(to_remove, rest(keep_rules))
           end
+        end
+        
+        def rest(array)
+          array.[](1..array.length)
         end
       end
     end
