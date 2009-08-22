@@ -112,7 +112,7 @@ module DatedBackup
       # BackupSet#- should return a new BackupSet,
       # not an array
       define_method "-" do |obj|
-        (self.to_a - obj.to_a).to_backup_set
+        BackupSet.new(self.to_a - obj)
       end
     end
   end

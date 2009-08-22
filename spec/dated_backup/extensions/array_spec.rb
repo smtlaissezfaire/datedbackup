@@ -13,9 +13,3 @@ describe Array, "cdr" do
     [1].cdr.should == []
   end
 end
-
-describe Array, "to_backup_set" do
-  it "should return a new BackupSet item, sorted, reversed, and with unique values" do
-    [1,3,2,3,3,3,2].to_backup_set.should == DatedBackup::Core::BackupSet.new([3,2,1])
-  end
-end
