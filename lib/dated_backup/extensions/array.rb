@@ -1,8 +1,4 @@
 class Array
-  def car
-    first
-  end
-  
   def cdr
     self.[](1..self.length)
   end

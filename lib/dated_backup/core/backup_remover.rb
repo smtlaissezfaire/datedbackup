@@ -29,7 +29,7 @@ module DatedBackup
           if keep_rules.empty?
             set
           else
-            to_remove = set - set.filter_by_rule(keep_rules.car)
+            to_remove = set - set.filter_by_rule(keep_rules.first)
             return set_to_remove(to_remove, keep_rules.cdr)
           end
         end

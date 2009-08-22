@@ -1,11 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
-describe Array, "car" do
-  it "should return the first element of the array" do
-    [1,2,3].car.should == 1
-  end
-end
-
 describe Array, "cdr" do
   it "should return everything but the first element of the array" do
     [1,2,3].cdr.should == [2,3]
