@@ -2,8 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../../spec_helper")
 
 describe DatedBackup, "loading from the binary" do
   before :each do
-    @evaluation_object = Object.new
-    @evaluation_object.stub!(:require).and_return nil
+    @evaluation_object = mock("an object", :require => nil)
     DatedBackup::ExecutionContext.stub!(:new).and_return nil
     @filename = "some_config"
     
