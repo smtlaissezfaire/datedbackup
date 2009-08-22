@@ -76,7 +76,6 @@ module DatedBackup
         Core::BackupRemover.remove!(@backup_root, @keep_rules)
       end
       
-      
       it "should not issue the rm command if no directories are found" do
         BackupSet.stub!(:find_files_in_directory).and_return BackupSet.new([])
         
@@ -121,8 +120,7 @@ module DatedBackup
         BackupRemover.remove!(@backup_root, @keep_rules)
       end
     end
-  
-  
+
     describe BackupRemover, "regression test for multiple filter rules w/ deletion for samba shares script" do
       include BackupRemoverHelper
       
@@ -150,6 +148,5 @@ module DatedBackup
         BackupRemover.remove!(@backup_root, @keep_rules)
       end
     end
-  
   end
 end
