@@ -30,7 +30,7 @@ module DatedBackup
         def add_singular_time_methods
           each_time_symbol do |time_sym|
             define_method time_sym.singular do |*args|
-              self.send :time_component, time_sym.singular
+              send :time_component, time_sym.singular
             end                      
           end  
         end
@@ -123,8 +123,8 @@ module DatedBackup
       
       def ==(obj)
         # return false if obj is not a kind_of this class
-        self.instance_variables.each do |iv|
-          return false if self.instance_variable_get(iv) != obj.instance_variable_get(iv)
+        instance_variables.each do |iv|
+          return false if instance_variable_get(iv) != obj.instance_variable_get(iv)
         end
         true
       end

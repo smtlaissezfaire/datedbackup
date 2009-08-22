@@ -43,7 +43,7 @@ class Time
   end
   
   def days_in_month
-    self.class.days_in_month(self.month, self.year)
+    self.class.days_in_month(month, year)
   end
   
   def to_string

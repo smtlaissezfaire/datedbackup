@@ -15,7 +15,7 @@ module DatedBackup
           methods.each do |method|
             define_method "include_#{method}?" do |time_value|
               truth_value = false
-              self.each_as_time do |t|
+              each_as_time do |t|
                 truth_value = true if t.send(method) == time_value
               end
               truth_value
@@ -66,7 +66,7 @@ module DatedBackup
       create_dynamic_time_methods TimeSymbol.valid_symbols
 
       def filter_by_rule(rule)
-        obj = self.dup
+        obj = dup
         obj = obj.filter_by_range(rule[:constraint]) if rule[:constraint]
         obj = obj.filter_by_scope(rule[:scope]) if rule[:scope]
         return obj
@@ -104,7 +104,7 @@ module DatedBackup
       end
 
       def each_as_time &blk
-        self.each do |obj|
+        each do |obj|
           yield obj.to_time
         end
       end
@@ -112,7 +112,7 @@ module DatedBackup
       # BackupSet#- should return a new BackupSet,
       # not an array
       define_method "-" do |obj|
-        BackupSet.new(self.to_a - obj)
+        BackupSet.new(to_a - obj)
       end
     end
   end

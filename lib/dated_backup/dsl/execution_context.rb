@@ -53,7 +53,7 @@ module DatedBackup
         Class.new do
           extend DSL::TimeExtensions::ClassMethods
           include DSL::TimeExtensions
-          self.add_all_time_methods
+          add_all_time_methods
         end
       end
       
