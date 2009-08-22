@@ -9,6 +9,5 @@ module DatedBackup
     using :Error
     using :TimeSymbol
     using :String
-    using :ReverseSortedUniqueArray
   end
 end

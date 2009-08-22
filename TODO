@@ -9,9 +9,6 @@
 - gem generation should include all documentation
 - Parameter in config to name backups, + output this when running
 - only operate on Timestamped directories, not other directories
-- change ReverseSortedArray so that it has a callback mechanism - every time a 
-  method changes the internal representation of the data, the data
-  gets resorted and checked for uniqueness
 - some extra error checking (where?)
 - -t flag to simulate running
 - remove unix dependency - try to remove as many Kernel.` calls as possible

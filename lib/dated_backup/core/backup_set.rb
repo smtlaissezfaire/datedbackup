@@ -1,6 +1,6 @@
 module DatedBackup
   class Core
-    class BackupSet < ReverseSortedUniqueArray
+    class BackupSet < Array
       class << self
         # Given the base of the backup directories as a string, this method should find all of the Backup Directories,
         # and return these Directories as a BackupSet
@@ -54,6 +54,13 @@ module DatedBackup
           create_include_time_boolean_methods *time_array
           create_one_per_time_methods *time_array
         end    
+      end
+
+      def initialize *args, &blk
+        super *args, &blk
+        uniq!
+        sort!
+        reverse!
       end
 
       create_dynamic_time_methods TimeSymbol.valid_symbols
