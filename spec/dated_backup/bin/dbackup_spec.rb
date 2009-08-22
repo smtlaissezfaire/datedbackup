@@ -9,16 +9,20 @@ describe DatedBackup, "loading from the binary" do
     
     @old_argv = ARGV
     @new_argv = [@filename]
-    ARGV = @new_argv
+    
+    DatedBackup::Warnings.execute_silently do
+      ARGV = @new_argv
+    end
   end
   
   after :each do
-    ARGV = @old_argv
+    DatedBackup::Warnings.execute_silently do
+      ARGV = @old_argv
+    end
   end
   
   it "should call the ExecutionContext with the main DSL and the first file argument" do
     DatedBackup::ExecutionContext.should_receive(:new).with(:main, @filename).and_return nil
     @evaluation_object.instance_eval File.read("bin/dbackup")
   end
-
 end
