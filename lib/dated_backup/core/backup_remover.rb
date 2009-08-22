@@ -35,7 +35,7 @@ module DatedBackup
         end
         
         def rest(array)
-          array.[](1..array.length)
+          array[1..array.length]
         end
       end
     end
