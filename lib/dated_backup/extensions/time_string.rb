@@ -1,4 +1,8 @@
-class String
+class TimeString < String
+  def initialize(*args)
+    super
+  end
+  
   # This must take a time in a format similar to the
   # format generated the Time.to_string.  The format should be like this:
   # .+2007-07-01-00m-00h-00s.+

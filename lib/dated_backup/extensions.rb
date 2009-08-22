@@ -7,6 +7,6 @@ module DatedBackup
     using :Time
     using :Error
     using :TimeSymbol
-    using :String
+    using :TimeString
   end
 end
