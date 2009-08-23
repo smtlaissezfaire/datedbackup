@@ -4,6 +4,7 @@ module DatedBackup
   class Core
     extend Using
     
+    using :TimeSymbol
     using :Warnings
     using :BackupSet
     using :Tasks

@@ -73,8 +73,8 @@ module DatedBackup
         # A helper method to which yields each time
         # symbol as a time symbol       
         def each_time_symbol(&blk)
-          TimeSymbol.valid_symbols.each do |sym|
-            yield(TimeSymbol.new(sym))
+          Core::TimeSymbol.valid_symbols.each do |sym|
+            yield Core::TimeSymbol.new(sym)
           end
         end
       end

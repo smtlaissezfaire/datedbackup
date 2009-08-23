@@ -90,8 +90,8 @@ module DatedBackup
       
       it "should return the new anonymous class with the added time methods" do
         methods ||= []
-        $time_symbols.each do |sym|
-          sym = TimeSymbol.new(sym)
+        Core::TimeSymbol.valid_symbols.each do |sym|
+          sym = Core::TimeSymbol.new(sym)
           methods += [sym.singular, sym.plural, sym.adverb, sym.plural_adverb]
         end
         
